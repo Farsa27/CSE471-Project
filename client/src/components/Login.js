@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
@@ -67,13 +65,35 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignup = (credentialResponse) => {
+  const handleGoogleSignup = async (credentialResponse) => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
-      alert(`Signed up as: ${decoded.email}`);
-      navigate("/home");
+
+      const userData = {
+        name: decoded.name || `${decoded.given_name} ${decoded.family_name}`,
+        email: decoded.email,
+        password: decoded.sub,
+        phone: "0000000000",
+        dateOfBirth: "2000-01-01",
+      };
+
+      const response = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Signed up with Google successfully!");
+        navigate("/home");
+      } else {
+        alert(result.message || "Google signup failed.");
+      }
     } catch (error) {
-      alert("Google signup failed");
+      console.error("Google Signup Error:", error);
+      alert("Google signup failed.");
     }
   };
 
@@ -112,14 +132,14 @@ const Login = () => {
           </button>
         </form>
 
+        {/* Divider: OR Sign In With Google */}
         <div className="my-4 flex items-center justify-between">
           <span className="border-b w-1/5"></span>
-          <span className="text-xs text-gray-500 uppercase">
-            OR SIGN IN WITH GOOGLE
-          </span>
+          <span className="text-xs text-gray-500 uppercase">OR</span>
           <span className="border-b w-1/5"></span>
         </div>
 
+        {/* Google Login */}
         <div className="flex justify-center mb-4">
           <GoogleLogin
             onSuccess={handleGoogleLogin}
@@ -128,6 +148,7 @@ const Login = () => {
           />
         </div>
 
+        {/* Link to Signup */}
         <p className="text-sm text-center mt-2">
           Don’t have an account?{" "}
           <Link to="/signup" className="text-blue-600 hover:underline">
@@ -135,12 +156,14 @@ const Login = () => {
           </Link>
         </p>
 
+        {/* Divider: OR Google Signup */}
         <div className="my-2 flex items-center justify-between">
           <span className="border-b w-1/5"></span>
           <span className="text-xs text-gray-500 uppercase">OR</span>
           <span className="border-b w-1/5"></span>
         </div>
 
+        {/* Google Signup */}
         <div className="flex justify-center">
           <GoogleLogin
             onSuccess={handleGoogleSignup}
