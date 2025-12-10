@@ -58,7 +58,7 @@ router.post("/google-login", async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user) {
-      return res.status(200).json({ message: "User exists" });
+      return res.status(200).json({ message: "User exists", user });
     } else {
       return res.status(404).json({
         message: "User not found. Please sign up first with Google.",

@@ -10,8 +10,11 @@ const ReportStationHazard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = JSON.parse(localStorage.getItem("user") || null);
-    if (!user || !user._id) return alert("Please login to report");
+    const userStr = localStorage.getItem("user");
+    if (!userStr) return alert("Please login to report");
+    
+    const user = JSON.parse(userStr);
+    if (!user._id) return alert("Please login to report");
 
     const formData = new FormData();
     formData.append("userId", user._id);
