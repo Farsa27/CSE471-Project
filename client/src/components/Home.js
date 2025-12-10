@@ -25,12 +25,8 @@
 // export default Home;
 
 //feature-2
-import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-=======
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
->>>>>>> f856aae1b233c631fc17dd8199f1a487ce5c8838
 
 const Home = () => {
   const navigate = useNavigate();
@@ -99,8 +95,8 @@ const Home = () => {
       </div>
 
       <h1 className="text-2xl font-bold mb-4">Welcome to Mass Transit Control System</h1>
-<<<<<<< HEAD
-      <div className="space-x-4">
+
+      <div className="mb-6">
         <Link
           to="/report-choice"
           className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
@@ -108,13 +104,6 @@ const Home = () => {
           Report Issue / Hazard
         </Link>
       </div>
-      <button
-        onClick={handleLogout}
-        className="mt-4 px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
-      >
-        Logout
-      </button>
-=======
 
       {showProfile && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
@@ -172,7 +161,6 @@ const Home = () => {
           </div>
         </div>
       )}
->>>>>>> f856aae1b233c631fc17dd8199f1a487ce5c8838
     </div>
   );
 };
