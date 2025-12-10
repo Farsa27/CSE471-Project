@@ -30,6 +30,8 @@ const Login = () => {
 
       const result = await response.json();
       if (response.ok) {
+        // persist minimal user info for subsequent requests
+        if (result.user) localStorage.setItem("user", JSON.stringify(result.user));
         alert("Login successful!");
         navigate("/home");
       } else {
@@ -54,6 +56,8 @@ const Login = () => {
       const checkResult = await checkRes.json();
 
       if (checkRes.ok) {
+        // store decoded as user until server-side user fetch is added
+        localStorage.setItem("user", JSON.stringify({ email: decoded.email, name: decoded.name }));
         alert(`Logged in as: ${decoded.email}`);
         navigate("/home");
       } else {
@@ -86,6 +90,7 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
+        if (result.user) localStorage.setItem("user", JSON.stringify(result.user));
         alert("Signed up with Google successfully!");
         navigate("/home");
       } else {
