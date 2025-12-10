@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import ReportChoice from "./components/ReportChoice";
 import ReportAppBug from "./components/ReportAppBug";
 import ReportStationHazard from "./components/ReportStationHazard";
+import MyAppBugReports from "./components/MyAppBugReports";
+import MyStationHazardReports from "./components/MyStationHazardReports";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/report-choice" element={<ReportChoice />} />
         <Route path="/report/app-bug" element={<ReportAppBug />} />
         <Route path="/report/station-hazard" element={<ReportStationHazard />} />
+        <Route path="/my-app-bug-reports" element={<MyAppBugReports />} />
+        <Route path="/my-station-hazard-reports" element={<MyStationHazardReports />} />
       </Routes>
     </Router>
   );

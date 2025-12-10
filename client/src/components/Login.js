@@ -56,8 +56,10 @@ const Login = () => {
       const checkResult = await checkRes.json();
 
       if (checkRes.ok) {
-        // store decoded as user until server-side user fetch is added
-        localStorage.setItem("user", JSON.stringify({ email: decoded.email, name: decoded.name }));
+        // Store the full user object returned from backend
+        if (checkResult.user) {
+          localStorage.setItem("user", JSON.stringify(checkResult.user));
+        }
         alert(`Logged in as: ${decoded.email}`);
         navigate("/home");
       } else {
