@@ -24,6 +24,25 @@ const ReportChoice = () => {
             Report Station Hazard
           </button>
         </div>
+
+        <div className="border-t pt-6 mt-6">
+          <p className="mb-4 text-gray-600 text-sm">View your reports:</p>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => navigate("/my-app-bug-reports")}
+              className="w-full bg-blue-100 text-blue-700 py-2 rounded hover:bg-blue-200"
+            >
+              My App Bug Reports
+            </button>
+
+            <button
+              onClick={() => navigate("/my-station-hazard-reports")}
+              className="w-full bg-yellow-100 text-yellow-700 py-2 rounded hover:bg-yellow-200"
+            >
+              My Station Hazard Reports
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
