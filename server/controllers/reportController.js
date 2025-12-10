@@ -66,4 +66,38 @@ const submitStationHazard = async (req, res) => {
   }
 };
 
-module.exports = { submitAppBug, submitStationHazard };
+const getMyAppBugReports = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) return res.status(401).json({ message: "User required" });
+
+    const reports = await Report.find({ reporter: userId, type: "app" })
+      .populate("reporter", "name email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ reports });
+  } catch (error) {
+    console.error("getMyAppBugReports error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getMyStationHazardReports = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) return res.status(401).json({ message: "User required" });
+
+    const reports = await Report.find({ reporter: userId, type: "station" })
+      .populate("reporter", "name email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ reports });
+  } catch (error) {
+    console.error("getMyStationHazardReports error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { submitAppBug, submitStationHazard, getMyAppBugReports, getMyStationHazardReports };
