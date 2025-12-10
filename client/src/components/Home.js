@@ -25,8 +25,11 @@
 // export default Home;
 
 //feature-2
-import { useNavigate, Link } from "react-router-dom";
+// 
+//below is the updated code for profile viewing and editing
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,7 +38,9 @@ const Home = () => {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
 
+
   const userId = localStorage.getItem("userId");
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -43,39 +48,61 @@ const Home = () => {
       const res = await fetch(`http://localhost:5000/api/users/${userId}`);
       const data = await res.json();
       if (res.ok) {
-        setUser(data);
-        setFormData(data);
+        setUser(data.user); // FIX: extract user from data
+        setFormData(data.user); // FIX: same here
+      } else {
+        alert("Failed to fetch user data.");
       }
     };
 
+
     fetchUser();
   }, [userId]);
+
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
     navigate("/");
   };
 
+
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
   const handleUpdate = async () => {
+    const { name, email, phone, password } = formData;
+
+
+    if (!name || !email || !phone || !password) {
+      alert("All fields are required.");
+      return;
+    }
+
+
     const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ name, email, phone, password }),
     });
+
+
     const result = await res.json();
+
+
     if (res.ok) {
       alert("Profile updated!");
-      setUser(result);
+      setUser(result.user); // FIX: use updated user object
+      setFormData(result.user);
+      setEditMode(false);
       setShowProfile(false);
     } else {
       alert(result.message || "Update failed.");
     }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -94,16 +121,9 @@ const Home = () => {
         </button>
       </div>
 
+
       <h1 className="text-2xl font-bold mb-4">Welcome to Mass Transit Control System</h1>
 
-      <div className="mb-6">
-        <Link
-          to="/report-choice"
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-        >
-          Report Issue / Hazard
-        </Link>
-      </div>
 
       {showProfile && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
@@ -164,5 +184,6 @@ const Home = () => {
     </div>
   );
 };
+
 
 export default Home;
