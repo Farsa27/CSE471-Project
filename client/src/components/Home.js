@@ -25,7 +25,7 @@
 // export default Home;
 
 //feature-2
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Home = () => {
@@ -95,6 +95,15 @@ const Home = () => {
       </div>
 
       <h1 className="text-2xl font-bold mb-4">Welcome to Mass Transit Control System</h1>
+
+      <div className="mb-6">
+        <Link
+          to="/report-choice"
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        >
+          Report Issue / Hazard
+        </Link>
+      </div>
 
       {showProfile && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">

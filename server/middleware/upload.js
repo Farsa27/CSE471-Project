@@ -13,14 +13,21 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/jpg" ||
-    file.mimetype === "image/png"
-  ) {
+  const allowed = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/gif",
+    "video/mp4",
+    "video/quicktime",
+    "video/3gpp",
+    "video/x-msvideo",
+  ];
+
+  if (allowed.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only JPG, JPEG, PNG allowed"), false);
+    cb(new Error("Only image and common video formats allowed"), false);
   }
 };
 
