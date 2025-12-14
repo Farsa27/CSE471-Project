@@ -123,7 +123,12 @@ const Home = () => {
 
 
       <h1 className="text-2xl font-bold mb-4">Welcome to Mass Transit Control System</h1>
-
+      <button
+        onClick={() => navigate("/report-choice")}
+        className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+      >
+        Report an Issue
+      </button>
 
       {showProfile && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
