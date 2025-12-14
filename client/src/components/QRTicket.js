@@ -11,8 +11,7 @@ const QRTicket = () => {
     if (!userStr) return alert("Please login first");
 
     const user = JSON.parse(userStr);
-    const expiry = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes from now
-
+    const expiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // ticket will expire after 1 week
     const ticket = {
       userId: user._id,
       name: user.name,
