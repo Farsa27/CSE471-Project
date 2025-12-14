@@ -124,6 +124,13 @@ const Home = () => {
 
       <h1 className="text-2xl font-bold mb-4">Welcome to Mass Transit Control System</h1>
       <button
+        onClick={() => navigate("/qr-ticket")}
+        className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+      >
+        Get QR Ticket
+      </button>
+
+      <button
         onClick={() => navigate("/report-choice")}
         className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
       >

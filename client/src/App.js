@@ -8,6 +8,7 @@ import ReportAppBug from "./components/ReportAppBug";
 import ReportStationHazard from "./components/ReportStationHazard";
 import MyAppBugReports from "./components/MyAppBugReports";
 import MyStationHazardReports from "./components/MyStationHazardReports";
+import QRTicket from "./components/QRTicket";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} /> {/* ← This line is essential */}
         <Route path="/home" element={<Home />} />
+        <Route path="/qr-ticket" element={<QRTicket />} />
         <Route path="/report-choice" element={<ReportChoice />} />
         <Route path="/report/app-bug" element={<ReportAppBug />} />
         <Route path="/report/station-hazard" element={<ReportStationHazard />} />
