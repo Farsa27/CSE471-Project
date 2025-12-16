@@ -42,7 +42,7 @@ const Login = () => {
         localStorage.setItem("userId", result.user._id);
         localStorage.setItem("user", JSON.stringify(result.user)); 
 
-        alert("Login successful!");
+        // alert("Login successful!");
         navigate("/home");
       } else {
         alert(result.message || "Something went wrong.");
@@ -70,7 +70,7 @@ const Login = () => {
 
 
       if (checkRes.ok) {
-        alert(`Logged in as: ${decoded.email}`);
+        // alert(`Logged in as: ${decoded.email}`);
         navigate("/home");
       } else {
         alert(checkResult.message || "User not found. Please sign up first with Google.");
