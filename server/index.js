@@ -2,17 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-
-dotenv.config();
-
 const userRoutes = require("./routes/userRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const path = require("path");
-const adminRoutes = require("./routes/admin");
-const scheduleRoutes = require("./routes/scheduleRoutes");
-const bookingRoutes = require("./routes/bookingRoutes");
-const staffRoutes = require("./routes/staff");
-const paymentRoutes = require("./routes/paymentRoutes");
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -21,12 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/users", userRoutes);
-app.use("/api/staff", staffRoutes);
 app.use("/api/reports", reportRoutes);
-app.use("/api/admin", adminRoutes);
-app.use("/api/schedules", scheduleRoutes);
-app.use("/api/bookings", bookingRoutes);
-app.use("/api/payments", paymentRoutes);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
