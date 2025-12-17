@@ -10,6 +10,16 @@ import MyAppBugReports from "./components/MyAppBugReports";
 import MyStationHazardReports from "./components/MyStationHazardReports";
 import QRTicket from "./components/QRTicket";
 import StationMap from "./components/StationMap";
+import TrainScheduleList from "./components/TrainScheduleList";
+import BookedTickets from "./components/BookedTickets";
+import PaymentCheckout from "./components/PaymentCheckout";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard";
+import AddTrainSchedule from "./components/AddTrainSchedule";
+import EditTrainSchedule from "./components/EditTrainSchedule";
+import AdminBookings from "./components/AdminBookings";
+import StaffManagement from "./components/StaffManagement";
+import AdminReports from "./components/AdminReports";
 
 function App() {
   return (
@@ -21,11 +31,23 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/qr-ticket" element={<QRTicket />} />
         <Route path="/station-map" element={<StationMap />} />
+        <Route path="/train-schedules" element={<TrainScheduleList />} />
+        <Route path="/booked-tickets" element={<BookedTickets />} />
+        <Route path="/payment-checkout" element={<PaymentCheckout />} />
         <Route path="/report-choice" element={<ReportChoice />} />
         <Route path="/report/app-bug" element={<ReportAppBug />} />
         <Route path="/report/station-hazard" element={<ReportStationHazard />} />
         <Route path="/my-app-bug-reports" element={<MyAppBugReports />} />
         <Route path="/my-station-hazard-reports" element={<MyStationHazardReports />} />
+        
+        {/* Admin Routes */}
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/add-schedule" element={<AddTrainSchedule />} />
+        <Route path="/edit-schedule/:id" element={<EditTrainSchedule />} />
+        <Route path="/admin-bookings" element={<AdminBookings />} />
+        <Route path="/staff-management" element={<StaffManagement />} />
+        <Route path="/admin-reports" element={<AdminReports />} />
       </Routes>
     </Router>
   );

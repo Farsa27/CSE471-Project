@@ -1,14 +1,24 @@
 const Stripe = require('stripe');
 const Booking = require('../models/Booking');
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Initialize Stripe lazily to ensure dotenv is loaded
+let stripe;
+const getStripe = () => {
+  if (!stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is not defined in environment variables');
+    }
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  }
+  return stripe;
+};
 
 // Create payment intent
 exports.createPaymentIntent = async (req, res) => {
   try {
     const { amount } = req.body; // amount in BDT (will convert to paisa)
 
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await getStripe().paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to paisa (smallest currency unit)
       currency: 'bdt',
       automatic_payment_methods: {
