@@ -44,6 +44,8 @@ const Signup = () => {
       if (response.ok) {
         localStorage.setItem("userId", result.user._id);
         localStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("userName", result.user.name);
+        localStorage.setItem("userEmail", result.user.email);
 
         alert("User registered successfully!");
         navigate("/home");

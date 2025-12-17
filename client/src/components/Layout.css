@@ -1,0 +1,56 @@
+/* Container */
+.layout-container {
+  padding: 20px;
+  background: black;
+  color: white;
+}
+
+/* Navbar */
+.navbar {
+  padding: 12px;
+  background: #222;
+  text-align: center;
+}
+
+/* Title */
+.navbar-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* Admin navigation */
+.admin-nav {
+  text-align: center;
+  border: 1px solid gray;
+  padding: 6px;
+  margin-top: 10px;
+}
+
+/* Links */
+.nav-link {
+  display: inline-block;
+  padding: 6px 12px;
+  font-weight: bold;
+  text-decoration: none;
+  background: #444;
+  color: cyan;
+  margin: 4px;
+}
+
+/* Active link */
+.nav-link.active {
+  background: blue;
+  color: white;
+}
+
+/* Variants */
+.nav-link.blue { background: blue; color: white; }
+.nav-link.purple { background: purple; color: white; }
+.nav-link.green { background: green; color: white; }
+
+/* Main content */
+.main-content {
+  padding: 15px;
+}

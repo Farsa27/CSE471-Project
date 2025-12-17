@@ -18,25 +18,24 @@ const userIcon = new L.Icon({
 });
 
 const stations = [
-  { name: "Uttara North", lat: 23.86914, lng: 90.36748 },
-  { name: "Uttara Center", lat: 23.85972, lng: 90.36518 },
-  { name: "Uttara South", lat: 23.84560, lng: 90.36314 },
-  { name: "Pallabi", lat: 23.82615, lng: 90.36427 },
-  { name: "Mirpur-11", lat: 23.81924, lng: 90.36527 },
-  { name: "Mirpur-10", lat: 23.79095, lng: 90.37553 },
-  { name: "Kazipara", lat: 23.79950, lng: 90.37190 },
-  { name: "Shewrapara", lat: 23.79095, lng: 90.37553 },
-  { name: "Agargaon", lat: 23.77842, lng: 90.38015 },
-  { name: "Bijoy Sarani", lat: 23.76634, lng: 90.38313 },
-  { name: "Farmgate", lat: 23.75903, lng: 90.38635 },
-  { name: "Karwan Bazar", lat: 23.75154, lng: 90.39266 },
-  { name: "Shahbagh", lat: 23.73958, lng: 90.39601 },
-  { name: "Dhaka University", lat: 23.73142, lng: 90.39702 },
-  { name: "Bangladesh Secretariat", lat: 23.73001, lng: 90.40787 },
-  { name: "Motijheel", lat: 23.72743, lng: 90.42018 },
-  { name: "Kamalapur", lat: 23.73186, lng: 90.42530 },
+  { name: "Uttara North", lat: 23.8917, lng: 90.4002 },
+  { name: "Uttara Center", lat: 23.8828, lng: 90.4003 },
+  { name: "Uttara South", lat: 23.8744, lng: 90.4005 },
+  { name: "Pallabi", lat: 23.8615, lng: 90.3949 },
+  { name: "Mirpur-11", lat: 23.8550, lng: 90.3889 },
+  { name: "Mirpur-10", lat: 23.8490, lng: 90.3847 },
+  { name: "Kazipara", lat: 23.8374, lng: 90.3797 },
+  { name: "Shewrapara", lat: 23.8293, lng: 90.3764 },
+  { name: "Agargaon", lat: 23.8195, lng: 90.3734 },
+  { name: "Bijoy Sarani", lat: 23.8126, lng: 90.3816 },
+  { name: "Farmgate", lat: 23.8046, lng: 90.3895 },
+  { name: "Karwan Bazar", lat: 23.7980, lng: 90.3951 },
+  { name: "Shahbagh", lat: 23.7380, lng: 90.3951 },
+  { name: "Dhaka University", lat: 23.7340, lng: 90.3921 },
+  { name: "Bangladesh Secretariat", lat: 23.7294, lng: 90.3970 },
+  { name: "Motijheel", lat: 23.7260, lng: 90.4125 },
+  { name: "Kamalapur", lat: 23.7276, lng: 90.4182 },
 ];
-
 
 const UpdateMapCenter = ({ position }) => {
   const map = useMap();

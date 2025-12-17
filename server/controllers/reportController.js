@@ -100,4 +100,43 @@ const getMyStationHazardReports = async (req, res) => {
   }
 };
 
-module.exports = { submitAppBug, submitStationHazard, getMyAppBugReports, getMyStationHazardReports };
+// Get all reports for admin
+const getAllReports = async (req, res) => {
+  try {
+    const reports = await Report.find()
+      .populate("reporter", "name email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ reports });
+  } catch (error) {
+    console.error("getAllReports error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Delete/resolve a report
+const deleteReport = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const report = await Report.findByIdAndDelete(id);
+    
+    if (!report) {
+      return res.status(404).json({ message: "Report not found" });
+    }
+
+    res.status(200).json({ message: "Report resolved and deleted", report });
+  } catch (error) {
+    console.error("deleteReport error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { 
+  submitAppBug, 
+  submitStationHazard, 
+  getMyAppBugReports, 
+  getMyStationHazardReports,
+  getAllReports,
+  deleteReport
+};

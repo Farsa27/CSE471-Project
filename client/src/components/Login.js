@@ -40,9 +40,11 @@ const Login = () => {
 
       if (response.ok) {
         localStorage.setItem("userId", result.user._id);
-        localStorage.setItem("user", JSON.stringify(result.user)); 
+        localStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("userName", result.user.name);
+        localStorage.setItem("userEmail", result.user.email); 
 
-        // alert("Login successful!");
+        alert("Login successful!");
         navigate("/home");
       } else {
         alert(result.message || "Something went wrong.");
@@ -70,7 +72,11 @@ const Login = () => {
 
 
       if (checkRes.ok) {
-        // alert(`Logged in as: ${decoded.email}`);
+        localStorage.setItem("userId", checkResult.user._id);
+        localStorage.setItem("user", JSON.stringify(checkResult.user));
+        localStorage.setItem("userName", checkResult.user.name || decoded.name);
+        localStorage.setItem("userEmail", decoded.email);
+        alert(`Logged in as: ${decoded.email}`);
         navigate("/home");
       } else {
         alert(checkResult.message || "User not found. Please sign up first with Google.");
@@ -107,6 +113,8 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem("userId", result.user._id);
         localStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("userName", result.user.name);
+        localStorage.setItem("userEmail", result.user.email);
 
         alert("Signed up with Google successfully!");
         navigate("/home");

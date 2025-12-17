@@ -1,0 +1,72 @@
+/* Container */
+.admin-container {
+  padding: 20px;
+  background: black;
+  color: white;
+}
+
+/* Title */
+.admin-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: cyan;
+}
+
+/* Messages */
+.loading,
+.error,
+.empty {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.error { color: red; }
+.loading { color: gray; }
+.empty { color: lightgray; }
+
+/* Table */
+.bookings-table {
+  width: 100%;
+  border: 1px solid gray;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.bookings-table th,
+.bookings-table td {
+  border: 1px solid gray;
+  padding: 8px;
+  text-align: left;
+}
+
+/* Text styles */
+.train-name { font-weight: bold; color: cyan; }
+.passenger-phone { color: gray; font-size: 14px; }
+.fare { font-weight: bold; color: green; }
+
+/* Status labels */
+.status {
+  padding: 4px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.status.approved { background: green; color: white; }
+.status.rejected { background: red; color: white; }
+.status.pending { background: yellow; color: black; }
+
+/* Buttons */
+.btn {
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.approve { background: green; color: white; }
+.btn.reject { background: orange; color: black; }
+.btn.delete { background: red; color: white; }

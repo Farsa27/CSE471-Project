@@ -1,0 +1,86 @@
+/* Container */
+.schedule-container {
+  padding: 20px;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+.schedule-header {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid gray;
+}
+
+/* Admin button (no fixed positioning for simplicity) */
+.admin-toggle {
+  text-align: right;
+  margin: 10px;
+}
+
+.admin-btn {
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-btn.login { background: purple; color: white; }
+.admin-btn.exit { background: red; color: white; }
+
+/* Search section */
+.search-wrapper {
+  margin: 15px auto;
+  text-align: center;
+}
+
+.search-bar {
+  display: inline-block;
+  border: 1px solid gray;
+  padding: 6px;
+  background: #222;
+}
+
+.search-icon {
+  font-size: 14px;
+  color: cyan;
+  margin-right: 5px;
+}
+
+.search-input {
+  padding: 6px;
+  font-size: 13px;
+  background: black;
+  border: none;
+  color: white;
+}
+
+.search-input::placeholder {
+  color: lightgray;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  margin: 15px auto;
+  padding: 10px;
+}
+
+/* Messages */
+.loading,
+.error,
+.empty {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 13px;
+}
+
+.error { color: red; }
+.empty { color: gray; }
+
+/* Price styles */
+.price { font-weight: bold; }
+.taka-symbol { font-size: 11px; margin-right: 2px; }
+.price-number { font-size: 12px; }
