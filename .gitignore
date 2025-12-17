@@ -1,8 +1,10 @@
 node_modules/
-.env
+**/.env
+**/.env.*
 client/node_modules/
 server/node_modules/
 client/build/
 *.log
 .DS_Store
 uploads/
+
