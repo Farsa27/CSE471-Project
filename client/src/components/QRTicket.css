@@ -1,0 +1,372 @@
+.qr-tickets-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.qr-header {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.qr-header h1 {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  flex: 1;
+}
+
+.back-btn {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.loading-state,
+.error-state {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  padding: 60px 20px;
+}
+
+.empty-state {
+  max-width: 500px;
+  margin: 60px auto;
+  background: white;
+  padding: 60px 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.empty-state h2 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.empty-state p {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.book-now-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.qr-instructions {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  color: white;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.bookings-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: row;
+}
+
+.booking-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.booking-info {
+  flex: 1;
+  padding: 24px;
+}
+
+.booking-train-name {
+  font-size: 22px;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 15px;
+}
+
+.booking-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.detail-item label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-item span {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.detail-price {
+  font-size: 18px !important;
+  color: #10b981 !important;
+  font-weight: bold !important;
+}
+
+.booking-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f5f0ff 100%);
+  min-width: 180px;
+}
+
+.generate-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.qr-modal {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.qr-success-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.qr-success-header h2 {
+  color: #10b981;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.qr-success-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.qr-train-info {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.qr-train-info h3 {
+  color: #667eea;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.qr-train-info p {
+  color: #666;
+  font-size: 18px;
+}
+
+.qr-code-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+}
+
+.qr-details {
+  max-width: 400px;
+  margin: 0 auto 30px;
+}
+
+.qr-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.qr-detail-row:last-child {
+  border-bottom: none;
+}
+
+.qr-detail-row label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.qr-detail-row span {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.qr-price {
+  color: #10b981 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+
+.qr-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.close-btn {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.close-btn:hover {
+  background: #4b5563;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+.qr-footer {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.qr-footer p {
+  font-size: 11px;
+  color: #999;
+  margin: 5px 0;
+}
+
+.qr-footer .warning {
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .qr-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .qr-header h1 {
+    font-size: 24px;
+  }
+
+  .booking-card {
+    flex-direction: column;
+  }
+
+  .booking-details {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-action {
+    min-width: auto;
+    padding: 20px;
+  }
+
+  .qr-modal {
+    padding: 24px;
+  }
+
+  .qr-actions {
+    flex-direction: column;
+  }
+
+  .download-btn,
+  .close-btn {
+    width: 100%;
+  }
+}

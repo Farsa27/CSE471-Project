@@ -1,0 +1,87 @@
+/* Container */
+.dashboard-container {
+  padding: 20px;
+  background: #12004d;
+  color: white;
+}
+
+/* Title */
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  text-align: center;
+  margin: 15px 0;
+}
+
+/* Add button */
+.add-button {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Messages */
+.loading,
+.error,
+.empty {
+  text-align: center;
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+.error { color: red; }
+.empty { color: gray; }
+
+/* Table */
+.schedule-table {
+  width: 100%;
+  border: 1px solid white;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid white;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Text styles */
+.train-name { font-weight: bold; }
+.train-id { font-size: 14px; color: lightgray; }
+.price { font-size: 14px; font-weight: bold; }
+
+/* Actions */
+.actions {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  margin: 4px;
+}
+
+/* Button colors */
+.btn.manage { background: blue; color: white; }
+.btn.logout { background: red; color: white; }
+.btn.add { background: green; color: white; }
+.btn.edit { background: orange; color: white; }
+.btn.delete { background: darkred; color: white; }

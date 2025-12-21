@@ -1,0 +1,82 @@
+/* Container */
+.add-container {
+  padding: 20px;
+  background: #111827;
+  color: white;
+}
+
+/* Back button */
+.back-btn {
+  color: cyan;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 15px;
+  text-decoration: none;
+}
+
+/* Form wrapper */
+.form-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Title */
+.form-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form layout */
+.form {
+  margin-top: 10px;
+}
+
+/* Grid simplified to inline-block */
+.form-grid label,
+.form-grid input {
+  display: inline-block;
+  width: 48%;
+  margin: 5px 1%;
+}
+
+/* Labels */
+.form-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+.form-input {
+  width: 100%;
+  padding: 8px;
+  background: #1f2937;
+  border: 1px solid gray;
+  color: white;
+  font-size: 13px;
+}
+
+.form-input::placeholder {
+  color: lightgray;
+}
+
+/* Actions */
+.form-actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Buttons */
+.btn {
+  padding: 8px 14px;
+  font-weight: bold;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  margin: 4px;
+}
+
+.btn.save { background: blue; color: white; }
+.btn.cancel { background: gray; color: white; }
