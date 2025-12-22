@@ -11,16 +11,31 @@ const imageList = [
 export default function AdSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+  //   }, 4000);
+  //   return () => clearInterval(interval);
+  // }, []);
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    const startSlider = () => {
+      return setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+      }, 2000); // or whatever interval you prefer
+    };
+
+    let interval = startSlider();
+
+    return () => clearInterval(interval); // cleanup
   }, []);
 
+  // const handleNext = () => {
+  //   setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+  // };
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
   };
+
 
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white shadow-inner p-4 flex items-center justify-center gap-4">
