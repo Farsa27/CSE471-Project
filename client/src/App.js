@@ -20,6 +20,10 @@ import EditTrainSchedule from "./components/EditTrainSchedule";
 import AdminBookings from "./components/AdminBookings";
 import StaffManagement from "./components/StaffManagement";
 import AdminReports from "./components/AdminReports";
+import LostItemForm from "./components/lostItemForm";
+import LostAndFoundGallery from "./components/LostAndFoundGallery";
+import NotificationPanel from "./components/NotificationPanel";
+
 
 function App() {
   return (
@@ -39,6 +43,9 @@ function App() {
         <Route path="/report/station-hazard" element={<ReportStationHazard />} />
         <Route path="/my-app-bug-reports" element={<MyAppBugReports />} />
         <Route path="/my-station-hazard-reports" element={<MyStationHazardReports />} />
+        <Route path="/lost-items-form" element={<lostItemForm />} />
+        <Route path="/lost-items-gallery" element={<LostAndFoundGallery />} />
+        <Route path="/notifications" element={<NotificationPanel />} />
         
         {/* Admin Routes */}
         <Route path="/admin-login" element={<AdminLogin />} />

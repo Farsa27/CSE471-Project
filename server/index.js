@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const path = require("path");
 const userRoutes = require("./routes/userRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const scheduleRoutes = require("./routes/scheduleRoutes");
@@ -9,7 +10,8 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminRoutes = require("./routes/admin");
 const staffRoutes = require("./routes/staff");
-const path = require("path");
+const lostItemRoutes = require("./routes/lostItemRoutes");
+const notificationRoutes = require("./routes/notifications");
 
 dotenv.config();
 
@@ -26,7 +28,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/staff", staffRoutes);
-app.use("/uploads", express.static("server/uploads"));
+app.use('/api/lost-items', lostItemRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 
 mongoose
