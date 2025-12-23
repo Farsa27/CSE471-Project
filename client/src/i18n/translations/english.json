@@ -1,0 +1,15 @@
+{
+  "welcome": "Welcome to Mass Transit Control System",
+  "logout": "Logout",
+  "profile": "Profile",
+  "report": "Report an Issue",
+  "login": "Log in to Mass Transit",
+  "email": "Email",
+  "password": "Password",
+  "schedules": "View Train Schedules",
+  "bookedTicket": "My Booked Ticket",
+  "qrTicket": "Get QR Ticket",
+  "myLocation": "My Location",
+  "OR": "OR",
+  "Dont have an account? Sign Up": "Don't have an account? Sign Up"
+}
