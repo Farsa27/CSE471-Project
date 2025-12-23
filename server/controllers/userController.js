@@ -63,6 +63,7 @@
 // module.exports = { registerUser, loginUser };
 
 //feqture-2 
+const mongoose = require("mongoose");
 const User = require("../models/User");
 
 // REGISTER USER
@@ -124,6 +125,10 @@ const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
 
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user id" });
+    }
+
     const user = await User.findById(userId).select("-password"); // Exclude password
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -142,10 +147,14 @@ const updateUser = async (req, res) => {
     const userId = req.params.id;
     const { name, email, phone, password } = req.body;
 
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user id" });
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { name, email, phone, password },
-      { new: true }
+      { new: true, runValidators: true }
     );
 
     if (!updatedUser) {

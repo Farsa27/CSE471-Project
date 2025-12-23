@@ -43,6 +43,7 @@ const {
   updateUser,
 } = require("../controllers/userController");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 // Register (normal + Google)
 router.post("/register", registerUser);
@@ -66,6 +67,38 @@ router.post("/google-login", async (req, res) => {
     }
   } catch (error) {
     console.error("Error in Google login:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Update only the date of birth for Google users
+router.put("/update-dob/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { dateOfBirth } = req.body;
+
+  if (!dateOfBirth) {
+    return res.status(400).json({ message: "Date of birth is required." });
+  }
+
+  if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid user id" });
+  }
+
+  try {
+    // Ensure we store a string and run schema validators
+    const dobString = typeof dateOfBirth === "string" ? dateOfBirth.trim() : String(dateOfBirth);
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { dateOfBirth: dobString },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("DOB update error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });

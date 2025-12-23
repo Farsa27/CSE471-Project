@@ -20,8 +20,8 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   dateOfBirth: {
-    type: String, // or Date if you prefer actual date format
-    required: true,
+    type: String, // keep as String for compatibility with client
+    required: false,
   },
 });
 
