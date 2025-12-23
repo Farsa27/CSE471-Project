@@ -195,6 +195,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AdSlider from "./AdSlider";
+import Feedback from "./Feedback";
 import { useTranslation } from "react-i18next";
 import "../i18n/languageConfig";
 
@@ -204,6 +205,7 @@ const Home = () => {
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
+  const [showFeedback, setShowFeedback] = useState(false);
   const { t, i18n } = useTranslation();
 
   const userId = localStorage.getItem("userId");
@@ -318,6 +320,13 @@ const Home = () => {
           {t("report")}
         </button>
 
+        <button
+          onClick={() => setShowFeedback(true)}
+          className="mt-4 ml-2 px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700"
+        >
+          {t("rateUs") || "Rate Us"}
+        </button>
+
         <div className="mt-4">
           <button
             onClick={() => i18n.changeLanguage("en")}
@@ -376,6 +385,23 @@ const Home = () => {
                     </button>
                   </>
                 )}
+
+                {showFeedback && (
+                  <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <div className="bg-white p-6 rounded shadow-lg w-96">
+                      <div className="flex justify-between items-center mb-3">
+                        <h2 className="text-xl font-bold">Rate Your Experience</h2>
+                        <button
+                          onClick={() => setShowFeedback(false)}
+                          className="bg-red-500 text-white px-3 py-1 rounded"
+                        >
+                          Close
+                        </button>
+                      </div>
+                      <Feedback />
+                    </div>
+                  </div>
+                )}
                 <button
                   onClick={() => {
                     setShowProfile(false);
@@ -389,6 +415,23 @@ const Home = () => {
             </div>
           </div>
         )}
+      
+      {showFeedback && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <div className="flex justify-between items-center mb-3">
+              <h2 className="text-xl font-bold">Rate Your Experience</h2>
+              <button
+                onClick={() => setShowFeedback(false)}
+                className="bg-red-500 text-white px-3 py-1 rounded"
+              >
+                Close
+              </button>
+            </div>
+            <Feedback onSuccess={() => setShowFeedback(false)} />
+          </div>
+        </div>
+      )}
       </div>
 
       {/* Advertisement Slider */}

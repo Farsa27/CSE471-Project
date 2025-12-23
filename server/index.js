@@ -9,6 +9,7 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const adminRoutes = require("./routes/admin");
 const staffRoutes = require("./routes/staff");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 const path = require("path");
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/staff", staffRoutes);
+app.use("/api/feedback", feedbackRoutes);
 app.use("/uploads", express.static("server/uploads"));
 
 

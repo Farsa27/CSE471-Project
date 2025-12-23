@@ -20,6 +20,7 @@ import EditTrainSchedule from "./components/EditTrainSchedule";
 import AdminBookings from "./components/AdminBookings";
 import StaffManagement from "./components/StaffManagement";
 import AdminReports from "./components/AdminReports";
+import Feedback from "./components/Feedback";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/admin-bookings" element={<AdminBookings />} />
         <Route path="/staff-management" element={<StaffManagement />} />
         <Route path="/admin-reports" element={<AdminReports />} />
+        <Route path="/feedback" element={<Feedback />} />
       </Routes>
     </Router>
   );
