@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaStar } from "react-icons/fa";
 import "./TrainScheduleList.css";
 
 export default function TrainScheduleList() {
@@ -10,6 +10,7 @@ export default function TrainScheduleList() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [favorites, setFavorites] = useState([]);
 
   const navigate = useNavigate();
   const isAdmin = localStorage.getItem("isAdmin") === "true";
@@ -18,6 +19,18 @@ export default function TrainScheduleList() {
 
   useEffect(() => {
     fetchSchedules();
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      axios
+        .get(`http://localhost:5000/api/users/${userId}`)
+        .then((res) => {
+          const favs = res.data?.user?.favoriteStations || [];
+          setFavorites(favs);
+        })
+        .catch(() => {
+          // silently ignore favorites fetch errors
+        });
+    }
   }, []);
 
   const fetchSchedules = async () => {
@@ -83,6 +96,36 @@ export default function TrainScheduleList() {
     s.to?.toLowerCase().includes(search.toLowerCase())
   );
 
+  const prioritized = [...filtered].sort((a, b) => {
+    const aFav = favorites.includes(a.from) || favorites.includes(a.to);
+    const bFav = favorites.includes(b.from) || favorites.includes(b.to);
+    return (bFav ? 1 : 0) - (aFav ? 1 : 0);
+  });
+
+  const toggleFavorite = async (station) => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("Please log in to manage favorites");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      if (favorites.includes(station)) {
+        await axios.delete(`http://localhost:5000/api/users/${userId}/favorites`, {
+          data: { station },
+        });
+        setFavorites((prev) => prev.filter((s) => s !== station));
+      } else {
+        await axios.post(`http://localhost:5000/api/users/${userId}/favorites`, { station });
+        setFavorites((prev) => [...prev, station]);
+      }
+    } catch (err) {
+      console.error("Favorite toggle failed", err);
+      alert("Failed to update favorites");
+    }
+  };
+
   return (
     <div className="schedule-container">
       <div className="schedule-header"></div>
@@ -134,7 +177,7 @@ export default function TrainScheduleList() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((train, index) => (
+                {prioritized.map((train, index) => (
                   <tr key={train._id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
                     <td>
                       <p className="train-name">{train.trainName}</p>
@@ -142,9 +185,29 @@ export default function TrainScheduleList() {
                     </td>
                     <td className="text-center">
                       <div className="route">
-                        <span className="from">{train.from}</span>
+                        <span className="from">
+                          {train.from}
+                          <button
+                            aria-label="favorite from"
+                            className="ml-2 inline-flex items-center"
+                            onClick={() => toggleFavorite(train.from)}
+                            title="Favorite station"
+                          >
+                            <FaStar color={favorites.includes(train.from) ? "#f59e0b" : "#d1d5db"} />
+                          </button>
+                        </span>
                         <span className="arrow">→</span>
-                        <span className="to">{train.to}</span>
+                        <span className="to">
+                          {train.to}
+                          <button
+                            aria-label="favorite to"
+                            className="ml-2 inline-flex items-center"
+                            onClick={() => toggleFavorite(train.to)}
+                            title="Favorite station"
+                          >
+                            <FaStar color={favorites.includes(train.to) ? "#f59e0b" : "#d1d5db"} />
+                          </button>
+                        </span>
                       </div>
                     </td>
                     <td className="text-center">

@@ -20,8 +20,12 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   dateOfBirth: {
-    type: String, // keep as String for compatibility with client
-    required: false,
+    type: String,
+    required: true,
+  },
+  favoriteStations: {
+    type: [String],
+    default: [],
   },
 });
 

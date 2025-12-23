@@ -46,6 +46,7 @@ function App() {
         <Route path="/lost-items-form" element={<LostItemForm />} />
         <Route path="/lost-items-gallery" element={<LostAndFoundGallery />} />
         <Route path="/notifications" element={<NotificationPanel />} />
+        <Route path="/feedback" element={<Feedback />} />
         
         {/* Admin Routes */}
         <Route path="/admin-login" element={<AdminLogin />} />

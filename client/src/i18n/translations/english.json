@@ -10,6 +10,26 @@
   "bookedTicket": "My Booked Ticket",
   "qrTicket": "Get QR Ticket",
   "myLocation": "My Location",
+  "lostFoundForm": "Lost & Found form",
+  "viewLostItems": "View Lost items",
+  "translate": "Change language",
+  "createAccount": "Create your account",
+  "signupSubtitle": "Sign up to MassTransit",
+  "name": "Name",
+  "phoneNumber": "Phone Number",
+  "dateOfBirth": "Date of Birth",
+  "signUp": "Sign Up",
+  "orSignUpWithGoogle": "OR SIGN UP WITH GOOGLE",
+  "signedUpWithGoogleSuccess": "Signed up with Google successfully!",
+  "googleSignupFailed": "Google signup failed.",
+  "alreadyHaveAccount": "Already have an account?",
+  "loginLink": "Log in",
   "OR": "OR",
-  "Dont have an account? Sign Up": "Don't have an account? Sign Up"
+  "Dont have an account? Sign Up": "Don't have an account? Sign Up",
+  "Edit": "Edit",
+  "Close": "Close",
+  "Cancel": "Cancel",
+  "Save": "Save",
+  "feedback": "feedback"
+
 }

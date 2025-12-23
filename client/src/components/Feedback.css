@@ -1,0 +1,9 @@
+.feedback-page { max-width: 600px; margin: 24px auto; padding: 16px; }
+.feedback-form { display: flex; flex-direction: column; gap: 12px; }
+.stars { display: flex; gap: 6px; }
+.stars button { background: none; border: none; font-size: 28px; cursor: pointer; }
+.stars button.on { color: gold; }
+.stars button.off { color: #2c993e; }
+textarea { min-height: 100px; padding: 8px; resize: vertical; }
+.submit-btn { padding: 8px 12px; cursor: pointer; }
+.message { margin-top: 8px; }

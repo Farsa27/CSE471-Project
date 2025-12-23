@@ -168,4 +168,69 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getUserById, updateUser };
+// FAVORITES
+const addFavoriteStation = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { station } = req.body;
+    if (!station) {
+      return res.status(400).json({ message: "Station is required" });
+    }
+
+    const updated = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { favoriteStations: station } },
+      { new: true }
+    ).select("-password");
+
+    if (!updated) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: "Added to favorites", user: updated });
+  } catch (error) {
+    console.error("Add Favorite Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const removeFavoriteStation = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { station } = req.body;
+    if (!station) {
+      return res.status(400).json({ message: "Station is required" });
+    }
+
+    const updated = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { favoriteStations: station } },
+      { new: true }
+    ).select("-password");
+
+    if (!updated) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: "Removed from favorites", user: updated });
+  } catch (error) {
+    console.error("Remove Favorite Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getFavoriteStations = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId).select("favoriteStations");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ favoriteStations: user.favoriteStations || [] });
+  } catch (error) {
+    console.error("Get Favorites Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { 
+  registerUser, 
+  loginUser, 
+  getUserById, 
+  updateUser,
+  addFavoriteStation,
+  removeFavoriteStation,
+  getFavoriteStations,
+};
