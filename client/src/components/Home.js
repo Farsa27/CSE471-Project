@@ -346,13 +346,13 @@ const Home = () => {
         </button>
         <button
           onClick={() => navigate("/lost-items-form")}
-          className="mt-2 px-2 py-2 bg-pink-500 text-white px-5 py-2 rounded"
+          className="mt-2 px-5 py-2 bg-pink-500 text-white rounded"
         >
           {t("lostFoundForm")}
         </button>
         <button
           onClick={() => navigate("/lost-items-gallery")}
-          className="mt-2 px-2 py-2 bg-teal-500 text-white px-5 py-2 rounded"
+          className="mt-2 px-5 py-2 bg-teal-500 text-white rounded"
         >
           {t("viewLostItems")}
         </button>
