@@ -25,5 +25,7 @@
   "alreadyHaveAccount": "Already have an account?",
   "loginLink": "Log in",
   "OR": "OR",
-  "Dont have an account? Sign Up": "Don't have an account? Sign Up"
+  "Dont have an account? Sign Up": "Don't have an account? Sign Up",
+   "Edit": "Edit",
+   "Close": "Close"
 }
