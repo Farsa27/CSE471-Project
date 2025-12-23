@@ -1,14 +1,16 @@
 
-//below is the updated code for signup with additional fields and google signup integrationimport { useState } from "react";
+//below is the updated code for signup with additional fields and google signup integration
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -60,15 +62,15 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-1">Create your account</h2>
-        <p className="text-sm text-gray-600 text-center mb-6">Sign up to MassTransit</p>
+        <h2 className="text-2xl font-bold text-center mb-1">{t("createAccount")}</h2>
+        <p className="text-sm text-gray-600 text-center mb-6">{t("signupSubtitle")}</p>
 
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder={t("name")}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md"
@@ -78,7 +80,7 @@ const Signup = () => {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder={t("email")}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md"
@@ -88,7 +90,7 @@ const Signup = () => {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder={t("password")}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md"
@@ -98,7 +100,7 @@ const Signup = () => {
           <input
             type="text"
             name="phone"
-            placeholder="Phone Number"
+            placeholder={t("phoneNumber")}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md"
@@ -108,6 +110,7 @@ const Signup = () => {
           <input
             type="date"
             name="dateOfBirth"
+            aria-label={t("dateOfBirth")}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-md"
@@ -118,13 +121,13 @@ const Signup = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
           >
-            Sign Up
+            {t("signUp")}
           </button>
         </form>
 
 
         <div className="my-4 flex items-center justify-center">
-          <span className="text-gray-500 text-sm">OR SIGN UP WITH GOOGLE</span>
+          <span className="text-gray-500 text-sm">{t("orSignUpWithGoogle")}</span>
         </div>
 
 
@@ -154,25 +157,25 @@ const Signup = () => {
                 localStorage.setItem("userId", result.user._id);
                 localStorage.setItem("user", JSON.stringify(result.user));
 
-                alert("Signed up with Google successfully!");
+                alert(t("signedUpWithGoogleSuccess"));
                 navigate("/home");
               } else {
-                alert(result.message || "Google signup failed.");
+                alert(result.message || t("googleSignupFailed"));
               }
             } catch (error) {
               console.error("Google Signup Error:", error);
-              alert("Google signup failed.");
+              alert(t("googleSignupFailed"));
             }
           }}
-          onError={() => alert("Google signup failed.")}
+          onError={() => alert(t("googleSignupFailed"))}
           text="signup_with"
         />
 
 
         <p className="text-sm text-center mt-4">
-          Already have an account?{" "}
+          {t("alreadyHaveAccount")} {" "}
           <Link to="/login" className="text-blue-600 hover:underline">
-            Log in
+            {t("loginLink")}
           </Link>
         </p>
       </div>

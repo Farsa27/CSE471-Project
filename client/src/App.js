@@ -43,7 +43,7 @@ function App() {
         <Route path="/report/station-hazard" element={<ReportStationHazard />} />
         <Route path="/my-app-bug-reports" element={<MyAppBugReports />} />
         <Route path="/my-station-hazard-reports" element={<MyStationHazardReports />} />
-        <Route path="/lost-items-form" element={<lostItemForm />} />
+        <Route path="/lost-items-form" element={<LostItemForm />} />
         <Route path="/lost-items-gallery" element={<LostAndFoundGallery />} />
         <Route path="/notifications" element={<NotificationPanel />} />
         

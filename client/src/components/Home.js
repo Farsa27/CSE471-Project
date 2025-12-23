@@ -205,10 +205,12 @@
 //below is the updated code for profile viewing and editing
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import AdSlider from "./AdSlider";
 
 const Home = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [showProfile, setShowProfile] = useState(false);
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -281,13 +283,20 @@ const Home = () => {
             onClick={() => setShowProfile(true)}
             className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
           >
-            Profile
+            {t("profile")}
           </button>
           <button
             onClick={handleLogout}
             className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
           >
-            Logout
+            {t("logout")}
+          </button>
+          <button
+            onClick={() => i18n.changeLanguage(i18n.language === "en" ? "bn" : "en")}
+            className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            title={t("translate")}
+          >
+            {i18n.language === "en" ? "BN" : "EN"}
           </button>
           <button
             onClick={handleNotification}
@@ -299,61 +308,59 @@ const Home = () => {
 
         </div>
 
-        <h1 className="text-2xl font-bold mb-4">
-          Welcome to Mass Transit Control System
-        </h1>
+        <h1 className="text-2xl font-bold mb-4">{t("welcome")}</h1>
 
         <button
           onClick={() => navigate("/train-schedules")}
           className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          View Train Schedules
+          {t("schedules")}
         </button>
 
         <button
           onClick={() => navigate("/booked-tickets")}
           className="mt-2 px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700"
         >
-          My Booked Tickets
+          {t("bookedTicket")}
         </button>
 
         <button
           onClick={() => navigate("/qr-ticket")}
           className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
         >
-          Get QR Ticket
+          {t("qrTicket")}
         </button>
 
         <button
           onClick={() => navigate("/station-map")}
           className="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
         >
-          My Location
+          {t("myLocation")}
         </button>
 
         <button
           onClick={() => navigate("/report-choice")}
           className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
         >
-          Report an Issue
+          {t("report")}
         </button>
-        <button 
+        <button
           onClick={() => navigate("/lost-items-form")}
-                  className="mt-2 px-2 py-2 bg-pink-500 text-white px-5 py-2 rounded"
+          className="mt-2 px-2 py-2 bg-pink-500 text-white px-5 py-2 rounded"
         >
-                  Lost & Found form
+          {t("lostFoundForm")}
         </button>
         <button
           onClick={() => navigate("/lost-items-gallery")}
           className="mt-2 px-2 py-2 bg-teal-500 text-white px-5 py-2 rounded"
         >
-          View Lost items
+          {t("viewLostItems")}
         </button>
 
         {showProfile && (
           <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg w-96">
-              <h2 className="text-xl font-bold mb-4">User Profile</h2>
+              <h2 className="text-xl font-bold mb-4">{t("profile")}</h2>
               {["name", "email", "phone", "password"].map((field) => (
                 <input
                   key={field}

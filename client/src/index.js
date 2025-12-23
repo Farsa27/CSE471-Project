@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-
+import "./i18n/languageConfig";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { GoogleOAuthProvider } from "@react-oauth/google";
