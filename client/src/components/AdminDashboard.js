@@ -48,6 +48,7 @@ export default function AdminDashboard() {
         <Link to="/admin-bookings" className="btn manage">Manage Bookings</Link>
         <Link to="/staff-management" className="btn staff">Staff Management</Link>
         <Link to="/admin-reports" className="btn reports">View Reports</Link>
+        <Link to="/verify-students" className="btn verify">Verify Students</Link>
         <button onClick={handleLogout} className="btn logout">Logout</button>
       </div>
 

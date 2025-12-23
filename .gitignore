@@ -7,5 +7,6 @@ server/node_modules/
 client/build/
 *.log
 .DS_Store
-uploads/
+uploads/*
+!uploads/.gitkeep
 

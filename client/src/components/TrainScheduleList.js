@@ -48,6 +48,7 @@ export default function TrainScheduleList() {
     // Get user info from localStorage
     const userName = localStorage.getItem("userName") || "Guest User";
     const userEmail = localStorage.getItem("userEmail") || "";
+    const userId = localStorage.getItem("userId");
 
     if (!userEmail) {
       alert("Please log in to book a ticket");
@@ -56,17 +57,32 @@ export default function TrainScheduleList() {
     }
 
     try {
-      // Check if user already has a booking for this route
+      // Check if user already has a booking for this exact route and time
       const res = await axios.get(`http://localhost:5000/api/bookings/user/${userEmail}`);
       const existingBookings = res.data.bookings;
       
-      const duplicateRoute = existingBookings.find(
-        booking => booking.from === train.from && booking.to === train.to
+      const duplicateBooking = existingBookings.find(
+        booking => 
+          booking.from === train.from && 
+          booking.to === train.to &&
+          booking.departureTime === train.departureTime &&
+          booking.arrivalTime === train.arrivalTime
       );
 
-      if (duplicateRoute) {
-        alert(`You have already booked a ticket from ${train.from} to ${train.to}. You can only book one ticket per route.`);
+      if (duplicateBooking) {
+        alert(`You have already booked a ticket for this train from ${train.from} to ${train.to} at this time. Please choose a different train.`);
         return;
+      }
+
+      // Check if user is a verified student
+      let finalPrice = train.price;
+      try {
+        const studentRes = await axios.get(`http://localhost:5000/api/student-verification/status/${userId}`);
+        if (studentRes.data.isStudent && studentRes.data.studentVerificationStatus === "verified") {
+          finalPrice = Math.max(0, train.price - 20); // Apply 20 Taka discount
+        }
+      } catch (err) {
+        console.error("Error checking student status:", err);
       }
 
       // Prepare booking data
@@ -77,7 +93,7 @@ export default function TrainScheduleList() {
         to: train.to,
         departure: train.departureTime,
         arrival: train.arrivalTime,
-        price: train.price,
+        price: finalPrice,
         passengerName: userName,
         passengerEmail: userEmail
       };
