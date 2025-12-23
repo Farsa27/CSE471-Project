@@ -1,9 +1,8 @@
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff;
-  color: #000;
+  background-color: #121212;  
+  color: #e0e0e0;             
 }
 
 .page-container {
@@ -11,8 +10,8 @@ body {
 }
 
 .card {
-  background: #f9f9f9;
-  border: 1px solid #ccc;
+  background: #1e1e1e;        
+  border: 1px solid #444;
   padding: 15px;
   margin-bottom: 20px;
 }
@@ -21,6 +20,7 @@ body {
   font-size: 20px;
   margin-bottom: 15px;
   text-align: center;
+  color: #ffffff;
 }
 
 form {
@@ -32,8 +32,15 @@ form {
 form input,
 form textarea {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   font-size: 14px;
+  background-color: #e1d4d4;  
+  color: #161515;             
+}
+
+form input::placeholder,
+form textarea::placeholder {
+  color: #aaaaaa;            
 }
 
 form button {
@@ -55,23 +62,26 @@ form button:hover {
 }
 
 .items-list li {
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #f1f1f1;
+  background-color: #1e1e1e;   
 }
 
 .items-list h3 {
   margin: 0 0 5px;
   font-size: 16px;
+  color: #ffffff;
 }
 
 .items-list p {
   margin: 2px 0;
   font-size: 14px;
+  color: #e0e0e0;
 }
 
 .items-list .status {
   font-size: 12px;
   font-weight: bold;
+  color: #4caf50;            
 }
