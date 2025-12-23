@@ -23,6 +23,10 @@ import AdminReports from "./components/AdminReports";
 import LostItemForm from "./components/LostItemForm";
 import LostAndFoundGallery from "./components/LostAndFoundGallery";
 import NotificationPanel from "./components/NotificationPanel";
+import StudentVerification from "./components/StudentVerification";
+import VerifyStudents from "./components/VerifyStudents";
+import WifiSubscription from "./components/WifiSubscription";
+import WifiPayment from "./components/WifiPayment";
 
 
 function App() {
@@ -47,6 +51,9 @@ function App() {
         <Route path="/lost-items-gallery" element={<LostAndFoundGallery />} />
         <Route path="/notifications" element={<NotificationPanel />} />
         <Route path="/feedback" element={<Feedback />} />
+        <Route path="/student-verification" element={<StudentVerification />} />
+        <Route path="/wifi-subscription" element={<WifiSubscription />} />
+        <Route path="/wifi-payment" element={<WifiPayment />} />
         
         {/* Admin Routes */}
         <Route path="/admin-login" element={<AdminLogin />} />
@@ -56,6 +63,7 @@ function App() {
         <Route path="/admin-bookings" element={<AdminBookings />} />
         <Route path="/staff-management" element={<StaffManagement />} />
         <Route path="/admin-reports" element={<AdminReports />} />
+        <Route path="/verify-students" element={<VerifyStudents />} />
       </Routes>
     </Router>
   );

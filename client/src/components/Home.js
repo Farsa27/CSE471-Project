@@ -206,7 +206,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { FaUserCircle, FaSignOutAlt, FaGlobe, FaBell, FaTrain, FaTicketAlt, FaMapMarkerAlt, FaExclamationTriangle, FaComments, FaImages } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaGlobe, FaBell, FaTrain, FaTicketAlt, FaMapMarkerAlt, FaExclamationTriangle, FaComments, FaImages, FaWifi } from "react-icons/fa";
 import AdSlider from "./AdSlider";
 
 const Home = () => {
@@ -438,7 +438,29 @@ const Home = () => {
                 </div>
               </div>
             </button>
-          </div>
+            <button onClick={() => navigate("/student-verification")} className="group rounded-xl border border-white/10 bg-white/5 p-5 text-left hover:bg-white/10 transition">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-lg bg-blue-500/20 text-blue-300 grid place-items-center">
+                  <FaUserCircle />
+                </div>
+                <div>
+                  <div className="font-semibold">Verify as Student</div>
+                  <div className="text-sm text-slate-300">Get student discount (20 Taka)</div>
+                </div>
+              </div>
+            </button>
+
+            <button onClick={() => navigate("/wifi-subscription")} className="group rounded-xl border border-white/10 bg-white/5 p-5 text-left hover:bg-white/10 transition">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center">
+                  <FaWifi />
+                </div>
+                <div>
+                  <div className="font-semibold">WiFi Subscription</div>
+                  <div className="text-sm text-slate-300">Monthly WiFi access (100 Taka)</div>
+                </div>
+              </div>
+            </button>          </div>
         </div>
       </section>
 
