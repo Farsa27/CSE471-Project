@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useTranslation } from "react-i18next";
+import { FaTrain } from "react-icons/fa";
 
 
 
@@ -60,10 +61,24 @@ const Signup = () => {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-1">{t("createAccount")}</h2>
-        <p className="text-sm text-gray-600 text-center mb-6">{t("signupSubtitle")}</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 flex items-center justify-center px-4">
+      <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-8 items-center">
+        {/* Left: Branding */}
+        <div className="hidden lg:block">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+            <div className="flex items-center gap-3 text-emerald-300 mb-4">
+              <FaTrain />
+              <span className="font-semibold">MassTransit</span>
+            </div>
+            <h2 className="text-3xl font-bold leading-tight">{t("createAccount")}</h2>
+            <p className="mt-2 text-slate-300">{t("signupSubtitle")}</p>
+          </div>
+        </div>
+
+        {/* Right: Form */}
+        <div className="w-full max-w-md mx-auto bg-slate-900/60 rounded-2xl border border-white/10 p-8">
+          <h2 className="text-2xl font-bold text-center mb-1">{t("createAccount")}</h2>
+          <p className="text-sm text-slate-300 text-center mb-6">{t("signupSubtitle")}</p>
 
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -73,7 +88,7 @@ const Signup = () => {
             placeholder={t("name")}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
 
@@ -83,7 +98,7 @@ const Signup = () => {
             placeholder={t("email")}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
 
@@ -93,7 +108,7 @@ const Signup = () => {
             placeholder={t("password")}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
 
@@ -103,7 +118,7 @@ const Signup = () => {
             placeholder={t("phoneNumber")}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
 
@@ -113,13 +128,13 @@ const Signup = () => {
             aria-label={t("dateOfBirth")}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-md transition"
           >
             {t("signUp")}
           </button>
@@ -172,12 +187,13 @@ const Signup = () => {
         />
 
 
-        <p className="text-sm text-center mt-4">
+        <p className="text-sm text-center mt-4 text-slate-300">
           {t("alreadyHaveAccount")} {" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-emerald-300 hover:underline">
             {t("loginLink")}
           </Link>
         </p>
+        </div>
       </div>
     </div>
   );
