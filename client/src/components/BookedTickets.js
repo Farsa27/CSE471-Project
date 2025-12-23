@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./BookedTickets.css";
+import { FaTicketAlt, FaArrowLeft, FaTrain, FaClock, FaUser, FaEnvelope, FaCreditCard, FaCheckCircle } from "react-icons/fa";
 
 export default function BookedTickets() {
   const [bookings, setBookings] = useState([]);
@@ -51,93 +51,161 @@ export default function BookedTickets() {
   };
 
   return (
-    <div className="booked-tickets-container">
-      <div className="booked-header">
-        <button onClick={() => navigate("/home")} className="back-btn">
-          ← Back to Home
-        </button>
-        <h1>My Booked Tickets</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+      {/* Header */}
+      <div className="sticky top-0 z-20 backdrop-blur bg-slate-900/60 border-b border-white/10">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4">
+          <button
+            onClick={() => navigate("/home")}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
+          >
+            <FaArrowLeft />
+            <span>Back</span>
+          </button>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-300 grid place-items-center">
+              <FaTicketAlt />
+            </div>
+            <h1 className="text-2xl font-bold">My Booked Tickets</h1>
+          </div>
+        </div>
       </div>
 
-      {loading ? (
-        <div className="loading-state">Loading your tickets...</div>
-      ) : error ? (
-        <div className="error-state">{error}</div>
-      ) : bookings.length === 0 ? (
-        <div className="empty-state">
-          <h2>No Tickets Found</h2>
-          <p>You haven't booked any tickets yet.</p>
-          <button onClick={() => navigate("/train-schedules")} className="book-now-btn">
-            Book a Ticket
-          </button>
-        </div>
-      ) : (
-        <div className="tickets-grid">
-          {bookings.map((booking) => (
-            <div key={booking._id} className="ticket-card">
-              <div className="ticket-header">
-                <h3>{booking.trainName}</h3>
-                <span className={`status-badge ${booking.status.toLowerCase()}`}>
-                  {booking.status}
-                </span>
-              </div>
-
-              <div className="ticket-body">
-                <div className="route-info">
-                  <div className="station">
-                    <label>From</label>
-                    <p>{booking.from}</p>
-                  </div>
-                  <div className="arrow">→</div>
-                  <div className="station">
-                    <label>To</label>
-                    <p>{booking.to}</p>
-                  </div>
-                </div>
-
-                <div className="time-info">
-                  <div className="time-item">
-                    <label>Departure</label>
-                    <p>{booking.departureTime}</p>
-                  </div>
-                  <div className="time-item">
-                    <label>Arrival</label>
-                    <p>{booking.arrivalTime}</p>
-                  </div>
-                </div>
-
-                <div className="passenger-info">
-                  <div className="info-row">
-                    <label>Passenger:</label>
-                    <span>{booking.userName}</span>
-                  </div>
-                  <div className="info-row">
-                    <label>Email:</label>
-                    <span>{booking.userEmail}</span>
-                  </div>
-                </div>
-
-                <div className="booking-details">
-                  <div className="info-row">
-                    <label>Booking Date:</label>
-                    <span>{formatDate(booking.bookingTime)}</span>
-                  </div>
-                  <div className="info-row price-row">
-                    <label>Price:</label>
-                    <span className="price">৳{booking.price}</span>
-                  </div>
-                </div>
-
-                {booking.paymentIntentId && (
-                  <div className="payment-id">
-                    <small>Payment ID: {booking.paymentIntentId.slice(0, 20)}...</small>
-                  </div>
-                )}
-              </div>
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {loading ? (
+          <div className="text-center py-16">
+            <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-slate-300">Loading your tickets...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-16">
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-red-500/10 border border-red-500/20 grid place-items-center">
+              <FaTicketAlt className="text-red-400" size={40} />
             </div>
-          ))}
-        </div>
-      )}
+            <h2 className="text-2xl font-semibold mb-2 text-red-400">{error}</h2>
+            <button
+              onClick={() => navigate("/login")}
+              className="mt-4 px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-medium transition"
+            >
+              Go to Login
+            </button>
+          </div>
+        ) : bookings.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-amber-500/10 border border-amber-500/20 grid place-items-center">
+              <FaTicketAlt className="text-amber-400" size={40} />
+            </div>
+            <h2 className="text-2xl font-semibold mb-2">No Tickets Found</h2>
+            <p className="text-slate-400 mb-6">You haven't booked any tickets yet. Start your journey!</p>
+            <button
+              onClick={() => navigate("/train-schedules")}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-medium transition"
+            >
+              <FaTrain />
+              <span>Book a Ticket</span>
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="mb-6">
+              <p className="text-slate-400">Total bookings: <span className="text-slate-100 font-semibold">{bookings.length}</span></p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              {bookings.map((booking) => (
+                <div key={booking._id} className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/[0.07] transition">
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-amber-500/20 to-amber-600/10 p-4 border-b border-white/10">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold flex items-center gap-2">
+                        <FaTrain className="text-amber-400" />
+                        <span>{booking.trainName}</span>
+                      </h3>
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        booking.status.toLowerCase() === 'confirmed'
+                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                          : 'bg-slate-500/20 text-slate-300 border border-slate-500/30'
+                      }`}>
+                        <FaCheckCircle className="inline mr-1" size={10} />
+                        {booking.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-6 space-y-4">
+                    {/* Route */}
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 p-3 rounded-lg bg-white/5 border border-white/10">
+                        <div className="text-xs text-slate-400 mb-1">From</div>
+                        <div className="font-semibold">{booking.from}</div>
+                      </div>
+                      <div className="text-amber-400 text-2xl">→</div>
+                      <div className="flex-1 p-3 rounded-lg bg-white/5 border border-white/10">
+                        <div className="text-xs text-slate-400 mb-1">To</div>
+                        <div className="font-semibold">{booking.to}</div>
+                      </div>
+                    </div>
+
+                    {/* Time Info */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
+                          <FaClock size={10} />
+                          <span>Departure</span>
+                        </div>
+                        <div className="font-semibold">{booking.departureTime}</div>
+                      </div>
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
+                          <FaClock size={10} />
+                          <span>Arrival</span>
+                        </div>
+                        <div className="font-semibold">{booking.arrivalTime}</div>
+                      </div>
+                    </div>
+
+                    {/* Passenger Info */}
+                    <div className="space-y-2 pt-2 border-t border-white/10">
+                      <div className="flex items-center gap-2 text-sm">
+                        <FaUser className="text-slate-400" size={12} />
+                        <span className="text-slate-400">Passenger:</span>
+                        <span className="font-medium">{booking.userName}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <FaEnvelope className="text-slate-400" size={12} />
+                        <span className="text-slate-400">Email:</span>
+                        <span className="font-medium text-xs">{booking.userEmail}</span>
+                      </div>
+                    </div>
+
+                    {/* Booking Details */}
+                    <div className="space-y-2 pt-2 border-t border-white/10">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-slate-400">Booking Date:</span>
+                        <span className="font-medium">{formatDate(booking.bookingTime)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-400">Price:</span>
+                        <span className="text-2xl font-bold text-amber-300">৳{booking.price}</span>
+                      </div>
+                    </div>
+
+                    {/* Payment ID */}
+                    {booking.paymentIntentId && (
+                      <div className="pt-2 border-t border-white/10">
+                        <div className="flex items-center gap-2 text-xs text-slate-500">
+                          <FaCreditCard size={10} />
+                          <span className="font-mono">Payment: {booking.paymentIntentId.slice(0, 20)}...</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

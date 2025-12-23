@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./WifiPayment.css";
+import { FaWifi, FaArrowLeft, FaCreditCard, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 const stripePromise = loadStripe("pk_test_51Sf6nWG5kxx8ChUoi0EGOAF7CGToqKh39NIHWR5wNAOBSykxNe2TNfBInDPm9MCl6LdnQ7tm3Y2WbT9w6UxHLHj800e69z1eVq");
 
@@ -61,12 +61,31 @@ function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="payment-form">
-      <PaymentElement />
-      <button disabled={isLoading || !stripe || !elements} className="pay-button">
-        {isLoading ? "Processing..." : "Pay ৳100"}
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+        <PaymentElement />
+      </div>
+      <button
+        disabled={isLoading || !stripe || !elements}
+        className="w-full py-4 rounded-xl bg-purple-600 hover:bg-purple-700 disabled:bg-purple-600/50 font-semibold text-lg transition flex items-center justify-center gap-2"
+      >
+        <FaCreditCard />
+        <span>{isLoading ? "Processing..." : "Pay ৳100"}</span>
       </button>
-      {message && <div className="payment-message">{message}</div>}
+      {message && (
+        <div className={`rounded-xl p-4 flex items-start gap-3 ${
+          message.includes('successful') || message.includes('active')
+            ? 'border border-emerald-500/30 bg-emerald-500/10'
+            : 'border border-red-500/30 bg-red-500/10'
+        }`}>
+          {message.includes('successful') || message.includes('active') ? (
+            <FaCheckCircle className="text-emerald-400 mt-1 flex-shrink-0" />
+          ) : (
+            <FaExclamationCircle className="text-red-400 mt-1 flex-shrink-0" />
+          )}
+          <p className="text-sm">{message}</p>
+        </div>
+      )}
     </form>
   );
 }
@@ -109,39 +128,67 @@ export default function WifiPayment() {
   };
 
   return (
-    <div className="wifi-payment-container">
-      <div className="wifi-payment-card">
-        <button onClick={() => navigate("/wifi-subscription")} className="back-button">
-          ← Back
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+      {/* Header */}
+      <div className="sticky top-0 z-20 backdrop-blur bg-slate-900/60 border-b border-white/10">
+        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-4">
+          <button
+            onClick={() => navigate("/wifi-subscription")}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
+          >
+            <FaArrowLeft />
+            <span>Back</span>
+          </button>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center">
+              <FaWifi />
+            </div>
+            <h1 className="text-2xl font-bold">WiFi Subscription Payment</h1>
+          </div>
+        </div>
+      </div>
 
-        <h2>WiFi Subscription Payment</h2>
-
-        <div className="subscription-summary">
-          <h3>Subscription Details</h3>
-          <div className="detail-row">
-            <span className="label">Subscriber:</span>
-            <span className="value">{userName}</span>
-          </div>
-          <div className="detail-row">
-            <span className="label">Subscription Start:</span>
-            <span className="value">{formatDate(startDate)}</span>
-          </div>
-          <div className="detail-row">
-            <span className="label">Subscription End:</span>
-            <span className="value">{formatDate(endDate)}</span>
-          </div>
-          <div className="detail-row price-row">
-            <span className="label">Amount:</span>
-            <span className="value price">৳100</span>
+      <div className="max-w-3xl mx-auto px-4 py-8">
+        {/* Subscription Summary */}
+        <div className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <h2 className="text-xl font-semibold mb-4">Subscription Details</h2>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <span className="text-slate-400">Subscriber</span>
+              <span className="font-semibold">{userName}</span>
+            </div>
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <span className="text-slate-400">Subscription Start</span>
+              <span className="font-semibold text-sm">{formatDate(startDate)}</span>
+            </div>
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <span className="text-slate-400">Subscription End</span>
+              <span className="font-semibold text-sm">{formatDate(endDate)}</span>
+            </div>
+            <div className="flex items-center justify-between pt-2">
+              <span className="text-lg font-semibold">Total Amount</span>
+              <span className="text-2xl font-bold text-purple-300">৳100</span>
+            </div>
           </div>
         </div>
 
-        {clientSecret && (
-          <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>
-        )}
+        {/* Payment Form */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <FaCreditCard className="text-purple-400" />
+            <span>Payment Information</span>
+          </h2>
+          {clientSecret ? (
+            <Elements options={options} stripe={stripePromise}>
+              <CheckoutForm />
+            </Elements>
+          ) : (
+            <div className="text-center py-8">
+              <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-slate-400">Preparing payment...</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./WifiSubscription.css";
+import { FaWifi, FaArrowLeft, FaCheckCircle, FaCopy, FaBolt, FaShieldAlt, FaTrain } from "react-icons/fa";
 
 export default function WifiSubscription() {
   const navigate = useNavigate();
@@ -49,99 +49,192 @@ export default function WifiSubscription() {
 
   if (loading) {
     return (
-      <div className="wifi-subscription-container">
-        <div className="loading">Loading...</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-300">Loading subscription...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="wifi-subscription-container">
-      <div className="wifi-subscription-card">
-        <button onClick={() => navigate("/home")} className="back-button">
-          ← Back to Home
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+      {/* Header */}
+      <div className="sticky top-0 z-20 backdrop-blur bg-slate-900/60 border-b border-white/10">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-4">
+          <button
+            onClick={() => navigate("/home")}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
+          >
+            <FaArrowLeft />
+            <span>Back</span>
+          </button>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center">
+              <FaWifi />
+            </div>
+            <h1 className="text-2xl font-bold">WiFi Subscription</h1>
+          </div>
+        </div>
+      </div>
 
-        <h2>WiFi Subscription</h2>
+      <div className="max-w-4xl mx-auto px-4 py-8">
 
         {!subscriptionData?.isActive ? (
-          <div className="subscription-inactive">
-            <div className="wifi-icon">📶</div>
-            <h3>Monthly WiFi Access</h3>
-            <p className="description">
-              Get unlimited WiFi access in all station areas and trains for just 100 Taka per month!
-            </p>
-
-            <div className="features">
-              <div className="feature">✓ High-speed internet</div>
-              <div className="feature">✓ Access in all stations</div>
-              <div className="feature">✓ Works on trains</div>
-              <div className="feature">✓ Unique credentials</div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+            {/* Hero Section */}
+            <div className="relative bg-gradient-to-br from-purple-500/20 to-purple-600/10 p-8 text-center">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl"></div>
+              <div className="relative">
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-purple-500/20 border-4 border-purple-500/30 grid place-items-center">
+                  <FaWifi className="text-purple-300" size={40} />
+                </div>
+                <h2 className="text-3xl font-bold mb-2">Monthly WiFi Access</h2>
+                <p className="text-slate-300 max-w-md mx-auto">
+                  Get unlimited high-speed WiFi access in all station areas and trains
+                </p>
+              </div>
             </div>
 
-            <div className="price-section">
-              <div className="price">৳100</div>
-              <div className="price-label">per month</div>
-            </div>
+            {/* Features Grid */}
+            <div className="p-8">
+              <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center flex-shrink-0">
+                    <FaBolt size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">High-Speed Internet</h4>
+                    <p className="text-sm text-slate-400">Fast and reliable connection</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center flex-shrink-0">
+                    <FaShieldAlt size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">Secure Connection</h4>
+                    <p className="text-sm text-slate-400">Protected and encrypted</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center flex-shrink-0">
+                    <FaWifi size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">All Stations</h4>
+                    <p className="text-sm text-slate-400">Access in every station</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center flex-shrink-0">
+                    <FaTrain size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">On Trains</h4>
+                    <p className="text-sm text-slate-400">Works during travel</p>
+                  </div>
+                </div>
+              </div>
 
-            <button onClick={handleSubscribe} className="subscribe-button">
-              Subscribe Now
-            </button>
+              {/* Pricing */}
+              <div className="text-center mb-8 p-6 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20">
+                <div className="text-5xl font-bold mb-2">৳100</div>
+                <div className="text-slate-400">per month</div>
+              </div>
+
+              {/* Subscribe Button */}
+              <button
+                onClick={handleSubscribe}
+                className="w-full py-4 rounded-xl bg-purple-600 hover:bg-purple-700 font-semibold text-lg transition flex items-center justify-center gap-2"
+              >
+                <FaWifi />
+                <span>Subscribe Now</span>
+              </button>
+            </div>
           </div>
         ) : (
-          <div className="subscription-active">
-            <div className="active-badge">
-              <span className="badge-icon">✓</span> Active Subscription
-            </div>
-
-            <div className="user-info">
-              <h3>{userName}</h3>
-              <p className="validity">
-                Valid till: <strong>{formatDate(subscriptionData.expiryDate)}</strong>
-              </p>
-            </div>
-
-            <div className="credentials-section">
-              <h4>Your WiFi Credentials</h4>
-              
-              <div className="credential-item">
-                <label>WiFi ID</label>
-                <div className="credential-value">
-                  <span>{subscriptionData.wifiId}</span>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(subscriptionData.wifiId);
-                      alert("WiFi ID copied!");
-                    }}
-                    className="copy-button"
-                  >
-                    📋 Copy
-                  </button>
-                </div>
+          <div className="space-y-6">
+            {/* Active Badge */}
+            <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <FaCheckCircle className="text-emerald-400" size={24} />
+                <h2 className="text-2xl font-bold">Active Subscription</h2>
               </div>
-
-              <div className="credential-item">
-                <label>Password</label>
-                <div className="credential-value">
-                  <span>{subscriptionData.wifiPassword}</span>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(subscriptionData.wifiPassword);
-                      alert("Password copied!");
-                    }}
-                    className="copy-button"
-                  >
-                    📋 Copy
-                  </button>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400">Subscriber:</span>
+                  <span className="font-semibold">{userName}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400">Valid Until:</span>
+                  <span className="font-semibold text-emerald-300">{formatDate(subscriptionData.expiryDate)}</span>
                 </div>
               </div>
             </div>
 
-            <div className="info-box">
-              <p>
-                Use these credentials to connect to "MassTransit_WiFi" network in any station or
-                train.
-              </p>
+            {/* Credentials Card */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                <FaWifi className="text-purple-400" />
+                <span>Your WiFi Credentials</span>
+              </h3>
+
+              <div className="space-y-4">
+                {/* WiFi ID */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-400 mb-2">WiFi ID</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg font-mono text-sm">
+                      {subscriptionData.wifiId}
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(subscriptionData.wifiId);
+                        alert("WiFi ID copied!");
+                      }}
+                      className="px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition flex items-center gap-2"
+                    >
+                      <FaCopy />
+                      <span className="hidden sm:inline">Copy</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Password */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-400 mb-2">Password</label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg font-mono text-sm">
+                      {subscriptionData.wifiPassword}
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(subscriptionData.wifiPassword);
+                        alert("Password copied!");
+                      }}
+                      className="px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition flex items-center gap-2"
+                    >
+                      <FaCopy />
+                      <span className="hidden sm:inline">Copy</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Info Box */}
+            <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+              <div className="flex items-start gap-3">
+                <FaWifi className="text-blue-400 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-blue-100 mb-1">How to Connect</h4>
+                  <p className="text-sm text-blue-200/80">
+                    Use these credentials to connect to "MassTransit_WiFi" network in any station or train.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
