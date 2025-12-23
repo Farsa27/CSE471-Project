@@ -386,7 +386,7 @@ const Home = () => {
                     onClick={() => setEditMode(true)}
                     className="bg-blue-500 text-white px-4 py-1 rounded"
                   >
-                    Edit
+                    {t("edit")}
                   </button>
                 ) : (
                   <>
@@ -394,7 +394,7 @@ const Home = () => {
                       onClick={handleUpdate}
                       className="bg-green-600 text-white px-4 py-1 rounded"
                     >
-                      Save
+                      {t("save")}
                     </button>
                     <button
                       onClick={() => {
@@ -403,7 +403,7 @@ const Home = () => {
                       }}
                       className="bg-gray-400 text-white px-4 py-1 rounded"
                     >
-                      Cancel
+                      {t("cancel")}
                     </button>
                   </>
                 )}
@@ -414,7 +414,7 @@ const Home = () => {
                   }}
                   className="bg-red-500 text-white px-4 py-1 rounded"
                 >
-                  Close
+                  {t("close")}
                 </button>
 
               </div>

@@ -26,6 +26,10 @@
   "loginLink": "Log in",
   "OR": "OR",
   "Dont have an account? Sign Up": "Don't have an account? Sign Up",
-   "Edit": "Edit",
-   "Close": "Close"
+  "Edit": "Edit",
+  "Close": "Close",
+  "Cancel": "Cancel",
+  "Save": "Save",
+  "feedback": "feedback"
+
 }
