@@ -41,6 +41,9 @@ const {
   loginUser,
   getUserById,
   updateUser,
+  addFavoriteStation,
+  removeFavoriteStation,
+  getFavoriteStations,
 } = require("../controllers/userController");
 const User = require("../models/User");
 const mongoose = require("mongoose");
@@ -108,5 +111,10 @@ router.get("/:id", getUserById);
 
 // Update user profile by ID
 router.put("/:id", updateUser);
+
+// Favorites
+router.get("/:id/favorites", getFavoriteStations);
+router.post("/:id/favorites", addFavoriteStation);
+router.delete("/:id/favorites", removeFavoriteStation);
 
 module.exports = router;
