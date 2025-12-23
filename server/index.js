@@ -12,6 +12,7 @@ const adminRoutes = require("./routes/admin");
 const staffRoutes = require("./routes/staff");
 const lostItemRoutes = require("./routes/lostItemRoutes");
 const notificationRoutes = require("./routes/notifications");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/staff", staffRoutes);
 app.use('/api/lost-items', lostItemRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 
 mongoose

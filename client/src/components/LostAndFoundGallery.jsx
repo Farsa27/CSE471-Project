@@ -42,7 +42,8 @@ export default function LostAndFoundGallery() {
         body: JSON.stringify({ answers: userAnswers }),
       });
 
-      const result = await res.json();
+      // const result = await res.json();
+      await res.json();
 
       if (res.ok) {
         setClaimStatus('success');

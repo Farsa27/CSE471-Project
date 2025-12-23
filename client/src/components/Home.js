@@ -357,6 +357,13 @@ const Home = () => {
           {t("viewLostItems")}
         </button>
 
+        <button
+          onClick={() => navigate("/feedback")}
+          className="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
+        >
+          {t ? t("feedback") : "Feedback"}
+        </button>
+
         {showProfile && (
           <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
             <div className="bg-white p-6 rounded shadow-lg w-96">
