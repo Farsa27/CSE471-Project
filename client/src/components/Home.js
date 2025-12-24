@@ -486,12 +486,12 @@ const Home = () => {
             <div className="flex justify-end gap-2 mt-2">
               {!editMode ? (
                 <button onClick={() => setEditMode(true)} className="px-4 py-2 rounded bg-white/10 hover:bg-white/20 border border-white/10">
-                  Edit
+                  {t("edit")}
                 </button>
               ) : (
                 <>
                   <button onClick={handleUpdate} className="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-700 text-white">
-                    Save
+                    {t("save")}
                   </button>
                   <button
                     onClick={() => {
@@ -500,7 +500,7 @@ const Home = () => {
                     }}
                     className="px-4 py-2 rounded bg-white/10 hover:bg-white/20 border border-white/10"
                   >
-                    Cancel
+                    {t("cancel")}
                   </button>
                 </>
               )}
@@ -511,7 +511,7 @@ const Home = () => {
                 }}
                 className="px-4 py-2 rounded bg-rose-600 hover:bg-rose-700 text-white"
               >
-                Close
+                {t("close")}
               </button>
             </div>
           </div>

@@ -43,7 +43,7 @@ export default function AdSlider() {
     src={imageList[currentIndex]}
     alt="Advertisement"
     //className="h-24 object-contain rounded-2xl shadow-md"
-    className="h-14 w-full object-cover rounded-2xl shadow-md"
+    className="h-20 w-full object-cover rounded-2xl shadow-md"
     />
 
       <button
