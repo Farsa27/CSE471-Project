@@ -283,7 +283,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <FaTrain className="text-emerald-400" size={22} />
-            <span className="font-semibold tracking-wide">MassTransit</span>
+            <span className="font-semibold tracking-wide">{t("Mass Transit")}</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <button
@@ -349,7 +349,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="font-semibold">{t("schedules")}</div>
-                  <div className="text-sm text-slate-300">Browse all routes and times</div>
+                  <div className="text-sm text-slate-300">{t("Browse all routes and times")}</div>
                 </div>
               </div>
             </button>
@@ -361,7 +361,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="font-semibold">{t("bookedTicket")}</div>
-                  <div className="text-sm text-slate-300">See your recent tickets</div>
+                  <div className="text-sm text-slate-300">{t("See your recent tickets")}</div>
                 </div>
               </div>
             </button>
@@ -373,7 +373,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="font-semibold">{t("qrTicket")}</div>
-                  <div className="text-sm text-slate-300">Generate your boarding QR</div>
+                  <div className="text-sm text-slate-300">{t("Generate your boarding QR")}</div>
                 </div>
               </div>
             </button>
@@ -385,7 +385,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="font-semibold">{t("myLocation")}</div>
-                  <div className="text-sm text-slate-300">View nearby stations</div>
+                  <div className="text-sm text-slate-300">{t("View nearby stations")}</div>
                 </div>
               </div>
             </button>
@@ -397,7 +397,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="font-semibold">{t("report")}</div>
-                  <div className="text-sm text-slate-300">Report an issue quickly</div>
+                  <div className="text-sm text-slate-300">{t("Report an issue quickly")}</div>
                 </div>
               </div>
             </button>
@@ -410,7 +410,7 @@ const Home = () => {
                   </div>
                   <div>
                     <div className="font-semibold">{t("lostFoundForm")}</div>
-                    <div className="text-sm text-slate-300">Submit lost item details</div>
+                    <div className="text-sm text-slate-300">{t("Submit lost item details")}</div>
                   </div>
                 </div>
               </button>
@@ -421,7 +421,7 @@ const Home = () => {
                   </div>
                   <div>
                     <div className="font-semibold">{t("viewLostItems")}</div>
-                    <div className="text-sm text-slate-300">Browse found items</div>
+                    <div className="text-sm text-slate-300">{t("Browse Found items")}</div>
                   </div>
                 </div>
               </button>
@@ -434,7 +434,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="font-semibold">{t ? t("feedback") : "Feedback"}</div>
-                  <div className="text-sm text-slate-300">Tell us how we’re doing</div>
+                  <div className="text-sm text-slate-300">{t("Tell us how we're doing")}</div>
                 </div>
               </div>
             </button>
@@ -444,8 +444,8 @@ const Home = () => {
                   <FaUserCircle />
                 </div>
                 <div>
-                  <div className="font-semibold">Verify as Student</div>
-                  <div className="text-sm text-slate-300">Get student discount (20 Taka)</div>
+                  <div className="font-semibold">{t("Verify as Student")}</div>
+                  <div className="text-sm text-slate-300">{t("Get student discount (20 Taka)")}</div>
                 </div>
               </div>
             </button>
@@ -456,8 +456,8 @@ const Home = () => {
                   <FaWifi />
                 </div>
                 <div>
-                  <div className="font-semibold">WiFi Subscription</div>
-                  <div className="text-sm text-slate-300">Monthly WiFi access (100 Taka)</div>
+                  <div className="font-semibold">{t("Wifi Subscription")}</div>
+                  <div className="text-sm text-slate-300">{t("Monthly WiFi access (100 Taka)")}</div>
                 </div>
               </div>
             </button>          </div>

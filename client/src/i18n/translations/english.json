@@ -30,6 +30,17 @@
   "Close": "Close",
   "Cancel": "Cancel",
   "Save": "Save",
-  "feedback": "feedback"
-
+  "feedback": "feedback",
+   "Browse all routes and times": "Browse all routes and times",
+   "See your recent tickets": "See your recent tickets",
+   "Generate your boarding QR": "Generate your boarding QR",
+   "View nearby stations": "View nearby stations",
+   "Report an issue quickly": "Report an issue quickly",
+   "Submit lost item details": "Submit lost item details",
+   "Browse Found items": "Browse Found items",
+   "Tell us how we're doing": "Tell us how we're doing",
+   "Get student discount (20 Taka)": "Get student discount (20 Taka)",
+    "Monthly WiFi access (100 Taka)": "Monthly WiFi access (100 Taka)",
+    "Mass Transit": "Mass Transit",
+    "Seamless metro access — sign in to manage tickets, routes and more.": "Seamless metro access — sign in to manage tickets, routes and more."
 }
