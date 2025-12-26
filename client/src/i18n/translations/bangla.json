@@ -31,5 +31,19 @@
   "Close": "বন্ধ করুন",
   "Cancel": "বাতিল করুন",
   "Save": "সংরক্ষণ করুন",
-  "feedback": "প্রতিক্রিয়া"
+  "feedback": "প্রতিক্রিয়া",
+  "Verify as Student": "ছাত্র হিসেবে যাচাই করুন",
+  "Wifi Subscription": "ওয়াইফাই সাবস্ক্রিপশন",
+    "Browse all routes and times": "সমস্ত রুট এবং সময় ব্রাউজ করুন",
+    "See your recent tickets": "আপনার সাম্প্রতিক টিকিট দেখুন",
+    "Generate your boarding QR": "আপনার বোর্ডিং QR তৈরি করুন",
+    "View nearby stations": "নিকটস্থ স্টেশন দেখুন",
+    "Report an issue quickly": "দ্রুত একটি সমস্যা রিপোর্ট করুন",
+    "Submit lost item details": "হারানো আইটেমের বিবরণ জমা দিন",
+    "Browse Found items": "পাওয়া আইটেম ব্রাউজ করুন",
+    "Tell us how we're doing": "আমাদের জানান আমরা কেমন করছি",
+    "Get student discount (20 Taka)": "ছাত্র ছাড় পান (২০ টাকা)",
+      "Monthly WiFi access (100 Taka)": "মাসিক ওয়াইফাই অ্যাক্সেস (১০০ টাকা)",
+      "Mass Transit": "মাস ট্রানজিট",
+      "Seamless metro access — sign in to manage tickets, routes and more.": "নিরবচ্ছিন্ন মেট্রো অ্যাক্সেস — টিকিট, রুট এবং আরও অনেক কিছু পরিচালনা করতে সাইন ইন করুন।"
 }

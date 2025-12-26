@@ -221,6 +221,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../i18n/languageConfig";
+import { FaTrain } from "react-icons/fa";
 
 const Login = () => {
   const { t, i18n } = useTranslation();
@@ -379,13 +380,29 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {t("login")}
-        </h2>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 flex items-center justify-center px-4">
+      <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-8 items-center">
+        {/* Left: Brand / Intro */}
+        <div className="hidden lg:block">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+            <div className="flex items-center gap-3 text-emerald-300 mb-4">
+              <FaTrain />
+              <span className="font-semibold">{t("Mass Transit")}</span>
+            </div>
+            <h2 className="text-3xl font-bold leading-tight">{t("login")}</h2>
+            <p className="mt-2 text-slate-300">
+              {t("Seamless metro access — sign in to manage tickets, routes and more.")}
+            </p>
+          </div>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Right: Form */}
+        <div className="max-w-md w-full mx-auto bg-slate-900/60 rounded-2xl border border-white/10 p-8">
+          <h2 className="text-2xl font-bold mb-6 text-center">
+            {t("login")}
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             name="email"
@@ -393,7 +410,7 @@ const Login = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
           <input
@@ -403,71 +420,72 @@ const Login = () => {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded"
+            className="w-full px-4 py-2 rounded bg-white/5 border border-white/10 outline-none focus:ring-2 focus:ring-emerald-400/40"
           />
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded transition"
           >
             {t("Login")}
           </button>
-        </form>
+          </form>
 
-        <div className="my-4 flex items-center justify-between">
-          <span className="border-b w-1/5"></span>
-          <span className="text-xs text-gray-500 uppercase">{t("OR")}</span>
-          <span className="border-b w-1/5"></span>
-        </div>
+          <div className="my-4 flex items-center justify-between text-slate-300">
+            <span className="border-b w-1/5 border-white/10"></span>
+            <span className="text-xs uppercase">{t("OR")}</span>
+            <span className="border-b w-1/5 border-white/10"></span>
+          </div>
 
-        <div className="flex justify-center mb-4">
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={() => alert("Google login failed")}
-            text="signin_with"
-          />
-        </div>
+          <div className="flex justify-center mb-4">
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => alert("Google login failed")}
+              text="signin_with"
+            />
+          </div>
 
-        <p className="text-sm text-center mt-2">
-          {t("Dont have an account? Sign Up")} {" "}
-          <Link to="/signup" className="text-blue-600 hover:underline">
-            Sign up
-          </Link>
-        </p>
+          <p className="text-sm text-center mt-2 text-slate-300">
+            {t("Dont have an account? Sign Up")} {" "}
+            <Link to="/signup" className="text-emerald-300 hover:underline">
+              Sign up
+            </Link>
+          </p>
 
-        <div className="my-2 flex items-center justify-between">
-          <span className="border-b w-1/5"></span>
-          <span className="text-xs text-gray-500 uppercase">{t("OR")}</span>
-          <span className="border-b w-1/5"></span>
-        </div>
+          <div className="my-2 flex items-center justify-between text-slate-300">
+            <span className="border-b w-1/5 border-white/10"></span>
+            <span className="text-xs uppercase">{t("OR")}</span>
+            <span className="border-b w-1/5 border-white/10"></span>
+          </div>
 
-        <div className="flex justify-center">
-          <GoogleLogin
-            onSuccess={handleGoogleSignup}
-            onError={() => alert("Google signup failed")}
-            text="signup_with"
-          />
-        </div>
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={handleGoogleSignup}
+              onError={() => alert("Google signup failed")}
+              text="signup_with"
+            />
+          </div>
 
-        <div className="mt-4">
-          <button
-            onClick={() => i18n.changeLanguage("en")}
-            className="px-3 py-1 bg-gray-300 rounded mr-2"
-          >
-            English
-          </button>
-          <button
-            onClick={() => i18n.changeLanguage("bn")}
-            className="px-3 py-1 bg-gray-300 rounded"
-          >
-            বাংলা
-          </button>
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <button
+              onClick={() => i18n.changeLanguage("en")}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded border border-white/10"
+            >
+              English
+            </button>
+            <button
+              onClick={() => i18n.changeLanguage("bn")}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded border border-white/10"
+            >
+              বাংলা
+            </button>
+          </div>
         </div>
       </div>
 
       {showDobPrompt && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-md">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-slate-900 text-slate-100 border border-white/10 p-6 rounded-xl w-[420px] max-w-[92%]">
             <h2 className="text-lg font-semibold mb-4">
               Please enter your Date of Birth
             </h2>
@@ -475,11 +493,11 @@ const Login = () => {
               type="date"
               value={dobInput}
               onChange={(e) => setDobInput(e.target.value)}
-              className="w-full px-4 py-2 border rounded mb-4"
+              className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded mb-4 outline-none focus:ring-2 focus:ring-emerald-400/40"
             />
             <button
               onClick={handleDobSubmit}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded"
             >
               Submit
             </button>
