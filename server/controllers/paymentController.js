@@ -16,11 +16,11 @@ const getStripe = () => {
 // Create payment intent
 exports.createPaymentIntent = async (req, res) => {
   try {
-    const { amount } = req.body; // amount in BDT (will convert to paisa)
+    const { amount } = req.body; // amount in BDT (will convert to cents)
 
     const paymentIntent = await getStripe().paymentIntents.create({
-      amount: Math.round(amount * 100), // Convert to paisa (smallest currency unit)
-      currency: 'bdt',
+      amount: Math.round(amount * 100), // Convert to cents (smallest currency unit)
+      currency: 'usd', // Using USD as BDT is not supported in test mode
       automatic_payment_methods: {
         enabled: true,
       },
@@ -50,16 +50,28 @@ exports.saveBookingAfterPayment = async (req, res) => {
       paymentIntentId
     } = req.body;
 
-    // Check if user already has a booking for this route
+    // Check if user already has a booking for this exact route and time
+    console.log('Checking for existing booking:', {
+      userEmail: passengerEmail,
+      from,
+      to,
+      departureTime: departure,
+      arrivalTime: arrival
+    });
+    
     const existingBooking = await Booking.findOne({
       userEmail: passengerEmail,
       from: from,
-      to: to
+      to: to,
+      departureTime: departure,
+      arrivalTime: arrival
     });
+
+    console.log('Existing booking found:', existingBooking);
 
     if (existingBooking) {
       return res.status(400).json({ 
-        error: 'You have already booked a ticket for this route. Only one ticket per route is allowed.' 
+        error: 'You have already booked a ticket for this route at this time. Please choose a different train or time.' 
       });
     }
 

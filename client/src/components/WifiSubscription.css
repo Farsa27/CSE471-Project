@@ -1,0 +1,245 @@
+.wifi-subscription-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.wifi-subscription-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  padding: 40px;
+}
+
+.back-button {
+  background: #f3f4f6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: background 0.3s;
+}
+
+.back-button:hover {
+  background: #e5e7eb;
+}
+
+.wifi-subscription-card h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: white;
+  font-size: 20px;
+}
+
+.subscription-inactive {
+  text-align: center;
+}
+
+.wifi-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.subscription-inactive h3 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+.description {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.feature {
+  background: #f3f4f6;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.price-section {
+  margin-bottom: 30px;
+}
+
+.price {
+  font-size: 48px;
+  font-weight: bold;
+  color: #7c3aed;
+}
+
+.price-label {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.subscribe-button {
+  width: 100%;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  border: none;
+  padding: 18px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.subscribe-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(124, 58, 237, 0.4);
+}
+
+.subscription-active {
+  text-align: center;
+}
+
+.active-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.badge-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.user-info h3 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.validity {
+  color: #6b7280;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.validity strong {
+  color: #7c3aed;
+}
+
+.credentials-section {
+  background: #f9fafb;
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.credentials-section h4 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.credential-item {
+  margin-bottom: 20px;
+}
+
+.credential-item:last-child {
+  margin-bottom: 0;
+}
+
+.credential-item label {
+  display: block;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.credential-value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #e5e7eb;
+}
+
+.credential-value span {
+  flex: 1;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.copy-button {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.copy-button:hover {
+  background: #6d28d9;
+}
+
+.info-box {
+  background: #dbeafe;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #3b82f6;
+}
+
+.info-box p {
+  color: #1e40af;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .wifi-subscription-card {
+    padding: 25px;
+  }
+}

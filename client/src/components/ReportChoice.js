@@ -1,45 +1,105 @@
 import { useNavigate } from "react-router-dom";
+import { FaBug, FaExclamationTriangle, FaListAlt, FaArrowLeft } from "react-icons/fa";
 
 const ReportChoice = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="bg-white p-8 rounded shadow w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Report</h2>
-        <p className="mb-6 text-gray-600">Choose report type:</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+      {/* Header */}
+      <div className="sticky top-0 z-20 backdrop-blur bg-slate-900/60 border-b border-white/10">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-4">
+          <button
+            onClick={() => navigate("/home")}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
+          >
+            <FaArrowLeft />
+            <span>Back</span>
+          </button>
+          <h1 className="text-2xl font-bold">Report an Issue</h1>
+        </div>
+      </div>
 
-        <div className="flex flex-col gap-4">
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Hero Section */}
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold mb-2">Help Us Improve</h2>
+          <p className="text-slate-300">Report issues to help us maintain a better transit system</p>
+        </div>
+
+        {/* Report Type Cards */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
           <button
             onClick={() => navigate("/report/app-bug")}
-            className="w-full bg-blue-600 text-white py-2 rounded"
+            className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-blue-600/5 p-8 text-left hover:from-blue-500/20 hover:to-blue-600/10 transition-all duration-300 overflow-hidden"
           >
-            Report App Bug
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition"></div>
+            <div className="relative">
+              <div className="w-16 h-16 rounded-xl bg-blue-500/20 text-blue-300 grid place-items-center mb-4">
+                <FaBug size={28} />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Report App Bug</h3>
+              <p className="text-slate-300 text-sm mb-4">Experiencing technical issues? Report bugs or app malfunctions.</p>
+              <div className="inline-flex items-center gap-2 text-blue-300 font-medium">
+                Submit Report
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </div>
           </button>
 
           <button
             onClick={() => navigate("/report/station-hazard")}
-            className="w-full bg-yellow-600 text-white py-2 rounded"
+            className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-amber-500/10 to-amber-600/5 p-8 text-left hover:from-amber-500/20 hover:to-amber-600/10 transition-all duration-300 overflow-hidden"
           >
-            Report Station Hazard
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition"></div>
+            <div className="relative">
+              <div className="w-16 h-16 rounded-xl bg-amber-500/20 text-amber-300 grid place-items-center mb-4">
+                <FaExclamationTriangle size={28} />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Report Station Hazard</h3>
+              <p className="text-slate-300 text-sm mb-4">Found safety concerns or hazards at stations? Let us know immediately.</p>
+              <div className="inline-flex items-center gap-2 text-amber-300 font-medium">
+                Submit Report
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </div>
           </button>
         </div>
 
-        <div className="border-t pt-6 mt-6">
-          <p className="mb-4 text-gray-600 text-sm">View your reports:</p>
-          <div className="flex flex-col gap-2">
+        {/* View Reports Section */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <FaListAlt className="text-emerald-300" size={20} />
+            <h3 className="text-xl font-semibold">Your Submitted Reports</h3>
+          </div>
+          <p className="text-slate-300 mb-6 text-sm">Track the status of your previously submitted reports</p>
+          
+          <div className="grid sm:grid-cols-2 gap-4">
             <button
               onClick={() => navigate("/my-app-bug-reports")}
-              className="w-full bg-blue-100 text-blue-700 py-2 rounded hover:bg-blue-200"
+              className="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-left"
             >
-              My App Bug Reports
+              <div className="w-12 h-12 rounded-lg bg-blue-500/20 text-blue-300 grid place-items-center flex-shrink-0">
+                <FaBug size={20} />
+              </div>
+              <div>
+                <div className="font-semibold">App Bug Reports</div>
+                <div className="text-sm text-slate-400">View your bug reports</div>
+              </div>
             </button>
 
             <button
               onClick={() => navigate("/my-station-hazard-reports")}
-              className="w-full bg-yellow-100 text-yellow-700 py-2 rounded hover:bg-yellow-200"
+              className="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition text-left"
             >
-              My Station Hazard Reports
+              <div className="w-12 h-12 rounded-lg bg-amber-500/20 text-amber-300 grid place-items-center flex-shrink-0">
+                <FaExclamationTriangle size={20} />
+              </div>
+              <div>
+                <div className="font-semibold">Hazard Reports</div>
+                <div className="text-sm text-slate-400">View your hazard reports</div>
+              </div>
             </button>
           </div>
         </div>

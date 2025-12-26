@@ -27,6 +27,43 @@ const userSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  isStudent: {
+    type: Boolean,
+    default: false,
+  },
+  studentIdCard: {
+    type: String,
+    default: "",
+  },
+  studentSecondDocument: {
+    type: String,
+    default: "",
+  },
+  studentVerificationStatus: {
+    type: String,
+    enum: ["none", "pending", "verified", "rejected"],
+    default: "none",
+  },
+  studentVerificationExpiry: {
+    type: Date,
+    default: null,
+  },
+  wifiSubscriptionActive: {
+    type: Boolean,
+    default: false,
+  },
+  wifiSubscriptionExpiry: {
+    type: Date,
+    default: null,
+  },
+  wifiId: {
+    type: String,
+    default: "",
+  },
+  wifiPassword: {
+    type: String,
+    default: "",
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

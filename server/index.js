@@ -13,6 +13,8 @@ const staffRoutes = require("./routes/staff");
 const lostItemRoutes = require("./routes/lostItemRoutes");
 const notificationRoutes = require("./routes/notifications");
 const feedbackRoutes = require("./routes/feedbackRoutes");
+const studentVerificationRoutes = require("./routes/studentVerification");
+const wifiRoutes = require("./routes/wifiRoutes");
 
 dotenv.config();
 
@@ -32,6 +34,8 @@ app.use("/api/staff", staffRoutes);
 app.use('/api/lost-items', lostItemRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/student-verification', studentVerificationRoutes);
+app.use('/api/wifi', wifiRoutes);
 
 
 mongoose
