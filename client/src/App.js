@@ -20,7 +20,7 @@ import EditTrainSchedule from "./components/EditTrainSchedule";
 import AdminBookings from "./components/AdminBookings";
 import StaffManagement from "./components/StaffManagement";
 import AdminReports from "./components/AdminReports";
-import LostItemForm from "./components/lostItemForm";
+import LostItemForm from "./components/LostItemForm";
 import LostAndFoundGallery from "./components/LostAndFoundGallery";
 import NotificationPanel from "./components/NotificationPanel";
 import Feedback from "./components/Feedback";

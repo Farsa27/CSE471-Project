@@ -14,7 +14,6 @@ const createLostItem = async (req, res) => {
   try {
     const { questions } = req.body;
 
-    // Parse questions safely
     let parsedQuestions = [];
     try {
       parsedQuestions = typeof questions === "string" ? JSON.parse(questions) : questions;
