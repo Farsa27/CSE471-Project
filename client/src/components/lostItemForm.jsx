@@ -17,13 +17,12 @@ export default function LostItemForm({ onCreated }) {
       fd.append('contactEmail', data.contactEmail || '');
       fd.append('status', 'lost');
 
-      // send questions as JSON
+  
       fd.append('questions', JSON.stringify(questions));
 
-      // attach photos
       photoFiles.forEach((f) => fd.append('photos', f));
 
-      // send request directly to backend
+      
       const resp = await fetch('http://localhost:5000/api/lost-items', {
         method: 'POST',
         body: fd,
@@ -36,7 +35,7 @@ export default function LostItemForm({ onCreated }) {
       const result = await resp.json();
       onCreated?.(result);
 
-      // reset form state
+     
       reset();
       setQuestions([{ question: '', answer: '' }]);
       setPhotoFiles([]);
