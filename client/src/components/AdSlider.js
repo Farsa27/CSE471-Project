@@ -61,7 +61,7 @@ export default function AdSlider() {
 
       <button
         onClick={handleNext}
-        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 shadow"
+        className="p-2 rounded-full bg-blue-950 hover:bg-blue-200 shadow"
       >
         <ChevronRight size={30} />
       </button>
