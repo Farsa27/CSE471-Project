@@ -14,7 +14,6 @@ export default function TrainScheduleList() {
   const [favoriteRoutes, setFavoriteRoutes] = useState([]);
 
   const navigate = useNavigate();
-  const isAdmin = localStorage.getItem("isAdmin") === "true";
 
   useEffect(() => {
     fetchSchedules();
@@ -94,29 +93,6 @@ export default function TrainScheduleList() {
       navigate("/payment-checkout", { state: { bookingData } });
     } catch {
       alert("Error checking bookings. Try again.");
-    }
-  };
-
-  const toggleFavorite = async (station) => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      alert("Please log in to manage favorites");
-      navigate("/login");
-      return;
-    }
-
-    try {
-      if (favorites.includes(station)) {
-        await axios.delete(`http://localhost:5000/api/users/${userId}/favorites`, {
-          data: { station },
-        });
-        setFavorites(prev => prev.filter(s => s !== station));
-      } else {
-        await axios.post(`http://localhost:5000/api/users/${userId}/favorites`, { station });
-        setFavorites(prev => [...prev, station]);
-      }
-    } catch {
-      alert("Failed to update favorites");
     }
   };
 
@@ -218,7 +194,6 @@ export default function TrainScheduleList() {
                 <th>Arrival</th>
                 <th>Price</th>
                 <th>Action</th>
-                {isAdmin && <th>Admin</th>}
               </tr>
             </thead>
             <tbody>
