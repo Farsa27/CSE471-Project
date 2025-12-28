@@ -8,7 +8,7 @@ export default function LostItemForm({ onCreated }) {
   const [questions, setQuestions] = useState([{ question: '', answer: '' }]);
 
   const onSubmit = async (data) => {
-    console.log('🔍 Raw form data from react-hook-form:', data);
+    console.log('Raw form data from react-hook-form:', data);
 
 
     const validQuestions = questions.filter(q => q.question.trim() && q.answer.trim());
@@ -38,13 +38,13 @@ export default function LostItemForm({ onCreated }) {
 
       photoFiles.forEach((file, index) => {
         fd.append('photos', file);
-        console.log(`📸 Photo ${index + 1}:`, file.name, file.type, file.size);
+        console.log(`Photo ${index + 1}:`, file.name, file.type, file.size);
       });
 
       console.log('Final validQuestions being sent:', validQuestions);
       console.log('Total photos being sent:', photoFiles.length);
 
-      console.log('📦 Full FormData contents:');
+      console.log(' Full FormData contents:');
       for (let [key, value] of fd.entries()) {
         if (value instanceof File) {
           console.log(`   ${key}: [File] ${value.name} (${value.type}, ${value.size} bytes)`);
@@ -134,7 +134,7 @@ export default function LostItemForm({ onCreated }) {
           onChange={(e) => {
             const files = Array.from(e.target.files || []).slice(0, 4);
             setPhotoFiles(files);
-            console.log('🖼️ Photos selected:', files.map(f => f.name));
+            console.log(' Photos selected:', files.map(f => f.name));
           }}
         />
 
