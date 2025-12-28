@@ -56,9 +56,10 @@ export default function LostItemForm({ onCreated }) {
   const removeQuestion = (idx) => setQuestions(questions.filter((_, i) => i !== idx));
 
   return (
-    <div className="add-container">
-      <h2>Post a lost item</h2>
-      <form className="form-wrapper" onSubmit={handleSubmit(onSubmit)}>
+    <div className="layout">
+      <div className="form-section">
+        <h2>Post a lost item</h2>
+        <form className="form-wrapper" onSubmit={handleSubmit(onSubmit)}>
         <label>Title</label>
         <input {...register('title', { required: true })} />
 
@@ -84,7 +85,7 @@ export default function LostItemForm({ onCreated }) {
 
         <h3>Verification questions</h3>
         {questions.map((q, idx) => (
-          <div key={idx} style={{ marginBottom: 8 }}>
+          <div key={idx} className="question-row">
             <input
               placeholder="Question"
               value={q.question}
@@ -95,13 +96,13 @@ export default function LostItemForm({ onCreated }) {
               value={q.answer}
               onChange={(e) => setQuestionField(idx, 'answer', e.target.value)}
             />
-            <button type="button" onClick={() => removeQuestion(idx)}>Remove</button>
+            <button type="button" onClick={() => removeQuestion(idx)} className="nav-link">Remove</button>
           </div>
         ))}
-        <button type="button" onClick={addQuestion}>Add question</button>
-
-        <button type="submit">Post item</button>
-      </form>
+        <button type="button" onClick={addQuestion} className="nav-link">Add question</button>
+        <button type="submit" className="submit-btn">Post item</button>
+        </form>
+      </div>
     </div>
   );
 }

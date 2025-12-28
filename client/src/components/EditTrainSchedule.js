@@ -36,7 +36,7 @@ export default function EditTrainSchedule() {
         setLoading(false);
       } catch (err) {
         alert("Failed to load schedule");
-        navigate("/");
+        navigate("/admin-dashboard");
       }
     };
 
@@ -57,7 +57,7 @@ export default function EditTrainSchedule() {
       });
 
       alert("Schedule updated successfully!");
-      navigate("/");
+      navigate("/admin-dashboard");
     } catch (err) {
       console.error(err);
       alert("Failed to update schedule");
@@ -75,7 +75,7 @@ export default function EditTrainSchedule() {
   return (
     <div className="edit-container">
       {/* Back Button */}
-      <Link to="/" className="back-btn">
+      <Link to="/admin-dashboard" className="back-btn">
         Back to Schedules
       </Link>
 
@@ -174,7 +174,7 @@ export default function EditTrainSchedule() {
               Update Schedule
             </button>
 
-            <Link to="/" className="btn cancel">
+            <Link to="/admin-dashboard" className="btn cancel">
               Cancel
             </Link>
           </div>

@@ -1,6 +1,6 @@
 .qr-tickets-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(15 23 42));
   padding: 20px;
 }
 
@@ -13,27 +13,26 @@
 }
 
 .qr-header h1 {
-  color: white;
+  color: rgb(241 245 249);
   font-size: 32px;
-  font-weight: bold;
+  font-weight: 700;
   flex: 1;
 }
 
 .back-btn {
-  background: white;
-  color: #667eea;
-  border: none;
-  padding: 12px 24px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgb(241 245 249);
+  padding: 10px 20px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .back-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: rgba(255,255,255,0.1);
 }
 
 .loading-state,
@@ -47,51 +46,50 @@
 .empty-state {
   max-width: 500px;
   margin: 60px auto;
-  background: white;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   padding: 60px 40px;
   border-radius: 16px;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .empty-state h2 {
-  color: #333;
+  color: rgb(241 245 249);
   font-size: 28px;
   margin-bottom: 15px;
 }
 
 .empty-state p {
-  color: #666;
+  color: rgb(148 163 184);
   font-size: 18px;
   margin-bottom: 30px;
 }
 
 .book-now-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgb(16 185 129);
   color: white;
   border: none;
-  padding: 14px 32px;
+  padding: 12px 24px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s;
 }
 
 .book-now-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  background: rgb(5 150 105);
 }
 
 .qr-instructions {
   max-width: 1200px;
   margin: 0 auto 20px;
-  color: white;
+  color: rgb(203 213 225);
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   padding: 15px 20px;
   border-radius: 8px;
-  backdrop-filter: blur(10px);
 }
 
 .bookings-list {

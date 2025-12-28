@@ -1,22 +1,24 @@
 .layout {
   display: flex;
   min-height: 100vh;
-  background: #000;
-  color: white;
-  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(15 23 42));
+  color: rgb(241 245 249);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .sidebar {
-  width: 220px;
-  background: #111;
-  padding: 20px;
-  border-right: 1px solid #333;
+  width: 250px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-title {
-  font-size: 18px;
-  color: cyan;
-  margin-bottom: 20px;
+  font-size: 24px;
+  color: rgb(241 245 249);
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 
 .sidebar ul {
@@ -25,82 +27,134 @@
 }
 
 .sidebar ul li {
-  margin: 10px 0;
+  margin: 12px 0;
   cursor: pointer;
-  color: lightgray;
+  color: rgb(203 213 225);
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .sidebar ul li:hover {
-  color: cyan;
+  color: rgb(241 245 249);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .main-content {
   flex: 1;
-  padding: 20px;
+  padding: 40px;
 }
 
 .topbar {
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .language {
-  background: #222;
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: cyan;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: rgb(241 245 249);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .logout-btn {
-  background: red;
+  background: rgb(225 29 72);
   color: white;
   border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: rgb(190 18 60);
 }
 
 .form-section {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  background: #1f1f1f;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid gray;
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgb(30 58 138); /* dark blue border */
+  padding: 40px;
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.35);
+}
+
+.form-section h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827; /* black-ish heading */
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .form-wrapper label {
   display: block;
-  margin-top: 10px;
-  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #111827; /* black labels */
+  font-size: 14px;
 }
 
 .form-wrapper input,
 .form-wrapper textarea {
   width: 100%;
-  padding: 8px;
+  padding: 12px 16px;
   margin-top: 5px;
-  border-radius: 4px;
-  border: 1px solid #444;
-  background: black;
-  color: white;
+  border-radius: 8px;
+  background: #ffffff; /* white inputs for strong contrast */
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  color: #111827; /* black text in inputs */
+  font-size: 14px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.form-wrapper input:focus,
+.form-wrapper textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: rgb(30 58 138); /* dark blue focus */
+  box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.15);
 }
 
 .question-row {
   display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .submit-btn {
-  margin-top: 15px;
-  padding: 10px 15px;
-  background: cyan;
-  color: black;
+  margin-top: 30px;
+  padding: 12px 24px;
+  background: rgb(16 185 129);
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  width: 100%;
 }
+
+.submit-btn:hover {
+  background: rgb(5 150 105);
+}
+
+/* Remove conflicting duplicate .form-section override */

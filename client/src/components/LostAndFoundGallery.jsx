@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './LostAndFoundGallery.css';
 
 export default function LostAndFoundGallery() {
   const [items, setItems] = useState([]);
@@ -65,9 +66,9 @@ export default function LostAndFoundGallery() {
   const availableItems = items.filter((item) => item.status !== 'claimed');
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="gallery-container">
       <div className="max-w-5xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8">Lost & Found Gallery</h1>
+        <h1>Lost & Found Gallery</h1>
 
         {loading ? (
           <p className="text-center text-gray-600">Loading items...</p>
@@ -76,25 +77,25 @@ export default function LostAndFoundGallery() {
             No lost items available right now.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="gallery-grid">
             {availableItems.map((item) => (
-              <div key={item._id} className="bg-white rounded-lg shadow-sm border">
+              <div key={item._id} className="gallery-card">
                 {item.photos?.length > 0 ? (
                   <img
                     src={item.photos[0]}
                     alt={`${item.title}`}
-                    className="w-full h-48 object-cover rounded-t-lg"
+                    className="w-full h-48 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
-                    <span className="text-gray-500">No photo</span>
+                  <div className="w-full h-48 bg-gray-700 flex items-center justify-center">
+                    <span className="text-gray-300">No photo</span>
                   </div>
                 )}
 
-                <div className="p-4">
-                  <h3 className="font-semibold text-lg">{item.title}</h3>
-                  <p className="text-gray-600 text-sm mt-1 line-clamp-2">{item.description}</p>
-                  <p className="text-xs text-gray-500 mt-2">Posted by: {item.contactName}</p>
+                <div className="gallery-card-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <p className="text-sm text-gray-400">Posted by: {item.contactName}</p>
 
                   <button
                     onClick={() => {
@@ -102,7 +103,7 @@ export default function LostAndFoundGallery() {
                       setAnswers({});
                       setClaimStatus('');
                     }}
-                    className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                    className="submit-btn"
                   >
                     Claim This Item
                   </button>
@@ -114,9 +115,9 @@ export default function LostAndFoundGallery() {
 
         {/* Simple Claim Modal */}
         {selectedItem && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-md w-full p-6">
-              <h2 className="text-2xl font-bold mb-4">Claim: {selectedItem.title}</h2>
+          <div className="modal-overlay">
+            <div className="claim-modal">
+              <h2>Claim: {selectedItem.title}</h2>
 
               {selectedItem.photos?.length > 0 && (
                 <img
@@ -126,18 +127,17 @@ export default function LostAndFoundGallery() {
                 />
               )}
 
-              <p className="text-gray-700 mb-6">{selectedItem.description}</p>
+              <p className="mb-6 text-slate-300">{selectedItem.description}</p>
 
-              <h3 className="font-semibold mb-3">Answer these questions:</h3>
+              <h3 className="font-semibold mb-3 text-slate-100">Answer these questions:</h3>
 
               {selectedItem.questions.map((q, idx) => (
                 <div key={idx} className="mb-4">
-                  <p className="font-medium mb-1">{idx + 1}. {q.question}</p>
+                  <p className="font-medium mb-1 text-slate-200">{idx + 1}. {q.question}</p>
                   <input
                     type="text"
                     value={answers[idx] || ''}
                     onChange={(e) => handleAnswerChange(idx, e.target.value)}
-                    className="w-full px-3 py-2 border rounded"
                     placeholder="Your answer"
                   />
                 </div>
@@ -145,7 +145,7 @@ export default function LostAndFoundGallery() {
 
               <button
                 onClick={handleClaim}
-                className="w-full bg-green-600 text-white py-2 rounded mb-2 hover:bg-green-700"
+                className="submit-btn"
               >
                 Submit & Claim
               </button>
@@ -160,7 +160,7 @@ export default function LostAndFoundGallery() {
               )}
 
               {claimStatus === 'error' && (
-                <p className="mt-4 text-red-600 text-center">Incorrect answers. Try again.</p>
+                <p className="mt-4 text-red-500 text-center">Incorrect answers. Try again.</p>
               )}
 
               <button
@@ -169,7 +169,7 @@ export default function LostAndFoundGallery() {
                   setAnswers({});
                   setClaimStatus('');
                 }}
-                className="w-full mt-2 text-gray-600 py-2"
+                className="cancel-btn"
               >
                 Cancel
               </button>

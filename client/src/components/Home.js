@@ -4,7 +4,7 @@
 // 
 //below is the updated code for profile viewing and editing
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { FaUserCircle, FaSignOutAlt, FaGlobe, FaBell, FaTrain, FaTicketAlt, FaMapMarkerAlt, FaExclamationTriangle, FaComments, FaImages, FaWifi, FaStar } from "react-icons/fa";
 import AdSlider from "./AdSlider";
@@ -20,7 +20,7 @@ const Home = () => {
 
   const userId = localStorage.getItem("userId");
 
-  const fetchFavoriteRoutes = async () => {
+  const fetchFavoriteRoutes = useCallback(async () => {
     if (!userId) return;
     try {
       const res = await fetch(`http://localhost:5000/api/users/${userId}/favorite-routes`);
@@ -32,7 +32,7 @@ const Home = () => {
     } catch (error) {
       console.error("Failed to fetch favorite routes:", error);
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,7 +49,7 @@ const Home = () => {
 
     fetchUser();
     fetchFavoriteRoutes();
-  }, [userId]);
+  }, [userId, fetchFavoriteRoutes]);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -121,7 +121,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+    <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
       {/* Top Nav */}
       <header className="sticky top-0 z-20 backdrop-blur bg-slate-900/60 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
