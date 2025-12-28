@@ -1,48 +1,89 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './lostItemForm.css';
+import './LostItemForm.css';
 
 export default function LostItemForm({ onCreated }) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [photoFiles, setPhotoFiles] = useState([]);
   const [questions, setQuestions] = useState([{ question: '', answer: '' }]);
 
   const onSubmit = async (data) => {
+    console.log('🔍 Raw form data from react-hook-form:', data);
+
+
+    const validQuestions = questions.filter(q => q.question.trim() && q.answer.trim());
+
+    console.log(' Raw questions state:', questions);
+    console.log('Valid questions (after filtering empty):', validQuestions);
+
+    if (validQuestions.length === 0) {
+      alert("Please add at least one verification question with both question and answer.");
+      return;
+    }
+
     try {
       const fd = new FormData();
-      fd.append('title', data.title);
-      fd.append('description', data.description);
-      fd.append('contactName', data.contactName);
-      fd.append('contactPhone', data.contactPhone);
-      fd.append('contactEmail', data.contactEmail || '');
-      fd.append('status', 'lost');
 
-      // send questions as JSON
-      fd.append('questions', JSON.stringify(questions));
+  
+      fd.append('title', data.title.trim());
+      fd.append('description', data.description.trim());
+      fd.append('contactName', data.contactName.trim());
+      fd.append('contactPhone', data.contactPhone.trim());
+      if (data.contactEmail?.trim()) {
+        fd.append('contactEmail', data.contactEmail.trim());
+      }
 
-      // attach photos
-      photoFiles.forEach((f) => fd.append('photos', f));
+      fd.append('questions', JSON.stringify(validQuestions));
 
-      // send request directly to backend
+
+      photoFiles.forEach((file, index) => {
+        fd.append('photos', file);
+        console.log(`📸 Photo ${index + 1}:`, file.name, file.type, file.size);
+      });
+
+      console.log('Final validQuestions being sent:', validQuestions);
+      console.log('Total photos being sent:', photoFiles.length);
+
+      console.log('📦 Full FormData contents:');
+      for (let [key, value] of fd.entries()) {
+        if (value instanceof File) {
+          console.log(`   ${key}: [File] ${value.name} (${value.type}, ${value.size} bytes)`);
+        } else {
+          console.log(`   ${key}:`, value);
+        }
+      }
+
       const resp = await fetch('http://localhost:5000/api/lost-items', {
         method: 'POST',
         body: fd,
       });
 
+      const result = await resp.json();
+
+      console.log(' Response status:', resp.status);
+      console.log('Response body:', result);
+
       if (!resp.ok) {
-        throw new Error(`Failed to create lost item: ${resp.statusText}`);
+        const msg = result.errors
+          ? result.errors.join("\n")
+          : result.message || "Unknown error";
+        alert("Error posting lost item:\n" + msg);
+        console.error('Backend error:', msg);
+        return;
       }
 
-      const result = await resp.json();
+      alert("Lost item posted successfully!");
+      console.log('Success! Item created:', result);
+
       onCreated?.(result);
 
-      // reset form state
+
       reset();
       setQuestions([{ question: '', answer: '' }]);
       setPhotoFiles([]);
     } catch (err) {
-      console.error(err);
-      alert('Error posting lost item. Please try again.');
+      console.error(' Network or unexpected error:', err);
+      alert('Network error. Please try again.');
     }
   };
 
@@ -52,57 +93,79 @@ export default function LostItemForm({ onCreated }) {
     setQuestions(next);
   };
 
-  const addQuestion = () => setQuestions([...questions, { question: '', answer: '' }]);
-  const removeQuestion = (idx) => setQuestions(questions.filter((_, i) => i !== idx));
+  const addQuestion = () => {
+    console.log('➕Adding new question');
+    setQuestions([...questions, { question: '', answer: '' }]);
+  };
+
+  const removeQuestion = (idx) => {
+    console.log('➖ Removing question at index:', idx);
+    setQuestions(questions.filter((_, i) => i !== idx));
+  };
 
   return (
-    <div className="layout">
-      <div className="form-section">
-        <h2>Post a lost item</h2>
-        <form className="form-wrapper" onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <input {...register('title', { required: true })} />
+    <div className="add-container">
+      <h2>Post a Lost Item</h2>
+      <form className="form-wrapper" onSubmit={handleSubmit(onSubmit)}>
+        <label>Title *</label>
+        <input {...register('title', { required: "Title is required" })} />
+        {errors.title && <p style={{color: 'red'}}>{errors.title.message}</p>}
 
-        <label>Description</label>
-        <textarea {...register('description', { required: true })} rows={4} />
+        <label>Description *</label>
+        <textarea {...register('description', { required: "Description is required" })} rows={4} />
+        {errors.description && <p style={{color: 'red'}}>{errors.description.message}</p>}
 
-        <label>Contact name</label>
-        <input {...register('contactName', { required: true })} />
+        <label>Contact Name *</label>
+        <input {...register('contactName', { required: "Contact name is required" })} />
+        {errors.contactName && <p style={{color: 'red'}}>{errors.contactName.message}</p>}
 
-        <label>Contact phone</label>
-        <input {...register('contactPhone', { required: true })} />
+        <label>Contact Phone *</label>
+        <input {...register('contactPhone', { required: "Phone is required" })} />
+        {errors.contactPhone && <p style={{color: 'red'}}>{errors.contactPhone.message}</p>}
 
-        <label>Contact email (optional)</label>
-        <input {...register('contactEmail')} />
+        <label>Contact Email (optional)</label>
+        <input type="email" {...register('contactEmail')} />
 
         <label>Photos (up to 4)</label>
         <input
           type="file"
-          accept="image/*"
+          accept="image/*,video/*"
           multiple
-          onChange={(e) => setPhotoFiles(Array.from(e.target.files || []).slice(0, 4))}
+          onChange={(e) => {
+            const files = Array.from(e.target.files || []).slice(0, 4);
+            setPhotoFiles(files);
+            console.log('🖼️ Photos selected:', files.map(f => f.name));
+          }}
         />
 
-        <h3>Verification questions</h3>
+        <h3>Verification Questions (at least one required)</h3>
         {questions.map((q, idx) => (
-          <div key={idx} className="question-row">
+          <div key={idx} style={{ marginBottom: 12, padding: 8, border: '1px solid #ccc' }}>
             <input
               placeholder="Question"
               value={q.question}
               onChange={(e) => setQuestionField(idx, 'question', e.target.value)}
+              style={{ width: '45%', marginRight: 8 }}
             />
             <input
-              placeholder="Answer"
+              placeholder="Answer (case-insensitive)"
               value={q.answer}
               onChange={(e) => setQuestionField(idx, 'answer', e.target.value)}
+              style={{ width: '45%' }}
             />
-            <button type="button" onClick={() => removeQuestion(idx)} className="nav-link">Remove</button>
+            {questions.length > 1 && (
+              <button type="button" onClick={() => removeQuestion(idx)} style={{ marginLeft: 8 }}>
+                Remove
+              </button>
+            )}
           </div>
         ))}
-        <button type="button" onClick={addQuestion} className="nav-link">Add question</button>
-        <button type="submit" className="submit-btn">Post item</button>
-        </form>
-      </div>
+        <button type="button" onClick={addQuestion}>Add Another Question</button>
+
+        <button type="submit" style={{ marginTop: 20, padding: 12, fontSize: 16 }}>
+          Post Lost Item
+        </button>
+      </form>
     </div>
   );
 }
