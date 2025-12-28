@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaStar } from "react-icons/fa";
 import "./TrainScheduleList.css";
+import { t } from "i18next";
 
 export default function TrainScheduleList() {
   const [schedules, setSchedules] = useState([]);
@@ -11,9 +12,9 @@ export default function TrainScheduleList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [favoriteRoutes, setFavoriteRoutes] = useState([]);
 
   const navigate = useNavigate();
-  const isAdmin = localStorage.getItem("isAdmin") === "true";
 
   useEffect(() => {
     fetchSchedules();
@@ -23,6 +24,14 @@ export default function TrainScheduleList() {
         .get(`http://localhost:5000/api/users/${userId}`)
         .then((res) => {
           setFavorites(res.data?.user?.favoriteStations || []);
+        })
+        .catch(() => {});
+      
+      // Fetch favorite routes
+      axios
+        .get(`http://localhost:5000/api/users/${userId}/favorite-routes`)
+        .then((res) => {
+          setFavoriteRoutes(res.data?.favoriteRoutes || []);
         })
         .catch(() => {});
     }
@@ -88,26 +97,44 @@ export default function TrainScheduleList() {
     }
   };
 
-  const toggleFavorite = async (station) => {
+  const toggleFavoriteRoute = async (train) => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
-      alert("Please log in to manage favorites");
+      alert("Please log in to manage favorite routes");
       navigate("/login");
       return;
     }
 
     try {
-      if (favorites.includes(station)) {
-        await axios.delete(`http://localhost:5000/api/users/${userId}/favorites`, {
-          data: { station },
+      const isFavorite = favoriteRoutes.some(r => r.scheduleId === train._id);
+      console.log("Toggle favorite route:", train.trainName, "Current favorite:", isFavorite);
+      
+      if (isFavorite) {
+        console.log("Removing from favorites...");
+        await axios.delete(`http://localhost:5000/api/users/${userId}/favorite-routes`, {
+          data: { scheduleId: train._id },
         });
-        setFavorites(prev => prev.filter(s => s !== station));
+        setFavoriteRoutes(prev => prev.filter(r => r.scheduleId !== train._id));
+        console.log("Removed successfully");
       } else {
-        await axios.post(`http://localhost:5000/api/users/${userId}/favorites`, { station });
-        setFavorites(prev => [...prev, station]);
+        const routeData = {
+          scheduleId: train._id,
+          trainName: train.trainName,
+          from: train.from,
+          to: train.to,
+          departureTime: train.departureTime,
+          arrivalTime: train.arrivalTime,
+          price: train.price,
+        };
+        console.log("Adding to favorites:", routeData);
+        const response = await axios.post(`http://localhost:5000/api/users/${userId}/favorite-routes`, routeData);
+        console.log("Add response:", response.data);
+        setFavoriteRoutes(prev => [...prev, routeData]);
+        console.log("Added successfully");
       }
-    } catch {
-      alert("Failed to update favorites");
+    } catch (err) {
+      console.error("Failed to update favorite routes:", err.response?.data || err.message);
+      alert(`Failed to update: ${err.response?.data?.message || err.message}`);
     }
   };
 
@@ -118,6 +145,14 @@ export default function TrainScheduleList() {
   );
 
   const prioritized = [...filtered].sort((a, b) => {
+    const aIsFavoriteRoute = favoriteRoutes.some(r => r.scheduleId === a._id);
+    const bIsFavoriteRoute = favoriteRoutes.some(r => r.scheduleId === b._id);
+    
+    // Favorite routes come first
+    if (aIsFavoriteRoute && !bIsFavoriteRoute) return -1;
+    if (!aIsFavoriteRoute && bIsFavoriteRoute) return 1;
+    
+    // Then sort by favorite stations
     const aFav = favorites.includes(a.from) || favorites.includes(a.to);
     const bFav = favorites.includes(b.from) || favorites.includes(b.to);
     return (bFav ? 1 : 0) - (aFav ? 1 : 0);
@@ -126,13 +161,7 @@ export default function TrainScheduleList() {
   return (
     <div className="schedule-container">
       <div className="top-bar">
-        <h1>🚆 Train Schedule Management</h1>
-      </div>
-
-      <div className="admin-login">
-        <button onClick={() => navigate("/admin-login")} className="admin-btn login">
-          Admin Login
-        </button>
+        <h1>🚆 {t("Train Schedule")} </h1>
       </div>
 
       <div className="search-wrapper">
@@ -140,7 +169,7 @@ export default function TrainScheduleList() {
           <FaSearch className="search-icon" />
           <input
             type="text"
-            placeholder="Search by train name, from or to station..."
+            placeholder={t("Search by train name,from or to station...")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="search-input"
@@ -150,52 +179,59 @@ export default function TrainScheduleList() {
 
       <div className="table-wrapper">
         {loading ? (
-          <div className="loading">Loading schedules...</div>
+          <div className="loading">{t("Loading schedules...")}</div>
         ) : error ? (
           <div className="error">{error}</div>
         ) : prioritized.length === 0 ? (
-          <div className="empty">No trains found</div>
+          <div className="empty">{t("No trains found.")}</div>
         ) : (
           <table className="table-container">
             <thead>
               <tr>
-                <th>Train</th>
-                <th>Route</th>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Price</th>
-                <th>Action</th>
-                {isAdmin && <th>Admin</th>}
+                <th>⭐</th>
+                <th>{t("Train")}</th>
+                <th>{t("Route")}</th>
+                <th>{t("Departure")}</th>
+                <th>{t("Arrival")}</th>
+                <th>{t("Price")}</th>
+                <th>{t("Action")}</th>
               </tr>
             </thead>
             <tbody>
-              {prioritized.map((train, index) => (
-                <tr key={train._id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
-                  <td>
-                    <strong>{train.trainName}</strong>
-                    <div>ID: {train._id.slice(-8).toUpperCase()}</div>
-                  </td>
-                  <td>
-                    {train.from}
-                    <button onClick={() => toggleFavorite(train.from)} title="Favorite">
-                      <FaStar color={favorites.includes(train.from) ? "#f59e0b" : "#d1d5db"} />
-                    </button>
-                    →
-                    {train.to}
-                    <button onClick={() => toggleFavorite(train.to)} title="Favorite">
-                      <FaStar color={favorites.includes(train.to) ? "#f59e0b" : "#d1d5db"} />
-                    </button>
-                  </td>
-                  <td>{train.departureTime}</td>
-                  <td>{train.arrivalTime}</td>
-                  <td>৳{train.price}</td>
-                  <td>
-                    <button onClick={() => handleBooking(train)} className="btn book">
-                      Book
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {prioritized.map((train, index) => {
+                const isRouteFavorite = favoriteRoutes.some(r => r.scheduleId === train._id);
+                return (
+                  <tr key={train._id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
+                    <td>
+                      <button 
+                        onClick={() => toggleFavoriteRoute(train)} 
+                        title="Favorite this route"
+                        className="star-btn"
+                      >
+                        <FaStar 
+                          size={20}
+                          color={isRouteFavorite ? "#f59e0b" : "#d1d5db"} 
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <strong>{train.trainName}</strong>
+                      <div>ID: {train._id.slice(-8).toUpperCase()}</div>
+                    </td>
+                    <td>
+                      {train.from} → {train.to}
+                    </td>
+                    <td>{train.departureTime}</td>
+                    <td>{train.arrivalTime}</td>
+                    <td>৳{train.price}</td>
+                    <td>
+                      <button onClick={() => handleBooking(train)} className="btn book">
+                        {t("Book")}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}

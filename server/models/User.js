@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  favoriteRoutes: {
+    type: [{
+      scheduleId: String,
+      trainName: String,
+      from: String,
+      to: String,
+      departureTime: String,
+      arrivalTime: String,
+      price: Number,
+    }],
+    default: [],
+  },
   isStudent: {
     type: Boolean,
     default: false,

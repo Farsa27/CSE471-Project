@@ -44,6 +44,9 @@ const {
   addFavoriteStation,
   removeFavoriteStation,
   getFavoriteStations,
+  addFavoriteRoute,
+  removeFavoriteRoute,
+  getFavoriteRoutes,
 } = require("../controllers/userController");
 const User = require("../models/User");
 const mongoose = require("mongoose");
@@ -126,5 +129,10 @@ router.put("/:id", updateUser);
 router.get("/:id/favorites", getFavoriteStations);
 router.post("/:id/favorites", addFavoriteStation);
 router.delete("/:id/favorites", removeFavoriteStation);
+
+// Favorite Routes
+router.get("/:id/favorite-routes", getFavoriteRoutes);
+router.post("/:id/favorite-routes", addFavoriteRoute);
+router.delete("/:id/favorite-routes", removeFavoriteRoute);
 
 module.exports = router;

@@ -3,52 +3,55 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(15 23 42));
   padding: 20px;
 }
 
 .payment-card {
-  background: white;
-  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
   padding: 40px;
   max-width: 600px;
   width: 100%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .payment-card h2 {
   text-align: center;
-  color: #333;
+  color: rgb(241 245 249);
   margin-bottom: 30px;
   font-size: 28px;
+  font-weight: 700;
 }
 
 .booking-summary {
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
   padding: 20px;
   margin-bottom: 30px;
 }
 
 .booking-summary h3 {
-  color: #667eea;
+  color: rgb(52 211 153);
   margin-bottom: 15px;
   font-size: 20px;
+  font-weight: 600;
 }
 
 .booking-summary p {
   margin: 10px 0;
-  color: #555;
+  color: rgb(203 213 225);
   font-size: 16px;
 }
 
 .booking-summary .price {
-  font-size: 20px;
-  color: #667eea;
-  font-weight: bold;
+  font-size: 24px;
+  color: rgb(52 211 153);
+  font-weight: 700;
   margin-top: 15px;
   padding-top: 15px;
-  border-top: 2px solid #e0e0e0;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .payment-form {
@@ -57,27 +60,25 @@
 
 .pay-button {
   width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgb(16 185 129);
   color: white;
   border: none;
-  padding: 16px;
+  padding: 12px;
   border-radius: 8px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   margin-top: 20px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
 }
 
 .pay-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+  background: rgb(5 150 105);
 }
 
 .pay-button:disabled {
-  background: #ccc;
+  background: rgb(71 85 105);
   cursor: not-allowed;
-  transform: none;
 }
 
 .payment-message {

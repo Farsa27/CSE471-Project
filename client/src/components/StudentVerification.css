@@ -1,6 +1,6 @@
 .student-verification-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(15 23 42));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,9 +8,9 @@
 }
 
 .student-verification-card {
-  background: white;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   max-width: 600px;
   width: 100%;
   padding: 40px;
@@ -18,31 +18,32 @@
 }
 
 .back-button {
-  background: #f3f4f6;
-  border: none;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
   margin-bottom: 20px;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  color: rgb(203 213 225);
 }
 
 .back-button:hover {
-  background: #e5e7eb;
+  background: rgba(255,255,255,0.1);
 }
 
 .student-verification-card h2 {
   font-size: 28px;
-  font-weight: bold;
-  color: #1f2937;
+  font-weight: 700;
+  color: rgb(241 245 249);
   margin-bottom: 20px;
   text-align: center;
 }
 
 .info-text {
   background: #dbeafe;
-  color: #1e40af;
+  color: #667eea ;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 25px;
@@ -60,17 +61,17 @@
 }
 
 .upload-box {
-  border: 3px dashed #9ca3af;
+  border: 2px dashed rgba(255,255,255,0.2);
   border-radius: 12px;
   padding: 40px;
   text-align: center;
   transition: all 0.3s;
-  background: #f9fafb;
+  background: rgba(255,255,255,0.05);
 }
 
 .upload-box:hover {
-  border-color: #667eea;
-  background: #f3f4f6;
+  border-color: rgb(52 211 153);
+  background: rgba(255,255,255,0.1);
 }
 
 .upload-placeholder {
@@ -85,7 +86,7 @@
 }
 
 .upload-placeholder p {
-  color: #6b7280;
+  color: rgb(148 163 184);
   font-weight: 500;
 }
 

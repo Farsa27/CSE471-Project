@@ -1,6 +1,6 @@
 .wifi-payment-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(15 23 42));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,9 +8,9 @@
 }
 
 .wifi-payment-card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
   max-width: 600px;
   width: 100%;
   padding: 40px;
@@ -34,13 +34,14 @@
 .wifi-payment-card h2 {
   font-size: 28px;
   font-weight: bold;
-  color: #1f2937;
+  color: rgb(241 245 249);
   margin-bottom: 30px;
   text-align: center;
 }
 
 .subscription-summary {
-  background: #f9fafb;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   padding: 25px;
   border-radius: 16px;
   margin-bottom: 30px;
@@ -49,7 +50,7 @@
 .subscription-summary h3 {
   font-size: 20px;
   font-weight: bold;
-  color: #1f2937;
+  color: rgb(241 245 249);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -59,7 +60,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .detail-row:last-child {
@@ -68,12 +69,12 @@
 
 .detail-row .label {
   font-weight: 500;
-  color: #6b7280;
+  color: rgb(148 163 184);
 }
 
 .detail-row .value {
   font-weight: 600;
-  color: #1f2937;
+  color: rgb(241 245 249);
 }
 
 .price-row {
