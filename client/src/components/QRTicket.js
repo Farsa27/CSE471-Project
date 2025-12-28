@@ -10,6 +10,7 @@ const QRTicket = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedBooking, setSelectedBooking] = useState(null);
+  const [ticketExpiry, setTicketExpiry] = useState(null);
   const qrRef = useRef(null);
 
   useEffect(() => {
@@ -43,6 +44,11 @@ const QRTicket = () => {
   };
 
   const generateQRData = (booking) => {
+    // Calculate expiry date (1 week from now)
+    const generatedDate = new Date();
+    const expiryDate = new Date(generatedDate);
+    expiryDate.setDate(expiryDate.getDate() + 7);
+    
     return JSON.stringify({
       bookingId: booking._id,
       trainName: booking.trainName,
@@ -54,12 +60,19 @@ const QRTicket = () => {
       email: booking.userEmail,
       price: booking.price,
       status: booking.status,
-      paymentId: booking.paymentIntentId
+      paymentId: booking.paymentIntentId,
+      generatedAt: generatedDate.toISOString(),
+      expiresAt: expiryDate.toISOString()
     });
   };
 
   const handleGenerateQR = async (booking) => {
     try {
+      // Calculate expiry date
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 7);
+      setTicketExpiry(expiryDate);
+      
       // Delete the booking from the database
       await axios.delete(`http://localhost:5000/api/bookings/${booking._id}`);
       
@@ -85,6 +98,7 @@ const QRTicket = () => {
     const link = document.createElement('a');
     link.download = `ticket-${selectedBooking.trainName}-${selectedBooking._id}.png`;
     link.href = url;
+    setTicketExpiry(null);
     link.click();
   };
 
@@ -263,6 +277,22 @@ const QRTicket = () => {
                       <span className="text-slate-400">Price:</span>
                       <span className="text-2xl font-bold text-green-300">৳{selectedBooking.price}</span>
                     </div>
+                    {ticketExpiry && (
+                      <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                        <div className="flex items-center gap-2 text-slate-400">
+                          <FaClock size={12} />
+                          <span>Expires:</span>
+                        </div>
+                        <span className="font-semibold text-amber-400">
+                          {ticketExpiry.toLocaleDateString('en-US', { 
+                            weekday: 'short', 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Actions */}

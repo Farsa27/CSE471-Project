@@ -85,3 +85,7 @@
 .btn.add { background: green; color: white; }
 .btn.edit { background: orange; color: white; }
 .btn.delete { background: darkred; color: white; }
+.btn.staff { background: purple; color: white; }
+.btn.reports { background: teal; color: white; }
+.btn.verify { background: darkgreen; color: white; }
+.btn.upload-ad { background: #ff6b35; color: white; }

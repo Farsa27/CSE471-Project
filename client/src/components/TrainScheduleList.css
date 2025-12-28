@@ -1,20 +1,40 @@
-/* Container */
+
 .schedule-container {
+  width: 100%;
+  min-height: 100vh;
   padding: 20px;
   background: black;
   color: white;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Header */
+
+.top-bar {
+  width: 100%;
+  background-color: #1f2937;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.top-bar-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+
 .schedule-header {
   text-align: center;
   padding: 15px;
   border-bottom: 1px solid gray;
 }
 
-/* Admin button (no fixed positioning for simplicity) */
-.admin-toggle {
+
+.admin-login {
   text-align: right;
   margin: 10px;
 }
@@ -31,17 +51,19 @@
 .admin-btn.login { background: purple; color: white; }
 .admin-btn.exit { background: red; color: white; }
 
-/* Search section */
+
 .search-wrapper {
   margin: 15px auto;
   text-align: center;
 }
 
 .search-bar {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid gray;
   padding: 6px;
   background: #222;
+  border-radius: 4px;
 }
 
 .search-icon {
@@ -56,19 +78,71 @@
   background: black;
   border: none;
   color: white;
+  outline: none;
 }
 
 .search-input::placeholder {
   color: lightgray;
 }
 
-/* Table wrapper */
 .table-wrapper {
+  flex: 1;
   margin: 15px auto;
   padding: 10px;
+  width: 100%;
+  overflow-x: auto; 
 }
 
-/* Messages */
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid gray;
+  word-wrap: break-word;
+}
+
+.table-head th {
+  background-color: #333;
+  color: cyan;
+  font-weight: bold;
+}
+
+
+.row-even { background-color: #111; }
+.row-odd { background-color: #1a1a1a; }
+
+.train-name {
+  font-weight: bold;
+  color: #00ffff;
+}
+
+.train-id {
+  font-size: 11px;
+  color: gray;
+}
+
+
+.route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.route .arrow {
+  margin: 0 8px;
+  color: cyan;
+}
+
+
 .loading,
 .error,
 .empty {
@@ -80,7 +154,37 @@
 .error { color: red; }
 .empty { color: gray; }
 
-/* Price styles */
+
 .price { font-weight: bold; }
 .taka-symbol { font-size: 11px; margin-right: 2px; }
 .price-number { font-size: 12px; }
+
+
+.btn.book {
+  background: cyan;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.book:hover {
+  background: #00e0e0;
+}
+
+.star-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.star-btn:hover {
+  transform: scale(1.2);
+}

@@ -28,6 +28,7 @@ import StudentVerification from "./components/StudentVerification";
 import VerifyStudents from "./components/VerifyStudents";
 import WifiSubscription from "./components/WifiSubscription";
 import WifiPayment from "./components/WifiPayment";
+import UploadAd from "./components/UploadAd";
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         <Route path="/staff-management" element={<StaffManagement />} />
         <Route path="/admin-reports" element={<AdminReports />} />
         <Route path="/verify-students" element={<VerifyStudents />} />
+        <Route path="/upload-ad" element={<UploadAd />} />
       </Routes>
     </Router>
   );

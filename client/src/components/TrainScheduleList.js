@@ -1,4 +1,4 @@
-// src/pages/schedule/TrainScheduleList.jsx
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +11,10 @@ export default function TrainScheduleList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [favoriteRoutes, setFavoriteRoutes] = useState([]);
 
   const navigate = useNavigate();
   const isAdmin = localStorage.getItem("isAdmin") === "true";
-
-
 
   useEffect(() => {
     fetchSchedules();
@@ -24,12 +23,17 @@ export default function TrainScheduleList() {
       axios
         .get(`http://localhost:5000/api/users/${userId}`)
         .then((res) => {
-          const favs = res.data?.user?.favoriteStations || [];
-          setFavorites(favs);
+          setFavorites(res.data?.user?.favoriteStations || []);
         })
-        .catch(() => {
-          // silently ignore favorites fetch errors
-        });
+        .catch(() => {});
+      
+      // Fetch favorite routes
+      axios
+        .get(`http://localhost:5000/api/users/${userId}/favorite-routes`)
+        .then((res) => {
+          setFavoriteRoutes(res.data?.favoriteRoutes || []);
+        })
+        .catch(() => {});
     }
   }, []);
 
@@ -45,7 +49,6 @@ export default function TrainScheduleList() {
   };
 
   const handleBooking = async (train) => {
-    // Get user info from localStorage
     const userName = localStorage.getItem("userName") || "Guest User";
     const userEmail = localStorage.getItem("userEmail") || "";
     const userId = localStorage.getItem("userId");
@@ -57,35 +60,25 @@ export default function TrainScheduleList() {
     }
 
     try {
-      // Check if user already has a booking for this exact route and time
       const res = await axios.get(`http://localhost:5000/api/bookings/user/${userEmail}`);
-      const existingBookings = res.data.bookings;
-      
-      const duplicateBooking = existingBookings.find(
-        booking => 
-          booking.from === train.from && 
-          booking.to === train.to &&
-          booking.departureTime === train.departureTime &&
-          booking.arrivalTime === train.arrivalTime
+      const existing = res.data.bookings || [];
+      const duplicate = existing.find(
+        b => b.from === train.from && b.to === train.to &&
+             b.departureTime === train.departureTime && b.arrivalTime === train.arrivalTime
       );
-
-      if (duplicateBooking) {
-        alert(`You have already booked a ticket for this train from ${train.from} to ${train.to} at this time. Please choose a different train.`);
+      if (duplicate) {
+        alert("You already booked this train. Choose another.");
         return;
       }
 
-      // Check if user is a verified student
       let finalPrice = train.price;
       try {
         const studentRes = await axios.get(`http://localhost:5000/api/student-verification/status/${userId}`);
         if (studentRes.data.isStudent && studentRes.data.studentVerificationStatus === "verified") {
-          finalPrice = Math.max(0, train.price - 20); // Apply 20 Taka discount
+          finalPrice = Math.max(0, train.price - 20);
         }
-      } catch (err) {
-        console.error("Error checking student status:", err);
-      }
+      } catch {}
 
-      // Prepare booking data
       const bookingData = {
         trainId: train._id,
         trainName: train.trainName,
@@ -98,25 +91,11 @@ export default function TrainScheduleList() {
         passengerEmail: userEmail
       };
 
-      // Navigate to payment page with booking data
       navigate("/payment-checkout", { state: { bookingData } });
-    } catch (error) {
-      console.error("Error checking existing bookings:", error);
-      alert("Error checking existing bookings. Please try again.");
+    } catch {
+      alert("Error checking bookings. Try again.");
     }
   };
-
-  const filtered = schedules.filter(s =>
-    s.trainName?.toLowerCase().includes(search.toLowerCase()) ||
-    s.from?.toLowerCase().includes(search.toLowerCase()) ||
-    s.to?.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const prioritized = [...filtered].sort((a, b) => {
-    const aFav = favorites.includes(a.from) || favorites.includes(a.to);
-    const bFav = favorites.includes(b.from) || favorites.includes(b.to);
-    return (bFav ? 1 : 0) - (aFav ? 1 : 0);
-  });
 
   const toggleFavorite = async (station) => {
     const userId = localStorage.getItem("userId");
@@ -131,32 +110,89 @@ export default function TrainScheduleList() {
         await axios.delete(`http://localhost:5000/api/users/${userId}/favorites`, {
           data: { station },
         });
-        setFavorites((prev) => prev.filter((s) => s !== station));
+        setFavorites(prev => prev.filter(s => s !== station));
       } else {
         await axios.post(`http://localhost:5000/api/users/${userId}/favorites`, { station });
-        setFavorites((prev) => [...prev, station]);
+        setFavorites(prev => [...prev, station]);
       }
-    } catch (err) {
-      console.error("Favorite toggle failed", err);
+    } catch {
       alert("Failed to update favorites");
     }
   };
 
+  const toggleFavoriteRoute = async (train) => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("Please log in to manage favorite routes");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const isFavorite = favoriteRoutes.some(r => r.scheduleId === train._id);
+      console.log("Toggle favorite route:", train.trainName, "Current favorite:", isFavorite);
+      
+      if (isFavorite) {
+        console.log("Removing from favorites...");
+        await axios.delete(`http://localhost:5000/api/users/${userId}/favorite-routes`, {
+          data: { scheduleId: train._id },
+        });
+        setFavoriteRoutes(prev => prev.filter(r => r.scheduleId !== train._id));
+        console.log("Removed successfully");
+      } else {
+        const routeData = {
+          scheduleId: train._id,
+          trainName: train.trainName,
+          from: train.from,
+          to: train.to,
+          departureTime: train.departureTime,
+          arrivalTime: train.arrivalTime,
+          price: train.price,
+        };
+        console.log("Adding to favorites:", routeData);
+        const response = await axios.post(`http://localhost:5000/api/users/${userId}/favorite-routes`, routeData);
+        console.log("Add response:", response.data);
+        setFavoriteRoutes(prev => [...prev, routeData]);
+        console.log("Added successfully");
+      }
+    } catch (err) {
+      console.error("Failed to update favorite routes:", err.response?.data || err.message);
+      alert(`Failed to update: ${err.response?.data?.message || err.message}`);
+    }
+  };
+
+  const filtered = schedules.filter(s =>
+    s.trainName?.toLowerCase().includes(search.toLowerCase()) ||
+    s.from?.toLowerCase().includes(search.toLowerCase()) ||
+    s.to?.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const prioritized = [...filtered].sort((a, b) => {
+    const aIsFavoriteRoute = favoriteRoutes.some(r => r.scheduleId === a._id);
+    const bIsFavoriteRoute = favoriteRoutes.some(r => r.scheduleId === b._id);
+    
+    // Favorite routes come first
+    if (aIsFavoriteRoute && !bIsFavoriteRoute) return -1;
+    if (!aIsFavoriteRoute && bIsFavoriteRoute) return 1;
+    
+    // Then sort by favorite stations
+    const aFav = favorites.includes(a.from) || favorites.includes(a.to);
+    const bFav = favorites.includes(b.from) || favorites.includes(b.to);
+    return (bFav ? 1 : 0) - (aFav ? 1 : 0);
+  });
+
   return (
     <div className="schedule-container">
-      <div className="schedule-header"></div>
+      <div className="top-bar">
+        <h1>🚆 Train Schedule Management</h1>
+      </div>
 
-      
       <div className="admin-login">
-        <button
-          onClick={() => navigate("/admin-login")}
-          className="admin-btn login"
-        >
+        <button onClick={() => navigate("/admin-login")} className="admin-btn login">
           Admin Login
         </button>
       </div>
 
-      
       <div className="search-wrapper">
         <div className="search-bar">
           <FaSearch className="search-icon" />
@@ -170,84 +206,64 @@ export default function TrainScheduleList() {
         </div>
       </div>
 
-      
       <div className="table-wrapper">
         {loading ? (
           <div className="loading">Loading schedules...</div>
         ) : error ? (
           <div className="error">{error}</div>
-        ) : filtered.length === 0 ? (
+        ) : prioritized.length === 0 ? (
           <div className="empty">No trains found</div>
         ) : (
-          <div className="table-container">
-            <table>
-              <thead>
-                <tr className="table-head">
-                  <th>Train Name</th>
-                  <th>From → To</th>
-                  <th>Departure</th>
-                  <th>Arrival</th>
-                  <th>Price</th>
-                  <th>Options</th>
-                  {isAdmin && <th >Admin Actions</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {prioritized.map((train, index) => (
+          <table className="table-container">
+            <thead>
+              <tr>
+                <th>⭐</th>
+                <th>Train</th>
+                <th>Route</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Price</th>
+                <th>Action</th>
+                {isAdmin && <th>Admin</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {prioritized.map((train, index) => {
+                const isRouteFavorite = favoriteRoutes.some(r => r.scheduleId === train._id);
+                return (
                   <tr key={train._id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
                     <td>
-                      <p className="train-name">{train.trainName}</p>
-                      <p className="train-id">ID: {train._id.slice(-8).toUpperCase()}</p>
-                    </td>
-                    <td className="text-center">
-                      <div className="route">
-                        <span className="from">
-                          {train.from}
-                          <button
-                            aria-label="favorite from"
-                            className="ml-2 inline-flex items-center"
-                            onClick={() => toggleFavorite(train.from)}
-                            title="Favorite station"
-                          >
-                            <FaStar color={favorites.includes(train.from) ? "#f59e0b" : "#d1d5db"} />
-                          </button>
-                        </span>
-                        <span className="arrow">→</span>
-                        <span className="to">
-                          {train.to}
-                          <button
-                            aria-label="favorite to"
-                            className="ml-2 inline-flex items-center"
-                            onClick={() => toggleFavorite(train.to)}
-                            title="Favorite station"
-                          >
-                            <FaStar color={favorites.includes(train.to) ? "#f59e0b" : "#d1d5db"} />
-                          </button>
-                        </span>
-                      </div>
-                    </td>
-                    <td className="text-center">
-                      <p className="departure">{train.departureTime}</p>
-                    </td>
-                    <td className="text-center">
-                      <p className="arrival">{train.arrivalTime}</p>
-                    </td>
-                    <td className="text-center">
-                      <p className="price">৳{train.price}</p>
-                    </td>
-                    <td className="text-center">
-                      <button
-                        onClick={() => handleBooking(train)}
-                        className="btn book"
+                      <button 
+                        onClick={() => toggleFavoriteRoute(train)} 
+                        title="Favorite this route"
+                        className="star-btn"
                       >
-                        Book Ticket
+                        <FaStar 
+                          size={20}
+                          color={isRouteFavorite ? "#f59e0b" : "#d1d5db"} 
+                        />
+                      </button>
+                    </td>
+                    <td>
+                      <strong>{train.trainName}</strong>
+                      <div>ID: {train._id.slice(-8).toUpperCase()}</div>
+                    </td>
+                    <td>
+                      {train.from} → {train.to}
+                    </td>
+                    <td>{train.departureTime}</td>
+                    <td>{train.arrivalTime}</td>
+                    <td>৳{train.price}</td>
+                    <td>
+                      <button onClick={() => handleBooking(train)} className="btn book">
+                        Book
                       </button>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                );
+              })}
+            </tbody>
+          </table>
         )}
       </div>
     </div>
