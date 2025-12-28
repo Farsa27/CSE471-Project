@@ -68,7 +68,7 @@ const Signup = () => {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
             <div className="flex items-center gap-3 text-emerald-300 mb-4">
               <FaTrain />
-              <span className="font-semibold">MassTransit</span>
+              <span className="font-semibold">{t("Mass Transit")}</span>
             </div>
             <h2 className="text-3xl font-bold leading-tight">{t("createAccount")}</h2>
             <p className="mt-2 text-slate-300">{t("signupSubtitle")}</p>

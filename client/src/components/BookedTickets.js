@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaTicketAlt, FaArrowLeft, FaTrain, FaClock, FaUser, FaEnvelope, FaCreditCard, FaCheckCircle } from "react-icons/fa";
+import { t } from "i18next";
 
 export default function BookedTickets() {
   const [bookings, setBookings] = useState([]);
@@ -60,13 +61,13 @@ export default function BookedTickets() {
             className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
           >
             <FaArrowLeft />
-            <span>Back</span>
+            <span>{t("Back")}</span>
           </button>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-300 grid place-items-center">
               <FaTicketAlt />
             </div>
-            <h1 className="text-2xl font-bold">My Booked Tickets</h1>
+            <h1 className="text-2xl font-bold">{t("My Booked Tickets")}</h1>
           </div>
         </div>
       </div>
@@ -75,7 +76,7 @@ export default function BookedTickets() {
         {loading ? (
           <div className="text-center py-16">
             <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-300">Loading your tickets...</p>
+            <p className="text-slate-300">{t("Loading your tickets...")}</p>
           </div>
         ) : error ? (
           <div className="text-center py-16">
@@ -95,14 +96,14 @@ export default function BookedTickets() {
             <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-amber-500/10 border border-amber-500/20 grid place-items-center">
               <FaTicketAlt className="text-amber-400" size={40} />
             </div>
-            <h2 className="text-2xl font-semibold mb-2">No Tickets Found</h2>
-            <p className="text-slate-400 mb-6">You haven't booked any tickets yet. Start your journey!</p>
+            <h2 className="text-2xl font-semibold mb-2">{t("No Tickets Found")}</h2>
+            <p className="text-slate-400 mb-6">{t("You haven't booked any tickets yet. Start your journey!")}</p>
             <button
               onClick={() => navigate("/train-schedules")}
               className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 rounded-lg font-medium transition"
             >
               <FaTrain />
-              <span>Book a Ticket</span>
+              <span>{t("Book a Ticket")}</span>
             </button>
           </div>
         ) : (

@@ -1,16 +1,20 @@
 /* Container */
 .admin-container {
-  padding: 20px;
-  background: black;
-  color: white;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Title */
 .admin-title {
-  font-size: 20px;
-  margin-bottom: 15px;
-  font-weight: bold;
-  color: cyan;
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+  letter-spacing: 1px;
 }
 
 /* Messages */
@@ -18,55 +22,161 @@
 .error,
 .empty {
   text-align: center;
-  font-size: 16px;
-  margin-top: 15px;
+  font-size: 18px;
+  margin: 40px auto;
+  padding: 30px;
+  max-width: 600px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.error { color: red; }
-.loading { color: gray; }
-.empty { color: lightgray; }
+.error { 
+  color: #ef4444;
+  border-left: 4px solid #ef4444;
+}
+.loading { 
+  color: #6b7280;
+}
+.empty { 
+  color: #9ca3af;
+}
 
 /* Table */
 .bookings-table {
+  max-width: 1400px;
+  margin: 0 auto;
   width: 100%;
-  border: 1px solid gray;
-  border-collapse: collapse;
-  margin-top: 15px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-.bookings-table th,
-.bookings-table td {
-  border: 1px solid gray;
-  padding: 8px;
+.bookings-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.bookings-table th {
+  padding: 18px 16px;
   text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bookings-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #1f2937;
+}
+
+.bookings-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.bookings-table tbody tr:hover {
+  background: #f9fafb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.bookings-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 /* Text styles */
-.train-name { font-weight: bold; color: cyan; }
-.passenger-phone { color: gray; font-size: 14px; }
-.fare { font-weight: bold; color: green; }
+.train-name { 
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+}
+.passenger-phone { 
+  color: #9ca3af;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+}
+.fare { 
+  font-weight: 700;
+  font-size: 16px;
+  color: #059669;
+}
 
 /* Status labels */
 .status {
-  padding: 4px;
-  border-radius: 3px;
+  padding: 6px 12px;
+  border-radius: 8px;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 600;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.status.approved { background: green; color: white; }
-.status.rejected { background: red; color: white; }
-.status.pending { background: yellow; color: black; }
+.status.approved { 
+  background: #d1fae5;
+  color: #065f46;
+}
+.status.rejected { 
+  background: #fee2e2;
+  color: #991b1b;
+}
+.status.pending { 
+  background: #fef3c7;
+  color: #92400e;
+}
 
 /* Buttons */
 .btn {
-  padding: 6px 10px;
-  border-radius: 3px;
-  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.btn.approve { background: green; color: white; }
-.btn.reject { background: orange; color: black; }
-.btn.delete { background: red; color: white; }
+.btn.approve { 
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+.btn.approve:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn.reject { 
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+.btn.reject:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.btn.delete { 
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+.btn.delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

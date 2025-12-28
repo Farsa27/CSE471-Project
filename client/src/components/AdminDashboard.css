@@ -1,32 +1,46 @@
 /* Container */
 .dashboard-container {
-  padding: 20px;
-  background: #12004d;
-  color: white;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 30px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Title */
 .dashboard-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 42px;
+  font-weight: 800;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 40px;
+  color: #ffffff;
+  text-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+  letter-spacing: 1px;
 }
 
 /* Navigation buttons */
 .nav-buttons {
-  text-align: center;
-  margin: 15px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
 }
 
 /* Add button */
 .add-button {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 /* Table wrapper */
 .table-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
   overflow-x: auto;
 }
 
@@ -35,53 +49,158 @@
 .error,
 .empty {
   text-align: center;
-  font-size: 16px;
-  margin: 15px 0;
+  font-size: 18px;
+  margin: 30px 0;
+  padding: 20px;
 }
 
-.error { color: red; }
-.empty { color: gray; }
+.error { 
+  color: #ef4444;
+  background: #fee2e2;
+  border-radius: 8px;
+}
+.empty { 
+  color: #6b7280;
+}
 
 /* Table */
 .schedule-table {
   width: 100%;
-  border: 1px solid white;
-  border-collapse: collapse;
-  margin-top: 15px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  color: #1f2937;
 }
 
-.schedule-table th,
+.schedule-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.schedule-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.schedule-table th:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+.schedule-table th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
 .schedule-table td {
-  border: 1px solid white;
-  padding: 8px;
-  text-align: center;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.schedule-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.schedule-table tbody tr:hover {
+  background: #f9fafb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* Text styles */
-.train-name { font-weight: bold; }
-.train-id { font-size: 14px; color: lightgray; }
-.price { font-size: 14px; font-weight: bold; }
+.train-name { 
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+}
+.train-id { 
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+.price { 
+  font-size: 16px;
+  font-weight: 700;
+  color: #059669;
+}
 
 /* Actions */
 .actions {
-  text-align: center;
-  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 /* Buttons */
 .btn {
-  padding: 6px 12px;
-  border-radius: 3px;
-  font-weight: bold;
-  font-size: 13px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
   border: none;
   cursor: pointer;
-  margin: 4px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 /* Button colors */
-.btn.manage { background: blue; color: white; }
-.btn.logout { background: red; color: white; }
-.btn.add { background: green; color: white; }
-.btn.edit { background: orange; color: white; }
-.btn.delete { background: darkred; color: white; }
+.btn.manage { 
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+}
+.btn.logout { 
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+.btn.add { 
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-size: 16px;
+  padding: 14px 32px;
+}
+.btn.edit { 
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+.btn.delete { 
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+.btn.staff { 
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+}
+.btn.reports { 
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+}
+.btn.verify { 
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+}
+.btn.upload-ad { 
+  background: linear-gradient(135deg, #ff6b35 0%, #f44336 100%);
+  color: white;
+}

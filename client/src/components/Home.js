@@ -1,212 +1,12 @@
 
 
-// //feature-2
-// // 
-// //below is the updated code for profile viewing and editing
-// import { useNavigate } from "react-router-dom";
-// import { useState, useEffect } from "react";
-
-
-// const Home = () => {
-//   const navigate = useNavigate();
-//   const [showProfile, setShowProfile] = useState(false);
-//   const [user, setUser] = useState(null);
-//   const [editMode, setEditMode] = useState(false);
-//   const [formData, setFormData] = useState({});
-
-
-//   const userId = localStorage.getItem("userId");
-
-
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//       if (!userId) return;
-//       const res = await fetch(`http://localhost:5000/api/users/${userId}`);
-//       const data = await res.json();
-//       if (res.ok) {
-//         setUser(data.user); // FIX: extract user from data
-//         setFormData(data.user); // FIX: same here
-//       } else {
-//         alert("Failed to fetch user data.");
-//       }
-//     };
-
-
-//     fetchUser();
-//   }, [userId]);
-
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("userId");
-//     navigate("/");
-//   };
-
-
-//   const handleProfileChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   };
-
-
-//   const handleUpdate = async () => {
-//     const { name, email, phone, password } = formData;
-
-
-//     if (!name || !email || !phone || !password) {
-//       alert("All fields are required.");
-//       return;
-//     }
-
-
-//     const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ name, email, phone, password }),
-//     });
-
-
-//     const result = await res.json();
-
-
-//     if (res.ok) {
-//       alert("Profile updated!");
-//       setUser(result.user); // FIX: use updated user object
-//       setFormData(result.user);
-//       setEditMode(false);
-//       setShowProfile(false);
-//     } else {
-//       alert(result.message || "Update failed.");
-//     }
-//   };
-
-
-//   return (
-//     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-//       <div className="absolute top-4 right-4 flex items-center space-x-2">
-//         <button
-//           onClick={() => setShowProfile(true)}
-//           className="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
-//         >
-//           Profile
-//         </button>
-//         <button
-//           onClick={handleLogout}
-//           className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-//         >
-//           Logout
-//         </button>
-//       </div>
-
-
-//       <h1 className="text-2xl font-bold mb-4">Welcome to Mass Transit Control System</h1>
-      
-//       <button
-//         onClick={() => navigate("/train-schedules")}
-//         className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-//       >
-//         View Train Schedules
-//       </button>
-
-//       <button
-//         onClick={() => navigate("/booked-tickets")}
-//         className="mt-2 px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700"
-//       >
-//         My Booked Tickets
-//       </button>
-
-//       <button
-//         onClick={() => navigate("/qr-ticket")}
-//         className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-//       >
-//         Get QR Ticket
-//       </button>
-
-//       <button
-//         onClick={() => navigate("/station-map")}
-//         className="mt-2 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-//       >
-//         My Location
-//       </button>
-
-
-//       <button
-//         onClick={() => navigate("/report-choice")}
-//         className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-//       >
-//         Report an Issue
-//       </button>
-
-//       {showProfile && (
-//         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-//           <div className="bg-white p-6 rounded shadow-lg w-96">
-//             <h2 className="text-xl font-bold mb-4">User Profile</h2>
-//             {["name", "email", "phone", "password"].map((field) => (
-//               <input
-//                 key={field}
-//                 type={field === "password" ? "password" : "text"}
-//                 name={field}
-//                 value={formData[field] || ""}
-//                 onChange={handleProfileChange}
-//                 placeholder={field}
-//                 className="mb-2 w-full px-3 py-2 border rounded"
-//                 readOnly={!editMode}
-//               />
-//             ))}
-//             <div className="flex justify-end space-x-2 mt-4">
-//               {!editMode ? (
-//                 <button
-//                   onClick={() => setEditMode(true)}
-//                   className="bg-blue-500 text-white px-4 py-1 rounded"
-//                 >
-//                   Edit
-//                 </button>
-//               ) : (
-//                 <>
-//                   <button
-//                     onClick={handleUpdate}
-//                     className="bg-green-600 text-white px-4 py-1 rounded"
-//                   >
-//                     Save
-//                   </button>
-//                   <button
-//                     onClick={() => {
-//                       setEditMode(false);
-//                       setFormData(user);
-//                     }}
-//                     className="bg-gray-400 text-white px-4 py-1 rounded"
-//                   >
-//                     Cancel
-//                   </button>
-//                 </>
-//               )}
-//               <button
-//                 onClick={() => {
-//                   setShowProfile(false);
-//                   setEditMode(false);
-//                 }}
-//                 className="bg-red-500 text-white px-4 py-1 rounded"
-//               >
-//                 Close
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-
-// export default Home;
-
-
 //feature-2
 // 
 //below is the updated code for profile viewing and editing
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { FaUserCircle, FaSignOutAlt, FaGlobe, FaBell, FaTrain, FaTicketAlt, FaMapMarkerAlt, FaExclamationTriangle, FaComments, FaImages, FaWifi } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt, FaGlobe, FaBell, FaTrain, FaTicketAlt, FaMapMarkerAlt, FaExclamationTriangle, FaComments, FaImages, FaWifi, FaStar } from "react-icons/fa";
 import AdSlider from "./AdSlider";
 
 const Home = () => {
@@ -216,8 +16,23 @@ const Home = () => {
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
+  const [favoriteRoutes, setFavoriteRoutes] = useState([]);
 
   const userId = localStorage.getItem("userId");
+
+  const fetchFavoriteRoutes = useCallback(async () => {
+    if (!userId) return;
+    try {
+      const res = await fetch(`http://localhost:5000/api/users/${userId}/favorite-routes`);
+      const data = await res.json();
+      console.log("Fetched favorite routes:", data);
+      if (res.ok) {
+        setFavoriteRoutes(data.favoriteRoutes || []);
+      }
+    } catch (error) {
+      console.error("Failed to fetch favorite routes:", error);
+    }
+  }, [userId]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -233,7 +48,8 @@ const Home = () => {
     };
 
     fetchUser();
-  }, [userId]);
+    fetchFavoriteRoutes();
+  }, [userId, fetchFavoriteRoutes]);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -246,6 +62,34 @@ const Home = () => {
   };
   const handleNotification = () => {
     alert("You have new notifications!");
+  };
+
+  const handleBookFavoriteRoute = async (route) => {
+    const userName = localStorage.getItem("userName") || "Guest User";
+    const userEmail = localStorage.getItem("userEmail") || "";
+
+    if (!userEmail) {
+      alert("Please log in to book a ticket");
+      navigate("/login");
+      return;
+    }
+
+    // Prepare booking data
+    const bookingData = {
+      trainId: route.scheduleId,
+      trainName: route.trainName,
+      from: route.from,
+      to: route.to,
+      departure: route.departureTime,
+      arrival: route.arrivalTime,
+      price: route.price,
+      passengerName: userName,
+      passengerEmail: userEmail
+    };
+
+    // Close profile and navigate to payment
+    setShowProfile(false);
+    navigate("/payment-checkout", { state: { bookingData } });
   };
 
   const handleUpdate = async () => {
@@ -277,7 +121,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
+    <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
       {/* Top Nav */}
       <header className="sticky top-0 z-20 backdrop-blur bg-slate-900/60 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -302,7 +146,10 @@ const Home = () => {
               <FaBell />
             </button>
             <button
-              onClick={() => setShowProfile(true)}
+              onClick={() => {
+                fetchFavoriteRoutes();
+                setShowProfile(true);
+              }}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10"
             >
               <FaUserCircle />
@@ -466,23 +313,74 @@ const Home = () => {
 
       {/* Profile Modal */}
       {showProfile && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-slate-900 border border-white/10 rounded-xl w-[500px] max-w-[92%] p-6">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-slate-900 border border-white/10 rounded-xl w-[700px] max-w-[95%] max-h-[90vh] overflow-y-auto p-6">
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
               <FaUserCircle /> {t("profile")}
             </h2>
-            {["name", "email", "phone", "password"].map((field) => (
-              <input
-                key={field}
-                type={field === "password" ? "password" : "text"}
-                name={field}
-                value={formData[field] || ""}
-                onChange={handleProfileChange}
-                placeholder={field}
-                className="mb-3 w-full px-3 py-2 bg-white/5 border border-white/10 rounded outline-none focus:ring-2 focus:ring-emerald-400/40"
-                readOnly={!editMode}
-              />
-            ))}
+            
+            {/* Profile Information */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-slate-400 mb-3 uppercase">Personal Information</h3>
+              {["name", "email", "phone", "password"].map((field) => (
+                <input
+                  key={field}
+                  type={field === "password" ? "password" : "text"}
+                  name={field}
+                  value={formData[field] || ""}
+                  onChange={handleProfileChange}
+                  placeholder={field}
+                  className="mb-3 w-full px-3 py-2 bg-white/5 border border-white/10 rounded outline-none focus:ring-2 focus:ring-emerald-400/40"
+                  readOnly={!editMode}
+                />
+              ))}
+            </div>
+
+            {/* Favorite Routes Section */}
+            {favoriteRoutes.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-sm font-semibold text-slate-400 mb-3 uppercase flex items-center gap-2">
+                  <FaStar className="text-amber-400" />
+                  My Favorite Routes ({favoriteRoutes.length})
+                </h3>
+                <div className="space-y-3 max-h-64 overflow-y-auto">
+                  {favoriteRoutes.map((route, index) => (
+                    <div 
+                      key={index}
+                      className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 hover:bg-amber-500/20 transition"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="font-bold text-amber-400 truncate">{route.trainName}</div>
+                          <div className="text-sm text-slate-300 truncate">
+                            {route.from} → {route.to}
+                          </div>
+                          <div className="text-xs text-slate-400 mt-1">
+                            {route.departureTime} - {route.arrivalTime} • ৳{route.price}
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => handleBookFavoriteRoute(route)}
+                          className="px-3 py-1.5 text-sm rounded bg-emerald-600 hover:bg-emerald-700 transition whitespace-nowrap"
+                        >
+                          Book
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {favoriteRoutes.length === 0 && (
+              <div className="mb-6 text-center py-6 bg-white/5 rounded-lg border border-white/10">
+                <FaStar className="text-slate-600 mx-auto mb-2" size={32} />
+                <p className="text-slate-400 text-sm">No favorite routes yet</p>
+                <p className="text-slate-500 text-xs mt-1">Star routes in Train Schedules to see them here</p>
+              </div>
+            )}
+
+            {/* Action Buttons */}
             <div className="flex justify-end gap-2 mt-2">
               {!editMode ? (
                 <button onClick={() => setEditMode(true)} className="px-4 py-2 rounded bg-white/10 hover:bg-white/20 border border-white/10">

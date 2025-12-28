@@ -2,37 +2,35 @@
 .schedule-container {
   width: 100%;
   min-height: 100vh;
-  padding: 20px;
-  background: black;
-  color: white;
-  font-family: Arial, sans-serif;
+  padding: 30px 20px;
+  background: linear-gradient(to bottom right, rgb(15 23 42), rgb(30 41 59), rgb(15 23 42));
+  color: rgb(241 245 249);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
 }
 
-
 .top-bar {
   width: 100%;
-  background-color: #1f2937;
-  color: white;
-  padding: 15px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
   text-align: center;
-  margin-bottom: 10px;
 }
 
-.top-bar-title {
+.top-bar h1 {
   margin: 0;
-  font-size: 1.6rem;
-  font-weight: bold;
+  font-size: 36px;
+  font-weight: 800;
+  color: rgb(241 245 249);
+  letter-spacing: -0.025em;
 }
-
 
 .schedule-header {
   text-align: center;
-  padding: 15px;
-  border-bottom: 1px solid gray;
+  padding: 20px;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  margin-bottom: 30px;
 }
-
 
 .admin-login {
   text-align: right;
@@ -40,57 +38,89 @@
 }
 
 .admin-btn {
-  padding: 6px 12px;
-  border-radius: 3px;
-  font-weight: bold;
-  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.admin-btn.login { background: purple; color: white; }
-.admin-btn.exit { background: red; color: white; }
-
+.admin-btn.login { 
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+.admin-btn.login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+.admin-btn.exit { 
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+.admin-btn.exit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
 
 .search-wrapper {
-  margin: 15px auto;
+  margin: 0 auto 30px;
   text-align: center;
+  max-width: 1400px;
+  width: 100%;
 }
 
 .search-bar {
   display: inline-flex;
   align-items: center;
-  border: 1px solid gray;
-  padding: 6px;
-  background: #222;
-  border-radius: 4px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  min-width: 400px;
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
 
 .search-icon {
-  font-size: 14px;
-  color: cyan;
-  margin-right: 5px;
+  font-size: 18px;
+  color: #667eea;
+  margin-right: 12px;
 }
 
 .search-input {
-  padding: 6px;
-  font-size: 13px;
-  background: black;
+  flex: 1;
+  padding: 8px;
+  font-size: 15px;
+  background: transparent;
   border: none;
-  color: white;
+  color: #e7eaef;
   outline: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .search-input::placeholder {
-  color: lightgray;
+  color: #9ca3af;
 }
 
 .table-wrapper {
   flex: 1;
-  margin: 15px auto;
-  padding: 10px;
+  margin: 0 auto;
   width: 100%;
-  overflow-x: auto; 
+  max-width: 1400px;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  overflow-x: auto;
 }
 
 .table-container {
@@ -99,77 +129,144 @@
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed; 
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
 }
 
 th, td {
-  padding: 12px;
-  text-align: center;
-  border: 1px solid gray;
+  padding: 16px;
+  text-align: left;
   word-wrap: break-word;
 }
 
-.table-head th {
-  background-color: #333;
-  color: cyan;
-  font-weight: bold;
+.table-container thead {
+  background: linear-gradient(135deg,  rgb(5, 47, 53) 0%, #105457 100%);
+  color: white;
 }
 
+.table-container th {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-.row-even { background-color: #111; }
-.row-odd { background-color: #1a1a1a; }
+.table-container th:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+.table-container th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
+.table-container td {
+  border-bottom: 1px solid #e5e7eb;
+  color: #113a35;
+}
+
+.table-container tbody tr {
+  transition: all 0.3s ease;
+}
+
+.table-container tbody tr:hover {
+  background: #f9fafb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.row-even,
+.row-odd {
+  background: white;
+}
 
 .train-name {
-  font-weight: bold;
-  color: #00ffff;
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
 }
 
 .train-id {
-  font-size: 11px;
-  color: gray;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 4px;
+  display: block;
 }
-
 
 .route {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .route .arrow {
   margin: 0 8px;
-  color: cyan;
+  color: #667eea;
 }
-
 
 .loading,
 .error,
 .empty {
   text-align: center;
-  margin: 15px 0;
-  font-size: 13px;
+  margin: 20px 0;
+  font-size: 16px;
+  padding: 20px;
 }
 
-.error { color: red; }
-.empty { color: gray; }
+.error { 
+  color: #ef4444;
+  background: #fee2e2;
+  border-radius: 8px;
+}
+.empty { 
+  color: #6b7280;
+}
 
-
-.price { font-weight: bold; }
-.taka-symbol { font-size: 11px; margin-right: 2px; }
-.price-number { font-size: 12px; }
+.price { 
+  font-weight: 700;
+  font-size: 16px;
+  color: #059669;
+}
+.taka-symbol { 
+  font-size: 14px;
+  margin-right: 2px;
+}
+.price-number { 
+  font-size: 16px;
+}
 
 
 .btn.book {
-  background: cyan;
-  color: black;
-  padding: 6px 12px;
-  border-radius: 3px;
-  font-weight: bold;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
   border: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .btn.book:hover {
-  background: #00e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.star-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.star-btn:hover {
+  transform: scale(1.2);
 }
