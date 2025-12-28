@@ -225,6 +225,75 @@ const getFavoriteStations = async (req, res) => {
   }
 };
 
+// FAVORITE ROUTES
+const addFavoriteRoute = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { scheduleId, trainName, from, to, departureTime, arrivalTime, price } = req.body;
+    
+    if (!scheduleId || !trainName || !from || !to) {
+      return res.status(400).json({ message: "Required route information missing" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Check if route already exists
+    const exists = user.favoriteRoutes.some(r => r.scheduleId === scheduleId);
+    if (exists) {
+      return res.status(400).json({ message: "Route already in favorites" });
+    }
+
+    const routeData = { scheduleId, trainName, from, to, departureTime, arrivalTime, price };
+    
+    const updated = await User.findByIdAndUpdate(
+      userId,
+      { $push: { favoriteRoutes: routeData } },
+      { new: true }
+    ).select("-password");
+
+    res.status(200).json({ message: "Added to favorite routes", user: updated });
+  } catch (error) {
+    console.error("Add Favorite Route Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const removeFavoriteRoute = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { scheduleId } = req.body;
+    
+    if (!scheduleId) {
+      return res.status(400).json({ message: "Schedule ID is required" });
+    }
+
+    const updated = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { favoriteRoutes: { scheduleId } } },
+      { new: true }
+    ).select("-password");
+
+    if (!updated) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: "Removed from favorite routes", user: updated });
+  } catch (error) {
+    console.error("Remove Favorite Route Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getFavoriteRoutes = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId).select("favoriteRoutes");
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ favoriteRoutes: user.favoriteRoutes || [] });
+  } catch (error) {
+    console.error("Get Favorite Routes Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = { 
   registerUser, 
   loginUser, 
@@ -233,4 +302,7 @@ module.exports = {
   addFavoriteStation,
   removeFavoriteStation,
   getFavoriteStations,
+  addFavoriteRoute,
+  removeFavoriteRoute,
+  getFavoriteRoutes,
 };
