@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaStar } from "react-icons/fa";
 import "./TrainScheduleList.css";
+import { t } from "i18next";
 
 export default function TrainScheduleList() {
   const [schedules, setSchedules] = useState([]);
@@ -160,7 +161,7 @@ export default function TrainScheduleList() {
   return (
     <div className="schedule-container">
       <div className="top-bar">
-        <h1>🚆 Train Schedule Management</h1>
+        <h1>🚆 {t("Train Schedule")} </h1>
       </div>
 
       <div className="search-wrapper">
@@ -168,7 +169,7 @@ export default function TrainScheduleList() {
           <FaSearch className="search-icon" />
           <input
             type="text"
-            placeholder="Search by train name, from or to station..."
+            placeholder={t("Search by train name,from or to station...")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="search-input"
@@ -178,22 +179,22 @@ export default function TrainScheduleList() {
 
       <div className="table-wrapper">
         {loading ? (
-          <div className="loading">Loading schedules...</div>
+          <div className="loading">{t("Loading schedules...")}</div>
         ) : error ? (
           <div className="error">{error}</div>
         ) : prioritized.length === 0 ? (
-          <div className="empty">No trains found</div>
+          <div className="empty">{t("No trains found.")}</div>
         ) : (
           <table className="table-container">
             <thead>
               <tr>
                 <th>⭐</th>
-                <th>Train</th>
-                <th>Route</th>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Price</th>
-                <th>Action</th>
+                <th>{t("Train")}</th>
+                <th>{t("Route")}</th>
+                <th>{t("Departure")}</th>
+                <th>{t("Arrival")}</th>
+                <th>{t("Price")}</th>
+                <th>{t("Action")}</th>
               </tr>
             </thead>
             <tbody>
@@ -225,7 +226,7 @@ export default function TrainScheduleList() {
                     <td>৳{train.price}</td>
                     <td>
                       <button onClick={() => handleBooking(train)} className="btn book">
-                        Book
+                        {t("Book")}
                       </button>
                     </td>
                   </tr>

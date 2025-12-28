@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
 import axios from "axios";
 import { FaQrcode, FaArrowLeft, FaTrain, FaDownload, FaTimes, FaCheckCircle, FaClock, FaUser } from "react-icons/fa";
+import { t } from "i18next";
 
 const QRTicket = () => {
   const navigate = useNavigate();
@@ -116,13 +117,13 @@ const QRTicket = () => {
             className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
           >
             <FaArrowLeft />
-            <span>Back</span>
+            <span>{t("Back")}</span>
           </button>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-green-500/20 text-green-300 grid place-items-center">
               <FaQrcode />
             </div>
-            <h1 className="text-2xl font-bold">Get QR Ticket</h1>
+            <h1 className="text-2xl font-bold">{t("Get QR Ticket")}</h1>
           </div>
         </div>
       </div>
@@ -131,7 +132,7 @@ const QRTicket = () => {
         {loading ? (
           <div className="text-center py-16">
             <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-300">Loading your bookings...</p>
+            <p className="text-slate-300">"Loading your bookings..."</p>
           </div>
         ) : error ? (
           <div className="text-center py-16">
@@ -151,14 +152,14 @@ const QRTicket = () => {
             <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-green-500/10 border border-green-500/20 grid place-items-center">
               <FaQrcode className="text-green-400" size={40} />
             </div>
-            <h2 className="text-2xl font-semibold mb-2">No Bookings Available</h2>
-            <p className="text-slate-400 mb-6">You don't have any confirmed bookings to generate QR tickets.</p>
+            <h2 className="text-2xl font-semibold mb-2">{t("No Bookings Available")}</h2>
+            <p className="text-slate-400 mb-6">{t("You don't have any confirmed bookings to generate QR tickets.")}</p>
             <button
               onClick={() => navigate("/train-schedules")}
               className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-medium transition"
             >
               <FaTrain />
-              <span>Book a Ticket</span>
+              <span>{t("Book a Ticket")}</span>
             </button>
           </div>
         ) : (

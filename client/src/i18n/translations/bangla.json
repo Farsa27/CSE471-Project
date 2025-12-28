@@ -45,5 +45,28 @@
     "Get student discount (20 Taka)": "ছাত্র ছাড় পান (২০ টাকা)",
       "Monthly WiFi access (100 Taka)": "মাসিক ওয়াইফাই অ্যাক্সেস (১০০ টাকা)",
       "Mass Transit": "মাস ট্রানজিট",
-      "Seamless metro access — sign in to manage tickets, routes and more.": "নিরবচ্ছিন্ন মেট্রো অ্যাক্সেস — টিকিট, রুট এবং আরও অনেক কিছু পরিচালনা করতে সাইন ইন করুন।"
+      "Seamless metro access — sign in to manage tickets, routes and more.": "নিরবচ্ছিন্ন মেট্রো অ্যাক্সেস — টিকিট, রুট এবং আরও অনেক কিছু পরিচালনা করতে সাইন ইন করুন।",
+    "Train Schedule": "ট্রেন সময়সূচী",
+    "Search by train name,from or to station...": "ট্রেনের নাম, থেকে বা গন্তব্য স্টেশনের দ্বারা অনুসন্ধান করুন...",
+    "Train": "ট্রেন", 
+    "Route": "রুট",
+    "Departure": "প্রস্থান", 
+    "Arrival": "আগমন",
+    "Price": "মূল্য",
+    "Action": "কর্ম",
+    "Book": "বুক করুন",
+    "Loading schedules...": "সময়সূচী লোড হচ্ছে...",
+    "No trains found.": "কোন ট্রেন পাওয়া যায়নি।",
+    "Back": "ফিরে যান",
+    "My Booked Tickets": "আমার বুক করা টিকিটসমূহ",
+    "Loading your tickets...": "আপনার টিকিট লোড হচ্ছে...",
+    "No Tickets Found": "কোন টিকিট পাওয়া যায়নি",
+    "You haven't booked any tickets yet. Start your journey!": "আপনি এখনও কোন টিকিট বুক করেননি। আপনার যাত্রা শুরু করুন!",
+    "Book a Ticket": "একটি টিকিট বুক করুন",
+    "No Bookings Available": "কোন বুকিং উপলব্ধ নেই",
+    "You don't have any confirmed bookings to generate QR tickets.": "আপনার কাছে QR টিকিট তৈরি করার জন্য কোন নিশ্চিত বুকিং নেই।",
+    "Get QR Ticket": "QR টিকিট পান"
+    
+    
+
 }
