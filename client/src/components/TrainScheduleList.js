@@ -187,12 +187,6 @@ export default function TrainScheduleList() {
         <h1>🚆 Train Schedule Management</h1>
       </div>
 
-      <div className="admin-login">
-        <button onClick={() => navigate("/admin-login")} className="admin-btn login">
-          Admin Login
-        </button>
-      </div>
-
       <div className="search-wrapper">
         <div className="search-bar">
           <FaSearch className="search-icon" />

@@ -245,6 +245,25 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      // First, try admin login
+      const adminResponse = await fetch("http://localhost:5000/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const adminResult = await adminResponse.json();
+
+      if (adminResponse.ok && adminResult.success) {
+        localStorage.setItem("isAdmin", "true");
+        localStorage.setItem("adminEmail", adminResult.admin.email);
+        navigate("/admin-dashboard");
+        return;
+      }
+
+      // If not admin, try regular user login
       const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: {
@@ -262,11 +281,11 @@ const Login = () => {
         localStorage.setItem("userEmail", result.user.email);
         navigate("/home");
       } else {
-        alert(result.message || "Something went wrong.");
+        alert(result.message || "Invalid credentials.");
       }
     } catch (error) {
-      console.error("Error:", error);
-      alert("Something went wrong.");
+      console.error("Login Error:", error);
+      alert("Unable to connect to server. Please try again.");
     }
   };
 
