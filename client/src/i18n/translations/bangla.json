@@ -27,10 +27,10 @@
   "loginLink": "লগইন করুন",
   "OR": "অথবা",
   "Dont have an account? Sign Up": "অ্যাউন্ট নেই? সাইন আপ করুন",
-  "Edit": "সম্পাদনা",
-  "Close": "বন্ধ করুন",
-  "Cancel": "বাতিল করুন",
-  "Save": "সংরক্ষণ করুন",
+  "edit": "সম্পাদনা",
+  "close": "বন্ধ করুন",
+  "cancel": "বাতিল করুন",
+  "save": "সংরক্ষণ করুন",
   "feedback": "প্রতিক্রিয়া",
   "Verify as Student": "ছাত্র হিসেবে যাচাই করুন",
   "Wifi Subscription": "ওয়াইফাই সাবস্ক্রিপশন",
@@ -65,8 +65,9 @@
     "Book a Ticket": "একটি টিকিট বুক করুন",
     "No Bookings Available": "কোন বুকিং উপলব্ধ নেই",
     "You don't have any confirmed bookings to generate QR tickets.": "আপনার কাছে QR টিকিট তৈরি করার জন্য কোন নিশ্চিত বুকিং নেই।",
-    "Get QR Ticket": "QR টিকিট পান"
-    
-    
-
+    "Get QR Ticket": "QR টিকিট পান",
+    "Rate your metro experience": "আপনার মেট্রো অভিজ্ঞতা মূল্যায়ন করুন",
+    "Submit Feedback": "প্রতিক্রিয়া জমা দিন",
+    "Reset": "রিসেট করুন",
+    "Write a short review(optional)": "একটি সংক্ষিপ্ত পর্যালোচনা লিখুন (ঐচ্ছিক)"
 }
