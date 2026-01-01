@@ -251,7 +251,7 @@ const Login = () => {
           </div>
 
           <p className="text-sm text-center mt-2 text-slate-300">
-            {t("Dont have an account? Sign Up")} {" "}
+            {t("Dont have an account? ")} {" "}
             <Link to="/signup" className="text-emerald-300 hover:underline">
               Sign up
             </Link>
