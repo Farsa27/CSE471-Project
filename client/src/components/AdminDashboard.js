@@ -6,6 +6,9 @@ import "./AdminDashboard.css";
 export default function AdminDashboard() {
   const [schedules, setSchedules] = useState([]);
   const [error, setError] = useState("");
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [feedbackError, setFeedbackError] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
   const navigate = useNavigate();
 
   // Fetch schedules
@@ -18,8 +21,19 @@ export default function AdminDashboard() {
     }
   };
 
+  // Fetch feedbacks
+  const fetchFeedbacks = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/feedback");
+      setFeedbacks(res.data?.feedbacks || []);
+    } catch {
+      setFeedbackError("Failed to load feedback");
+    }
+  };
+
   useEffect(() => {
     fetchSchedules();
+    fetchFeedbacks();
   }, []);
 
   // Delete schedule
@@ -106,6 +120,55 @@ export default function AdminDashboard() {
           </table>
         )}
       </div>
+
+  
+
+      {/* Feedback & Ratings (collapsible) */}
+      {showFeedback && (
+        <div id="admin-feedback-panel" className="feedback-wrapper">
+          <h2 className="section-title">Recent Feedback & Ratings</h2>
+          {feedbackError && <div className="error">{feedbackError}</div>}
+          {feedbacks.length === 0 ? (
+            <div className="empty">No feedback submitted yet</div>
+          ) : (
+            <table className="feedback-table">
+              <thead>
+                <tr>
+                  <th>Rating</th>
+                  <th>Comment</th>
+                  <th>Submitted</th>
+                </tr>
+              </thead>
+              <tbody>
+                {feedbacks.map((f) => (
+                  <tr key={f._id}>
+                    <td className="rating-stars" aria-label={`Rating ${f.rating} out of 5`}>
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <span key={i} className={i < f.rating ? "on" : "off"}>★</span>
+                      ))}
+                    </td>
+                    <td>{f.comment || "—"}</td>
+                    <td>{new Date(f.createdAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+        {/* Feedback toggle (bottom) */}
+        <div className="feedback-toggle">
+          <button
+            className="btn feedback-toggle"
+            onClick={() => setShowFeedback((v) => !v)}
+            aria-expanded={showFeedback}
+            aria-controls="admin-feedback-panel"
+          >
+            {showFeedback ? "Hide Feedback" : "View Feedback"}
+            {feedbacks.length > 0 ? ` (${feedbacks.length})` : ""}
+          </button>
+        </div>
+
     </div>
   );
 }
