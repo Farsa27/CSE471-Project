@@ -1,31 +1,45 @@
-
-
-//feature-2
-// 
-//below is the updated code for profile viewing and editing
+// src/components/Home.jsx
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { FaUserCircle, FaSignOutAlt, FaGlobe, FaBell, FaTrain, FaTicketAlt, FaMapMarkerAlt, FaExclamationTriangle, FaComments, FaImages, FaWifi, FaStar } from "react-icons/fa";
+import {
+  FaUserCircle,
+  FaSignOutAlt,
+  FaGlobe,
+  FaBell,
+  FaTrain,
+  FaTicketAlt,
+  FaMapMarkerAlt,
+  FaExclamationTriangle,
+  FaComments,
+  FaImages,
+  FaWifi,
+  FaStar,
+} from "react-icons/fa";
 import AdSlider from "./AdSlider";
 
 const Home = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+
   const [showProfile, setShowProfile] = useState(false);
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const [favoriteRoutes, setFavoriteRoutes] = useState([]);
 
+  
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+
   const userId = localStorage.getItem("userId");
+  const userEmail = localStorage.getItem("userEmail"); // You'll need to save email on login
 
   const fetchFavoriteRoutes = useCallback(async () => {
     if (!userId) return;
     try {
       const res = await fetch(`http://localhost:5000/api/users/${userId}/favorite-routes`);
       const data = await res.json();
-      console.log("Fetched favorite routes:", data);
       if (res.ok) {
         setFavoriteRoutes(data.favoriteRoutes || []);
       }
@@ -34,6 +48,7 @@ const Home = () => {
     }
   }, [userId]);
 
+  
   useEffect(() => {
     const fetchUser = async () => {
       if (!userId) return;
@@ -47,34 +62,42 @@ const Home = () => {
       }
     };
 
+   
+    const fetchNotifications = async () => {
+      if (!userEmail) return;
+      try {
+        const res = await fetch(`http://localhost:5000/api/notifications/user/${userEmail}`);
+        if (res.ok) {
+          const data = await res.json();
+          setNotifications(data);
+        }
+      } catch (error) {
+        console.error("Failed to load notifications");
+      }
+    };
+
     fetchUser();
     fetchFavoriteRoutes();
-  }, [userId, fetchFavoriteRoutes]);
+    fetchNotifications();
+  }, [userId, userEmail, fetchFavoriteRoutes]);
 
   const handleLogout = () => {
-    localStorage.removeItem("userId");
-    navigate("/");
+    localStorage.clear();
+    navigate("/login");
   };
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleNotification = () => {
-    alert("You have new notifications!");
-  };
 
   const handleBookFavoriteRoute = async (route) => {
-    const userName = localStorage.getItem("userName") || "Guest User";
-    const userEmail = localStorage.getItem("userEmail") || "";
-
     if (!userEmail) {
       alert("Please log in to book a ticket");
       navigate("/login");
       return;
     }
 
-    // Prepare booking data
     const bookingData = {
       trainId: route.scheduleId,
       trainName: route.trainName,
@@ -83,11 +106,10 @@ const Home = () => {
       departure: route.departureTime,
       arrival: route.arrivalTime,
       price: route.price,
-      passengerName: userName,
-      passengerEmail: userEmail
+      passengerName: user?.name || "Guest User",
+      passengerEmail: userEmail,
     };
 
-    // Close profile and navigate to payment
     setShowProfile(false);
     navigate("/payment-checkout", { state: { bookingData } });
   };
@@ -99,7 +121,6 @@ const Home = () => {
       alert("All fields are required.");
       return;
     }
-
 
     const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
       method: "PUT",
@@ -120,6 +141,8 @@ const Home = () => {
     }
   };
 
+  const unreadCount = notifications.filter(n => !n.read).length || notifications.length;
+
   return (
     <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
       {/* Top Nav */}
@@ -129,22 +152,78 @@ const Home = () => {
             <FaTrain className="text-emerald-400" size={22} />
             <span className="font-semibold tracking-wide">{t("Mass Transit")}</span>
           </div>
+
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Language */}
             <button
               onClick={() => i18n.changeLanguage(i18n.language === "en" ? "bn" : "en")}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10"
-              title={t("translate")}
             >
               <FaGlobe />
               <span className="hidden sm:inline">{i18n.language === "en" ? "BN" : "EN"}</span>
             </button>
-            <button
-              onClick={handleNotification}
-              className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-white/5 hover:bg-white/10 border border-white/10"
-              aria-label="notifications"
-            >
-              <FaBell />
-            </button>
+
+            {/* Notification Bell - UPDATED */}
+            <div className="relative">
+              <button
+                onClick={() => setShowNotifDropdown(!showNotifDropdown)}
+                className="relative inline-flex items-center justify-center w-10 h-10 rounded-md bg-white/5 hover:bg-white/10 border border-white/10"
+              >
+                <FaBell />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Simple Dropdown */}
+              {showNotifDropdown && (
+                <div className="absolute right-0 mt-2 w-72 bg-slate-800 border border-white/10 rounded-lg shadow-lg z-50">
+                  <div className="p-3 border-b border-white/10 flex justify-between">
+                    <h3 className="font-semibold">Notifications</h3>
+                    <button
+                      onClick={() => {
+                        setShowNotifDropdown(false);
+                        navigate("/notifications");
+                      }}
+                      className="text-sm text-emerald-400 hover:underline"
+                    >
+                      View All
+                    </button>
+                  </div>
+
+                  <div className="max-h-64 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <p className="text-center py-6 text-slate-400 text-sm">
+                        No notifications yet
+                      </p>
+                    ) : (
+                      notifications.slice(0, 5).map((notif, index) => (
+                        <div
+                          key={index}
+                          className="p-3 border-b border-white/5 hover:bg-white/5 cursor-pointer"
+                          onClick={() => {
+                            setShowNotifDropdown(false);
+                            navigate("/notifications");
+                          }}
+                        >
+                          <p className="text-sm font-medium">{notif.title || "Train Alert"}</p>
+                          <p className="text-xs text-slate-300 mt-1">{notif.message}</p>
+                          {notif.alternative && (
+                            <p className="text-xs text-emerald-400 mt-1">
+                              → {notif.alternative}
+                            </p>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Profile */}
             <button
               onClick={() => {
                 fetchFavoriteRoutes();
@@ -155,6 +234,8 @@ const Home = () => {
               <FaUserCircle />
               <span className="hidden sm:inline">{t("profile")}</span>
             </button>
+
+            {/* Logout */}
             <button
               onClick={handleLogout}
               className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-rose-600 hover:bg-rose-700"
@@ -166,7 +247,7 @@ const Home = () => {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Rest of your code remains 100% the same */}
       <section className="relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 py-10 sm:py-14">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -185,10 +266,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Quick Actions */}
+      {/* Quick Actions - unchanged */}
       <section className="pb-14">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {/* All your buttons stay exactly the same */}
             <button onClick={() => navigate("/train-schedules")} className="group rounded-xl border border-white/10 bg-white/5 p-5 text-left hover:bg-white/10 transition">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-lg bg-emerald-500/20 text-emerald-300 grid place-items-center">
@@ -280,11 +362,12 @@ const Home = () => {
                   <FaComments />
                 </div>
                 <div>
-                  <div className="font-semibold">{t ? t("feedback") : "Feedback"}</div>
+                  <div className="font-semibold">{t("feedback")}</div>
                   <div className="text-sm text-slate-300">{t("Tell us how we're doing")}</div>
                 </div>
               </div>
             </button>
+
             <button onClick={() => navigate("/student-verification")} className="group rounded-xl border border-white/10 bg-white/5 p-5 text-left hover:bg-white/10 transition">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-lg bg-blue-500/20 text-blue-300 grid place-items-center">
@@ -307,11 +390,12 @@ const Home = () => {
                   <div className="text-sm text-slate-300">{t("Monthly WiFi access (100 Taka)")}</div>
                 </div>
               </div>
-            </button>          </div>
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Profile Modal */}
+      {/* Profile Modal - unchanged */}
       {showProfile && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-slate-900 border border-white/10 rounded-xl w-[700px] max-w-[95%] max-h-[90vh] overflow-y-auto p-6">
@@ -319,7 +403,6 @@ const Home = () => {
               <FaUserCircle /> {t("profile")}
             </h2>
             
-            {/* Profile Information */}
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-slate-400 mb-3 uppercase">Personal Information</h3>
               {["name", "email", "phone", "password"].map((field) => (
@@ -336,7 +419,6 @@ const Home = () => {
               ))}
             </div>
 
-            {/* Favorite Routes Section */}
             {favoriteRoutes.length > 0 && (
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-slate-400 mb-3 uppercase flex items-center gap-2">
@@ -380,7 +462,6 @@ const Home = () => {
               </div>
             )}
 
-            {/* Action Buttons */}
             <div className="flex justify-end gap-2 mt-2">
               {!editMode ? (
                 <button onClick={() => setEditMode(true)} className="px-4 py-2 rounded bg-white/10 hover:bg-white/20 border border-white/10">
