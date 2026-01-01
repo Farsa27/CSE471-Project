@@ -23,12 +23,12 @@ export default function Feedback() {
       });
 
       if (res.ok) {
-        setMessage({ type: "success", text: "Thank you for your feedback!" });
+        setMessage({ type: "success", text: t("Thank you for your feedback!") });
         setRating(0);
         setComment("");
       } else {
         const json = await res.json();
-        setMessage({ type: "error", text: json.message || "Failed to submit feedback" });
+        setMessage({ type: "error", text: json.message || t("Failed to submit feedback") });
       }
     } catch (err) {
       console.error(err);
