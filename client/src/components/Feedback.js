@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Feedback.css";
+import { t } from "i18next";
 
 export default function Feedback() {
   const [rating, setRating] = useState(0);
@@ -22,12 +23,12 @@ export default function Feedback() {
       });
 
       if (res.ok) {
-        setMessage({ type: "success", text: "Thank you for your feedback!" });
+        setMessage({ type: "success", text: t("Thank you for your feedback!") });
         setRating(0);
         setComment("");
       } else {
         const json = await res.json();
-        setMessage({ type: "error", text: json.message || "Failed to submit feedback" });
+        setMessage({ type: "error", text: json.message || t("Failed to submit feedback") });
       }
     } catch (err) {
       console.error(err);
@@ -38,7 +39,7 @@ export default function Feedback() {
   return (
     <div className="feedback-page">
       <form onSubmit={submit} className="feedback-form">
-        <h2>Rate your metro experience</h2>
+        <h2>{t("Rate your metro experience")}</h2>
 
         <div className="stars" role="group" aria-label="rating">
           {[1, 2, 3, 4, 5].map((star) => {
@@ -60,12 +61,12 @@ export default function Feedback() {
         </div>
 
         <textarea
-          placeholder="Write a short review (optional)"
+          placeholder={t("Write a short review(optional)")}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
 
-        <button type="submit" className="submit-btn">Submit Feedback</button>
+        <button type="submit" className="submit-btn">{t("Submit Feedback")}</button>
         <button
           type="button"
           style={{ color: "white" }}
@@ -76,7 +77,7 @@ export default function Feedback() {
           }}
           className="nav-link"
         >
-          Reset
+          {t("Reset")}
         </button>
 
         {message && (

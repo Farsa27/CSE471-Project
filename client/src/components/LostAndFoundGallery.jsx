@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './LostAndFoundGallery.css';
+import { useTranslation } from 'react-i18next';
 
 export default function LostAndFoundGallery() {
+  const { t } = useTranslation();
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -13,19 +15,19 @@ export default function LostAndFoundGallery() {
       try {
         setLoading(true);
         const res = await fetch('http://localhost:5000/api/lost-items');
-        if (!res.ok) throw new Error('Failed to load items');
+        if (!res.ok) throw new Error(t('Failed to load items'));
         const data = await res.json();
         setItems(data);
       } catch (err) {
         console.error(err);
-        alert('Unable to load lost items. Please try again later.');
+        alert(t('Unable to load lost items. Please try again later.'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchItems();
-  }, []);
+  }, [t]);
 
   const handleAnswerChange = (index, value) => {
     setAnswers((prev) => ({ ...prev, [index]: value.trim() }));
@@ -55,11 +57,11 @@ export default function LostAndFoundGallery() {
         );
       } else {
         setClaimStatus('error');
-        alert('Wrong answers. Please try again.');
+        alert(t('Wrong answers. Please try again.'));
       }
     } catch (err) {
       setClaimStatus('error');
-      alert('Network error. Please try again.');
+      alert(t('Network error. Please try again.'));
     }
   };
 
@@ -68,13 +70,13 @@ export default function LostAndFoundGallery() {
   return (
     <div className="gallery-container">
       <div className="max-w-5xl mx-auto px-4">
-        <h1>Lost & Found Gallery</h1>
+        <h1>{t('Lost & Found Gallery')}</h1>
 
         {loading ? (
-          <p className="text-center text-gray-600">Loading items...</p>
+          <p className="text-center text-gray-600">{t('Loading items...')}</p>
         ) : availableItems.length === 0 ? (
           <p className="text-center text-gray-600 text-lg">
-            No lost items available right now.
+            {t('No lost items available right now.')}
           </p>
         ) : (
           <div className="gallery-grid">
@@ -88,14 +90,14 @@ export default function LostAndFoundGallery() {
                   />
                 ) : (
                   <div className="w-full h-48 bg-gray-700 flex items-center justify-center">
-                    <span className="text-gray-300">No photo</span>
+                    <span className="text-gray-300">{t('No photo')}</span>
                   </div>
                 )}
 
                 <div className="gallery-card-content">
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                  <p className="text-sm text-gray-400">Posted by: {item.contactName}</p>
+                  <p className="text-sm text-gray-400">{t('Posted by:')} {item.contactName}</p>
 
                   <button
                     onClick={() => {
@@ -105,7 +107,7 @@ export default function LostAndFoundGallery() {
                     }}
                     className="submit-btn"
                   >
-                    Claim This Item
+                    {t('Claim This Item')}
                   </button>
                 </div>
               </div>
@@ -117,7 +119,7 @@ export default function LostAndFoundGallery() {
         {selectedItem && (
           <div className="modal-overlay">
             <div className="claim-modal">
-              <h2>Claim: {selectedItem.title}</h2>
+              <h2>{t('Claim')}: {selectedItem.title}</h2>
 
               {selectedItem.photos?.length > 0 && (
                 <img
@@ -129,7 +131,7 @@ export default function LostAndFoundGallery() {
 
               <p className="mb-6 text-slate-300">{selectedItem.description}</p>
 
-              <h3 className="font-semibold mb-3 text-slate-100">Answer these questions:</h3>
+              <h3 className="font-semibold mb-3 text-slate-100">{t('Answer these questions:')}</h3>
 
               {selectedItem.questions.map((q, idx) => (
                 <div key={idx} className="mb-4">
@@ -138,7 +140,7 @@ export default function LostAndFoundGallery() {
                     type="text"
                     value={answers[idx] || ''}
                     onChange={(e) => handleAnswerChange(idx, e.target.value)}
-                    placeholder="Your answer"
+                    placeholder={t('Your answer')}
                   />
                 </div>
               ))}
@@ -147,20 +149,20 @@ export default function LostAndFoundGallery() {
                 onClick={handleClaim}
                 className="submit-btn"
               >
-                Submit & Claim
+                {t('Submit & Claim')}
               </button>
 
               {claimStatus === 'success' && (
                 <div className="mt-4 p-3 bg-green-100 rounded">
-                  <p className="font-bold">Claim Approved!</p>
-                  <p><strong>Name:</strong> {selectedItem.contactName}</p>
-                  <p><strong>Phone:</strong> {selectedItem.contactPhone}</p>
-                  {selectedItem.contactEmail && <p><strong>Email:</strong> {selectedItem.contactEmail}</p>}
+                  <p className="font-bold">{t('Claim Approved!')}</p>
+                  <p><strong>{t('Name:')}</strong> {selectedItem.contactName}</p>
+                  <p><strong>{t('Phone:')}</strong> {selectedItem.contactPhone}</p>
+                  {selectedItem.contactEmail && <p><strong>{t('Email:')}</strong> {selectedItem.contactEmail}</p>}
                 </div>
               )}
 
               {claimStatus === 'error' && (
-                <p className="mt-4 text-red-500 text-center">Incorrect answers. Try again.</p>
+                <p className="mt-4 text-red-500 text-center">{t('Incorrect answers. Try again.')}</p>
               )}
 
               <button
@@ -171,7 +173,7 @@ export default function LostAndFoundGallery() {
                 }}
                 className="cancel-btn"
               >
-                Cancel
+                {t('Cancel')}
               </button>
             </div>
           </div>

@@ -158,3 +158,58 @@
 }
 
 /* Remove conflicting duplicate .form-section override */
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .topbar {
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .form-section {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .form-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .form-wrapper label {
+    margin-top: 14px;
+    font-size: 13px;
+  }
+
+  .form-wrapper input,
+  .form-wrapper textarea {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .question-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .submit-btn {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+}

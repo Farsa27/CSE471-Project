@@ -62,5 +62,14 @@
     "Book a Ticket": "Book a Ticket",
     "Get QR Ticket": "Get QR Ticket",
     "No Bookings Available": "No Bookings Available",
-    "You don't have any confirmed bookings to generate QR tickets.": "You don't have any confirmed bookings to generate QR tickets."
+    "You don't have any confirmed bookings to generate QR tickets.": "You don't have any confirmed bookings to generate QR tickets.",
+    "Rate your metro experience": "Rate your metro experience",
+    "Submit Feedback": "Submit Feedback",
+    "Write a short review(optional)": "Write a short review (optional)",
+    "Reset": "Reset",
+    "Train p": "Train",
+    "Departure p": "Departure",
+    "Arrival p": "Arrival",
+    "Thank you for your feedback!": "Thank you for your feedback!",
+    "Failed to submit feedback": "Failed to submit feedback"
 }

@@ -204,3 +204,56 @@
   background: linear-gradient(135deg, #ff6b35 0%, #f44336 100%);
   color: white;
 }
+
+/* Section title */
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+/* Feedback panel */
+.feedback-wrapper {
+  max-width: 1400px;
+  margin: 24px auto 0;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  overflow-x: auto;
+}
+
+.feedback-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: #1f2937;
+}
+
+.feedback-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.feedback-table th, .feedback-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.rating-stars span.on { color: #f59e0b; }
+.rating-stars span.off { color: #d1d5db; }
+
+/* Feedback toggle button container */
+.feedback-toggle {
+  max-width: 1400px;
+  margin: 16px auto 0;
+  text-align: right;
+  padding: 0 20px;
+}
+
+.btn.feedback-toggle {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+}

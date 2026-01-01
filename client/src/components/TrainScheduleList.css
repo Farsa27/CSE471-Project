@@ -270,3 +270,22 @@ th, td {
 .star-btn:hover {
   transform: scale(1.2);
 }
+
+/* Mobile responsiveness: prevent column squeeze and letter-per-line wrapping */
+@media (max-width: 768px) {
+  .top-bar h1 { font-size: 28px; }
+
+  .search-wrapper { padding: 0 8px; }
+  .search-bar { width: 100%; min-width: 0; }
+
+  .table-wrapper { padding: 16px; }
+
+  /* Allow horizontal scroll by enforcing a sensible minimum table width */
+  table { min-width: 720px; table-layout: auto; }
+
+  /* Keep text on one line so letters don't stack vertically */
+  .table-container th,
+  .table-container td { white-space: nowrap; padding: 12px; font-size: 13px; }
+
+  .btn.book { padding: 8px 14px; font-size: 12px; }
+}

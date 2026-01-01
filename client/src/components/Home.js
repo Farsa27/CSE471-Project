@@ -93,7 +93,7 @@ const Home = () => {
 
   const handleBookFavoriteRoute = async (route) => {
     if (!userEmail) {
-      alert("Please log in to book a ticket");
+      alert(t("Please log in to book a ticket"));
       navigate("/login");
       return;
     }
@@ -118,7 +118,7 @@ const Home = () => {
     const { name, email, phone, password } = formData;
 
     if (!name || !email || !phone || !password) {
-      alert("All fields are required.");
+      alert(t("All fields are required."));
       return;
     }
 
@@ -131,13 +131,13 @@ const Home = () => {
     const result = await res.json();
 
     if (res.ok) {
-      alert("Profile updated!");
+      alert(t("Profile updated!"));
       setUser(result.user);
       setFormData(result.user);
       setEditMode(false);
       setShowProfile(false);
     } else {
-      alert(result.message || "Update failed.");
+      alert(result.message || t("Update failed."));
     }
   };
 
@@ -445,7 +445,7 @@ const Home = () => {
                           onClick={() => handleBookFavoriteRoute(route)}
                           className="px-3 py-1.5 text-sm rounded bg-emerald-600 hover:bg-emerald-700 transition whitespace-nowrap"
                         >
-                          Book
+                          {t("Book")}
                         </button>
                       </div>
                     </div>

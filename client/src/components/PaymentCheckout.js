@@ -9,6 +9,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./PaymentCheckout.css";
+import { t } from "i18next";
 
 const stripePromise = loadStripe("pk_test_51Sf6nWG5kxx8ChUoi0EGOAF7CGToqKh39NIHWR5wNAOBSykxNe2TNfBInDPm9MCl6LdnQ7tm3Y2WbT9w6UxHLHj800e69z1eVq");
 
@@ -102,17 +103,17 @@ export default function PaymentCheckout() {
   return (
     <div className="payment-container">
       <div className="payment-card">
-        <h2>Complete Your Payment</h2>
+        <h2>{t("Complete Your Payment")}</h2>
         <div className="booking-summary">
-          <h3>Booking Details</h3>
-          <p><strong>Train:</strong> {bookingData?.trainName}</p>
-          <p><strong>From:</strong> {bookingData?.from}</p>
-          <p><strong>To:</strong> {bookingData?.to}</p>
-          <p><strong>Departure:</strong> {bookingData?.departure}</p>
-          <p><strong>Arrival:</strong> {bookingData?.arrival}</p>
-          <p><strong>Passenger:</strong> {bookingData?.passengerName}</p>
-          <p><strong>Email:</strong> {bookingData?.passengerEmail}</p>
-          <p className="price"><strong>Amount:</strong> ৳{bookingData?.price}</p>
+          <h3>{t("Booking Details")}</h3>
+          <p><strong>{t("Train p")}:</strong> {bookingData?.trainName}</p>
+          <p><strong>{t("From")}:</strong> {bookingData?.from}</p>
+          <p><strong>{t("To")}:</strong> {bookingData?.to}</p>
+          <p><strong>{t("Departure p")}:</strong> {bookingData?.departure}</p>
+          <p><strong>{t("Arrival p")}:</strong> {bookingData?.arrival}</p>
+          <p><strong>{t("Passenger")}:</strong> {bookingData?.passengerName}</p>
+          <p><strong>{t("Email")}:</strong> {bookingData?.passengerEmail}</p>
+          <p className="price"><strong>{t("Amount")}:</strong> ৳{bookingData?.price}</p>
         </div>
         {clientSecret && (
           <Elements options={options} stripe={stripePromise}>

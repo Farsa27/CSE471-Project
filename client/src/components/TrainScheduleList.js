@@ -54,7 +54,7 @@ export default function TrainScheduleList() {
     const userId = localStorage.getItem("userId");
 
     if (!userEmail) {
-      alert("Please log in to book a ticket");
+      alert(t("Please log in to book a ticket"));
       navigate("/login");
       return;
     }
@@ -67,7 +67,7 @@ export default function TrainScheduleList() {
              b.departureTime === train.departureTime && b.arrivalTime === train.arrivalTime
       );
       if (duplicate) {
-        alert("You already booked this train. Choose another.");
+        alert(t("You already booked this train. Choose another."));
         return;
       }
 
@@ -93,14 +93,14 @@ export default function TrainScheduleList() {
 
       navigate("/payment-checkout", { state: { bookingData } });
     } catch {
-      alert("Error checking bookings. Try again.");
+      alert(t("Error checking bookings. Try again."));
     }
   };
 
   const toggleFavoriteRoute = async (train) => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
-      alert("Please log in to manage favorite routes");
+      alert(t("Please log in to manage favorite routes"));
       navigate("/login");
       return;
     }
