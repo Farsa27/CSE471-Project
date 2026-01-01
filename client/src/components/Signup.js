@@ -48,14 +48,14 @@ const Signup = () => {
         localStorage.setItem("userId", result.user._id);
         localStorage.setItem("user", JSON.stringify(result.user));
 
-        alert("User registered successfully!");
+        alert(t("User registered successfully!"));
         navigate("/home");
       } else {
-        alert(result.message || "Something went wrong.");
+        alert(result.message || t("Something went wrong."));
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Something went wrong.");
+      alert(t("Something went wrong."));
     }
   };
 

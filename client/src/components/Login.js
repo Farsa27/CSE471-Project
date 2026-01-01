@@ -67,11 +67,11 @@ const Login = () => {
         localStorage.setItem("userEmail", result.user.email);
         navigate("/home");
       } else {
-        alert(result.message || "Invalid credentials.");
+        alert(result.message || t("Invalid credentials."));
       }
     } catch (error) {
       console.error("Login Error:", error);
-      alert("Unable to connect to server. Please try again.");
+      alert(t("Unable to connect to server. Please try again."));
     }
   };
 
@@ -81,10 +81,10 @@ const Login = () => {
   };
 
   const handleDobSubmit = async () => {
-    if (!dobInput) return alert("Please enter your Date of Birth.");
+    if (!dobInput) return alert(t("Please enter your Date of Birth."));
 
     try {
-      if (!googleUser || !googleUser._id) return alert("Missing user id");
+      if (!googleUser || !googleUser._id) return alert(t("Missing user id"));
 
       const response = await fetch(
         `http://localhost:5000/api/users/update-dob/${googleUser._id}`,
@@ -105,11 +105,11 @@ const Login = () => {
         setShowDobPrompt(false);
         navigate("/home");
       } else {
-        alert(result.message || "DOB update failed.");
+        alert(result.message || t("DOB update failed."));
       }
     } catch (err) {
       console.error("DOB update failed:", err);
-      alert("DOB update failed");
+      alert(t("DOB update failed"));
     }
   };
 
@@ -141,11 +141,11 @@ const Login = () => {
       } else {
         alert(
           checkResult.message ||
-            "User not found. Please sign up first with Google."
+            t("User not found. Please sign up first with Google.")
         );
       }
     } catch (error) {
-      alert("Google login failed");
+      alert(t("Google login failed"));
       console.error("Google login error:", error);
     }
   };
@@ -176,11 +176,11 @@ const Login = () => {
       if (response.ok) {
         promptDob(result.user);
       } else {
-        alert(result.message || "Google signup failed.");
+        alert(result.message || t("Google signup failed."));
       }
     } catch (error) {
       console.error("Google Signup Error:", error);
-      alert("Google signup failed.");
+      alert(t("Google signup failed."));
     }
   };
 
@@ -245,7 +245,7 @@ const Login = () => {
           <div className="flex justify-center mb-4">
             <GoogleLogin
               onSuccess={handleGoogleLogin}
-              onError={() => alert("Google login failed")}
+              onError={() => alert(t("Google login failed"))}
               text="signin_with"
             />
           </div>
@@ -266,7 +266,7 @@ const Login = () => {
           <div className="flex justify-center">
             <GoogleLogin
               onSuccess={handleGoogleSignup}
-              onError={() => alert("Google signup failed")}
+              onError={() => alert(t("Google signup failed"))}
               text="signup_with"
             />
           </div>

@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./StudentVerification.css";
+import { useTranslation } from "react-i18next";
 
 export default function StudentVerification() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [verificationStatus, setVerificationStatus] = useState("none");
   const [expiryDate, setExpiryDate] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState({ idCard: null, secondDoc: null });
@@ -15,7 +17,7 @@ export default function StudentVerification() {
 
   useEffect(() => {
     if (!userId) {
-      alert("Please log in first");
+      alert(t("Please log in first"));
       navigate("/login");
       return;
     }
@@ -28,7 +30,7 @@ export default function StudentVerification() {
         setExpiryDate(res.data.expiryDate);
       })
       .catch((err) => console.error("Error fetching status:", err));
-  }, [userId, navigate]);
+  }, [userId, navigate, t]);
 
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];
@@ -42,7 +44,7 @@ export default function StudentVerification() {
     e.preventDefault();
 
     if (!selectedFiles.idCard || !selectedFiles.secondDoc) {
-      alert("Please select both student ID card and NID/Birth certificate");
+      alert(t("Please select both student ID card and NID/Birth certificate"));
       return;
     }
 
@@ -67,7 +69,7 @@ export default function StudentVerification() {
       alert(res.data.message);
       setVerificationStatus("pending");
     } catch (error) {
-      alert(error.response?.data?.message || "Failed to submit verification");
+      alert(error.response?.data?.message || t("Failed to submit verification"));
     } finally {
       setLoading(false);
     }
@@ -87,15 +89,15 @@ export default function StudentVerification() {
     <div className="student-verification-container">
       <div className="student-verification-card">
         <button onClick={() => navigate("/home")} className="back-button">
-          ← Back to Home
+          ← {t("Back to Home")}
         </button>
 
-        <h2>Student Verification</h2>
+        <h2>{t("Student Verification")}</h2>
 
         {verificationStatus === "none" && (
           <div className="verification-form">
             <p className="info-text">
-              Upload your student ID card and NID/Birth certificate to get a 20 Taka discount on every ticket! Valid for 6 months.
+              {t("Upload your student ID card and NID/Birth certificate to get a 20 Taka discount on every ticket! Valid for 6 months.")}
             </p>
 
             <form onSubmit={handleSubmit}>
@@ -107,7 +109,7 @@ export default function StudentVerification() {
                     ) : (
                       <div className="upload-placeholder">
                         <span className="upload-icon">📷</span>
-                        <p>Student ID Card</p>
+                        <p>{t("Student ID Card")}</p>
                       </div>
                     )}
                   </div>
@@ -129,7 +131,7 @@ export default function StudentVerification() {
                     ) : (
                       <div className="upload-placeholder">
                         <span className="upload-icon">📄</span>
-                        <p>NID / Birth Certificate</p>
+                        <p>{t("NID / Birth Certificate")}</p>
                       </div>
                     )}
                   </div>
@@ -144,7 +146,7 @@ export default function StudentVerification() {
               </div>
 
               <button type="submit" disabled={loading} className="submit-button">
-                {loading ? "Submitting..." : "Submit for Verification"}
+                {loading ? t("Submitting...") : t("Submit for Verification")}
               </button>
             </form>
           </div>
@@ -153,19 +155,19 @@ export default function StudentVerification() {
         {verificationStatus === "pending" && (
           <div className="status-message pending">
             <span className="status-icon">⏳</span>
-            <h3>Verification Pending</h3>
-            <p>Your student verification is under review. Please wait for admin approval.</p>
+            <h3>{t("Verification Pending")}</h3>
+            <p>{t("Your student verification is under review. Please wait for admin approval.")}</p>
           </div>
         )}
 
         {verificationStatus === "verified" && (
           <div className="status-message verified">
             <span className="status-icon">✓</span>
-            <h3>Verified Student</h3>
-            <p>You are verified as a student! You will get 20 Taka discount on every ticket.</p>
+            <h3>{t("Verified Student")}</h3>
+            <p>{t("You are verified as a student! You will get 20 Taka discount on every ticket.")}</p>
             {expiryDate && (
               <p className="expiry-info">
-                Valid until: <strong>{formatDate(expiryDate)}</strong>
+                {t("Valid until:")} <strong>{formatDate(expiryDate)}</strong>
               </p>
             )}
           </div>
@@ -174,8 +176,8 @@ export default function StudentVerification() {
         {verificationStatus === "rejected" && (
           <div className="status-message rejected">
             <span className="status-icon">✗</span>
-            <h3>Verification Rejected</h3>
-            <p>Your verification was rejected. Please contact support or try again with clearer images.</p>
+            <h3>{t("Verification Rejected")}</h3>
+            <p>{t("Your verification was rejected. Please contact support or try again with clearer images.")}</p>
             <button
               onClick={() => {
                 setVerificationStatus("none");
@@ -184,7 +186,7 @@ export default function StudentVerification() {
               }}
               className="retry-button"
             >
-              Try Again
+              {t("Try Again")}
             </button>
           </div>
         )}

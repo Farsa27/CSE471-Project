@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { FaBug, FaExclamationTriangle, FaListAlt, FaArrowLeft } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const ReportChoice = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100">
@@ -14,9 +16,9 @@ const ReportChoice = () => {
             className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
           >
             <FaArrowLeft />
-            <span>Back</span>
+            <span>{t('Back')}</span>
           </button>
-          <h1 className="text-2xl font-bold">Report an Issue</h1>
+          <h1 className="text-2xl font-bold">{t('Report an Issue')}</h1>
         </div>
       </div>
 
@@ -24,8 +26,8 @@ const ReportChoice = () => {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold mb-2">Help Us Improve</h2>
-          <p className="text-slate-300">Report issues to help us maintain a better transit system</p>
+          <h2 className="text-3xl font-bold mb-2">{t('Help Us Improve')}</h2>
+          <p className="text-slate-300">{t('Report issues to help us maintain a better transit system')}</p>
         </div>
 
         {/* Report Type Cards */}
@@ -39,10 +41,10 @@ const ReportChoice = () => {
               <div className="w-16 h-16 rounded-xl bg-blue-500/20 text-blue-300 grid place-items-center mb-4">
                 <FaBug size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Report App Bug</h3>
-              <p className="text-slate-300 text-sm mb-4">Experiencing technical issues? Report bugs or app malfunctions.</p>
+              <h3 className="text-xl font-bold mb-2">{t('Report App Bug')}</h3>
+              <p className="text-slate-300 text-sm mb-4">{t('Experiencing technical issues? Report bugs or app malfunctions.')}</p>
               <div className="inline-flex items-center gap-2 text-blue-300 font-medium">
-                Submit Report
+                {t('Submit Report')}
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
@@ -57,10 +59,10 @@ const ReportChoice = () => {
               <div className="w-16 h-16 rounded-xl bg-amber-500/20 text-amber-300 grid place-items-center mb-4">
                 <FaExclamationTriangle size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Report Station Hazard</h3>
-              <p className="text-slate-300 text-sm mb-4">Found safety concerns or hazards at stations? Let us know immediately.</p>
+              <h3 className="text-xl font-bold mb-2">{t('Report Station Hazard')}</h3>
+              <p className="text-slate-300 text-sm mb-4">{t('Found safety concerns or hazards at stations? Let us know immediately.')}</p>
               <div className="inline-flex items-center gap-2 text-amber-300 font-medium">
-                Submit Report
+                {t('Submit Report')}
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
@@ -71,9 +73,9 @@ const ReportChoice = () => {
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
           <div className="flex items-center gap-3 mb-4">
             <FaListAlt className="text-emerald-300" size={20} />
-            <h3 className="text-xl font-semibold">Your Submitted Reports</h3>
+            <h3 className="text-xl font-semibold">{t('Your Submitted Reports')}</h3>
           </div>
-          <p className="text-slate-300 mb-6 text-sm">Track the status of your previously submitted reports</p>
+          <p className="text-slate-300 mb-6 text-sm">{t('Track the status of your previously submitted reports')}</p>
           
           <div className="grid sm:grid-cols-2 gap-4">
             <button
@@ -84,8 +86,8 @@ const ReportChoice = () => {
                 <FaBug size={20} />
               </div>
               <div>
-                <div className="font-semibold">App Bug Reports</div>
-                <div className="text-sm text-slate-400">View your bug reports</div>
+                <div className="font-semibold">{t('App Bug Reports')}</div>
+                <div className="text-sm text-slate-400">{t('View your bug reports')}</div>
               </div>
             </button>
 
@@ -97,8 +99,8 @@ const ReportChoice = () => {
                 <FaExclamationTriangle size={20} />
               </div>
               <div>
-                <div className="font-semibold">Hazard Reports</div>
-                <div className="text-sm text-slate-400">View your hazard reports</div>
+                <div className="font-semibold">{t('Hazard Reports')}</div>
+                <div className="text-sm text-slate-400">{t('View your hazard reports')}</div>
               </div>
             </button>
           </div>

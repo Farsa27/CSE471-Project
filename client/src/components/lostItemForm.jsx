@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './lostitemForm.css';
+import { useTranslation } from 'react-i18next';
 
 export default function LostItemForm({ onCreated }) {
+  const { t, i18n } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -20,7 +22,7 @@ export default function LostItemForm({ onCreated }) {
 
     if (validQuestions.length === 0) {
       alert(
-        'Please add at least one verification question with both question and answer.'
+        t('Please add at least one verification question with both question and answer.')
       );
       return;
     }
@@ -53,12 +55,12 @@ export default function LostItemForm({ onCreated }) {
       if (!resp.ok) {
         const msg = result.errors
           ? result.errors.join('\n')
-          : result.message || 'Unknown error';
-        alert('Error posting lost item:\n' + msg);
+          : result.message || t('Unknown error');
+        alert(t('Error posting lost item:') + '\n' + msg);
         return;
       }
 
-      alert('Lost item posted successfully!');
+      alert(t('Lost item posted successfully!'));
       onCreated?.(result);
 
       reset();
@@ -66,7 +68,7 @@ export default function LostItemForm({ onCreated }) {
       setPhotoFiles([]);
     } catch (err) {
       console.error('Network or unexpected error:', err);
-      alert('Network error. Please try again.');
+      alert(t('Network error. Please try again.'));
     }
   };
 
@@ -87,67 +89,67 @@ export default function LostItemForm({ onCreated }) {
   return (
     <div className="layout">
       <aside className="sidebar">
-        <div className="sidebar-title">Lost &amp; Found</div>
+        <div className="sidebar-title">{t('Lost & Found')}</div>
         <ul>
-          <li>Post Lost Item</li>
-          <li>View Lost Items</li>
-          <li>View Found Items</li>
+          <li>{t('Post Lost Item')}</li>
+          <li>{t('View Lost Items')}</li>
+          <li>{t('View Found Items')}</li>
         </ul>
       </aside>
 
       <main className="main-content">
         <div className="topbar">
-          <button className="language">EN</button>
-          <button className="logout-btn">Logout</button>
+          <button className="language" onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'bn' : 'en')}>{i18n.language === 'en' ? 'BN' : 'EN'}</button>
+          <button className="logout-btn">{t('logout')}</button>
         </div>
 
         <section className="form-section">
-          <h2>Post a Lost Item</h2>
+          <h2>{t('Post a Lost Item')}</h2>
 
           <form className="form-wrapper" onSubmit={handleSubmit(onSubmit)}>
-            <label>Title *</label>
+            <label>{t('Title')} *</label>
             <input
-              {...register('title', { required: 'Title is required' })}
+              {...register('title', { required: t('Title is required') })}
             />
             {errors.title && (
               <p style={{ color: 'red' }}>{errors.title.message}</p>
             )}
 
-            <label>Description *</label>
+            <label>{t('Description')} *</label>
             <textarea
               rows={4}
               {...register('description', {
-                required: 'Description is required',
+                required: t('Description is required'),
               })}
             />
             {errors.description && (
               <p style={{ color: 'red' }}>{errors.description.message}</p>
             )}
 
-            <label>Contact Name *</label>
+            <label>{t('Contact Name')} *</label>
             <input
               {...register('contactName', {
-                required: 'Contact name is required',
+                required: t('Contact name is required'),
               })}
             />
             {errors.contactName && (
               <p style={{ color: 'red' }}>{errors.contactName.message}</p>
             )}
 
-            <label>Contact Phone *</label>
+            <label>{t('Contact Phone')} *</label>
             <input
               {...register('contactPhone', {
-                required: 'Phone is required',
+                required: t('Phone is required'),
               })}
             />
             {errors.contactPhone && (
               <p style={{ color: 'red' }}>{errors.contactPhone.message}</p>
             )}
 
-            <label>Contact Email (optional)</label>
+            <label>{t('Contact Email (optional)')}</label>
             <input type="email" {...register('contactEmail')} />
 
-            <label>Photos (up to 4)</label>
+            <label>{t('Photos (up to 4)')}</label>
             <input
               type="file"
               accept="image/*,video/*"
@@ -158,22 +160,22 @@ export default function LostItemForm({ onCreated }) {
               }}
             />
 
-            <h3 style={{ marginTop: 24 }}>Verification Questions</h3>
+            <h3 style={{ marginTop: 24 }}>{t('Verification Questions')}</h3>
             <p style={{ fontSize: 13, marginBottom: 8 }}>
-              At least one question and answer is required to verify the owner.
+              {t('At least one question and answer is required to verify the owner.')}
             </p>
 
             {questions.map((q, idx) => (
               <div className="question-row" key={idx}>
                 <input
-                  placeholder="Question"
+                  placeholder={t('Question')}
                   value={q.question}
                   onChange={(e) =>
                     setQuestionField(idx, 'question', e.target.value)
                   }
                 />
                 <input
-                  placeholder="Answer (case-insensitive)"
+                  placeholder={t('Answer (case-insensitive)')}
                   value={q.answer}
                   onChange={(e) =>
                     setQuestionField(idx, 'answer', e.target.value)
@@ -193,7 +195,7 @@ export default function LostItemForm({ onCreated }) {
                       fontWeight: 600,
                     }}
                   >
-                    Remove
+                    {t('Remove')}
                   </button>
                 )}
               </div>
@@ -213,11 +215,11 @@ export default function LostItemForm({ onCreated }) {
                 cursor: 'pointer',
               }}
             >
-              + Add Another Question
+              {t('+ Add Another Question')}
             </button>
 
             <button type="submit" className="submit-btn">
-              Post Lost Item
+              {t('Post Lost Item')}
             </button>
           </form>
         </section>

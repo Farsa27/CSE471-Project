@@ -34,22 +34,22 @@ const Home = () => {
     }
   }, [userId]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (!userId) return;
-      const res = await fetch(`http://localhost:5000/api/users/${userId}`);
-      const data = await res.json();
-      if (res.ok) {
-        setUser(data.user);
-        setFormData(data.user);
-      } else {
-        alert("Failed to fetch user data.");
-      }
-    };
+  const fetchUser = useCallback(async () => {
+    if (!userId) return;
+    const res = await fetch(`http://localhost:5000/api/users/${userId}`);
+    const data = await res.json();
+    if (res.ok) {
+      setUser(data.user);
+      setFormData(data.user);
+    } else {
+      alert(t("Failed to fetch user data."));
+    }
+  }, [userId, t]);
 
+  useEffect(() => {
     fetchUser();
     fetchFavoriteRoutes();
-  }, [userId, fetchFavoriteRoutes]);
+  }, [fetchUser, fetchFavoriteRoutes]);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -61,7 +61,7 @@ const Home = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   const handleNotification = () => {
-    alert("You have new notifications!");
+    alert(t("You have new notifications!"));
   };
 
   const handleBookFavoriteRoute = async (route) => {
@@ -69,7 +69,7 @@ const Home = () => {
     const userEmail = localStorage.getItem("userEmail") || "";
 
     if (!userEmail) {
-      alert("Please log in to book a ticket");
+      alert(t("Please log in to book a ticket"));
       navigate("/login");
       return;
     }
@@ -96,7 +96,7 @@ const Home = () => {
     const { name, email, phone, password } = formData;
 
     if (!name || !email || !phone || !password) {
-      alert("All fields are required.");
+      alert(t("All fields are required."));
       return;
     }
 
@@ -110,13 +110,13 @@ const Home = () => {
     const result = await res.json();
 
     if (res.ok) {
-      alert("Profile updated!");
+      alert(t("Profile updated!"));
       setUser(result.user);
       setFormData(result.user);
       setEditMode(false);
       setShowProfile(false);
     } else {
-      alert(result.message || "Update failed.");
+      alert(result.message || t("Update failed."));
     }
   };
 

@@ -1,27 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaWifi, FaArrowLeft, FaCheckCircle, FaCopy, FaBolt, FaShieldAlt, FaTrain } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export default function WifiSubscription() {
   const navigate = useNavigate();
   const [subscriptionData, setSubscriptionData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   const userId = localStorage.getItem("userId");
   const userName = localStorage.getItem("userName");
 
-  useEffect(() => {
-    if (!userId) {
-      alert("Please log in first");
-      navigate("/login");
-      return;
-    }
-
-    fetchSubscriptionStatus();
-  }, [userId, navigate]);
-
-  const fetchSubscriptionStatus = async () => {
+  const fetchSubscriptionStatus = useCallback(async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/wifi/status/${userId}`);
       setSubscriptionData(res.data);
@@ -30,7 +22,18 @@ export default function WifiSubscription() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
+
+  useEffect(() => {
+    if (!userId) {
+      alert(t("Please log in first"));
+      navigate("/login");
+      return;
+    }
+
+    fetchSubscriptionStatus();
+  }, [userId, navigate, t, fetchSubscriptionStatus]);
+
 
   const handleSubscribe = () => {
     navigate("/wifi-payment");
@@ -52,7 +55,7 @@ export default function WifiSubscription() {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-300">Loading subscription...</p>
+          <p className="text-slate-300">{t("Loading subscription...")}</p>
         </div>
       </div>
     );
@@ -68,13 +71,13 @@ export default function WifiSubscription() {
             className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition"
           >
             <FaArrowLeft />
-            <span>Back</span>
+            <span>{t("Back")}</span>
           </button>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-300 grid place-items-center">
               <FaWifi />
             </div>
-            <h1 className="text-2xl font-bold">WiFi Subscription</h1>
+            <h1 className="text-2xl font-bold">{t("WiFi Subscription")}</h1>
           </div>
         </div>
       </div>
@@ -90,9 +93,9 @@ export default function WifiSubscription() {
                 <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-purple-500/20 border-4 border-purple-500/30 grid place-items-center">
                   <FaWifi className="text-purple-300" size={40} />
                 </div>
-                <h2 className="text-3xl font-bold mb-2">Monthly WiFi Access</h2>
+                <h2 className="text-3xl font-bold mb-2">{t("Monthly WiFi Access")}</h2>
                 <p className="text-slate-300 max-w-md mx-auto">
-                  Get unlimited high-speed WiFi access in all station areas and trains
+                  {t("Get unlimited high-speed WiFi access in all station areas and trains")}
                 </p>
               </div>
             </div>
@@ -105,8 +108,8 @@ export default function WifiSubscription() {
                     <FaBolt size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">High-Speed Internet</h4>
-                    <p className="text-sm text-slate-400">Fast and reliable connection</p>
+                    <h4 className="font-semibold mb-1">{t("High-Speed Internet")}</h4>
+                    <p className="text-sm text-slate-400">{t("Fast and reliable connection")}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
@@ -114,8 +117,8 @@ export default function WifiSubscription() {
                     <FaShieldAlt size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Secure Connection</h4>
-                    <p className="text-sm text-slate-400">Protected and encrypted</p>
+                    <h4 className="font-semibold mb-1">{t("Secure Connection")}</h4>
+                    <p className="text-sm text-slate-400">{t("Protected and encrypted")}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
@@ -123,8 +126,8 @@ export default function WifiSubscription() {
                     <FaWifi size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">All Stations</h4>
-                    <p className="text-sm text-slate-400">Access in every station</p>
+                    <h4 className="font-semibold mb-1">{t("All Stations")}</h4>
+                    <p className="text-sm text-slate-400">{t("Access in every station")}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
@@ -132,8 +135,8 @@ export default function WifiSubscription() {
                     <FaTrain size={20} />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">On Trains</h4>
-                    <p className="text-sm text-slate-400">Works during travel</p>
+                    <h4 className="font-semibold mb-1">{t("On Trains")}</h4>
+                    <p className="text-sm text-slate-400">{t("Works during travel")}</p>
                   </div>
                 </div>
               </div>
@@ -141,7 +144,7 @@ export default function WifiSubscription() {
               {/* Pricing */}
               <div className="text-center mb-8 p-6 rounded-xl bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/20">
                 <div className="text-5xl font-bold mb-2">৳100</div>
-                <div className="text-slate-400">per month</div>
+                <div className="text-slate-400">{t("per month")}</div>
               </div>
 
               {/* Subscribe Button */}
@@ -150,7 +153,7 @@ export default function WifiSubscription() {
                 className="w-full py-4 rounded-xl bg-purple-600 hover:bg-purple-700 font-semibold text-lg transition flex items-center justify-center gap-2"
               >
                 <FaWifi />
-                <span>Subscribe Now</span>
+                <span>{t("Subscribe Now")}</span>
               </button>
             </div>
           </div>
@@ -160,15 +163,15 @@ export default function WifiSubscription() {
             <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 p-6">
               <div className="flex items-center gap-3 mb-4">
                 <FaCheckCircle className="text-emerald-400" size={24} />
-                <h2 className="text-2xl font-bold">Active Subscription</h2>
+                <h2 className="text-2xl font-bold">{t("Active Subscription")}</h2>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400">Subscriber:</span>
+                  <span className="text-slate-400">{t("Subscriber:")}</span>
                   <span className="font-semibold">{userName}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400">Valid Until:</span>
+                  <span className="text-slate-400">{t("Valid Until:")}</span>
                   <span className="font-semibold text-emerald-300">{formatDate(subscriptionData.expiryDate)}</span>
                 </div>
               </div>
@@ -178,13 +181,13 @@ export default function WifiSubscription() {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <FaWifi className="text-purple-400" />
-                <span>Your WiFi Credentials</span>
+                <span>{t("Your WiFi Credentials")}</span>
               </h3>
 
               <div className="space-y-4">
                 {/* WiFi ID */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-400 mb-2">WiFi ID</label>
+                  <label className="block text-sm font-medium text-slate-400 mb-2">{t("WiFi ID")}</label>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg font-mono text-sm">
                       {subscriptionData.wifiId}
@@ -192,19 +195,19 @@ export default function WifiSubscription() {
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(subscriptionData.wifiId);
-                        alert("WiFi ID copied!");
+                        alert(t("WiFi ID copied!"));
                       }}
                       className="px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition flex items-center gap-2"
                     >
                       <FaCopy />
-                      <span className="hidden sm:inline">Copy</span>
+                      <span className="hidden sm:inline">{t("Copy")}</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Password */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-400 mb-2">Password</label>
+                  <label className="block text-sm font-medium text-slate-400 mb-2">{t("Password")}</label>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg font-mono text-sm">
                       {subscriptionData.wifiPassword}
@@ -212,12 +215,12 @@ export default function WifiSubscription() {
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(subscriptionData.wifiPassword);
-                        alert("Password copied!");
+                        alert(t("Password copied!"));
                       }}
                       className="px-4 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition flex items-center gap-2"
                     >
                       <FaCopy />
-                      <span className="hidden sm:inline">Copy</span>
+                      <span className="hidden sm:inline">{t("Copy")}</span>
                     </button>
                   </div>
                 </div>
@@ -229,9 +232,9 @@ export default function WifiSubscription() {
               <div className="flex items-start gap-3">
                 <FaWifi className="text-blue-400 mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-semibold text-blue-100 mb-1">How to Connect</h4>
+                  <h4 className="font-semibold text-blue-100 mb-1">{t("How to Connect")}</h4>
                   <p className="text-sm text-blue-200/80">
-                    Use these credentials to connect to "MassTransit_WiFi" network in any station or train.
+                    {t('Use these credentials to connect to "MassTransit_WiFi" network in any station or train.')}
                   </p>
                 </div>
               </div>
