@@ -69,5 +69,18 @@
     "Rate your metro experience": "আপনার মেট্রো অভিজ্ঞতা মূল্যায়ন করুন",
     "Submit Feedback": "প্রতিক্রিয়া জমা দিন",
     "Reset": "রিসেট করুন",
-    "Write a short review(optional)": "একটি সংক্ষিপ্ত পর্যালোচনা লিখুন (ঐচ্ছিক)"
+    "Write a short review(optional)": "একটি সংক্ষিপ্ত পর্যালোচনা লিখুন (ঐচ্ছিক)",
+    "Complete Your Payment": "আপনার পেমেন্ট সম্পূর্ণ করুন",
+    "Booking Details": "বুকিং বিবরণ",
+    "Amount": "পরিমাণ:",
+    "Pay": "পে করুন",
+    "Train p": "ট্রেন",
+    "From": "থেকে",
+    "To": "গন্তব্য",
+    "Departure p": "প্রস্থান",
+    "Arrival p": "আগমন",
+    "Passenger": "যাত্রী",
+    "Email": "ইমেইল",
+    "Thank you for your feedback!": "আপনার প্রতিক্রিয়ার জন্য ধন্যবাদ!",
+    "Failed to submit feedback": "প্রতিক্রিয়া জমা দিতে ব্যর্থ"
 }
