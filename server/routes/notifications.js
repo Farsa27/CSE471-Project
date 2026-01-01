@@ -1,9 +1,9 @@
 // routes/notifications.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Adjust path if needed
+const User = require('../models/User'); 
 
-// GET notifications for a specific user (by email)
+
 router.get('/user/:email', async (req, res) => {
   try {
     const { email } = req.params;
@@ -13,7 +13,7 @@ router.get('/user/:email', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Sort notifications newest first
+
     const sortedNotifications = user.notifications
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
@@ -24,7 +24,6 @@ router.get('/user/:email', async (req, res) => {
   }
 });
 
-// POST: Add a new notification to a specific user
 router.post('/add', async (req, res) => {
   try {
     const { email, title, message, alternative } = req.body;
@@ -59,7 +58,6 @@ router.post('/add', async (req, res) => {
   }
 });
 
-// Optional: POST to broadcast to ALL users (for system-wide alerts)
 router.post('/broadcast', async (req, res) => {
   try {
     const { title, message, alternative } = req.body;
@@ -76,7 +74,7 @@ router.post('/broadcast', async (req, res) => {
       read: false
     };
 
-    // Add to all users
+  
     await User.updateMany(
       {},
       { $push: { notifications: newNotification } }

@@ -16,7 +16,7 @@ const feedbackRoutes = require("./routes/feedbackRoutes");
 const studentVerificationRoutes = require("./routes/studentVerification");
 const wifiRoutes = require("./routes/wifiRoutes");
 const adRoutes = require("./routes/adRoutes");
-const notificationRoutes = require('./routes/notifications');
+
 
 dotenv.config();
 
@@ -39,7 +39,7 @@ app.use('/api/feedback', feedbackRoutes);
 app.use('/api/student-verification', studentVerificationRoutes);
 app.use('/api/wifi', wifiRoutes);
 app.use('/api/ads', adRoutes);
-app.use('/api/notifications', notificationRoutes);
+
 
 
 mongoose

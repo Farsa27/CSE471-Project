@@ -1,15 +1,17 @@
-/* src/styles/NotificationPanel.css or src/components/NotificationPanel.css */
+
 
 .notification-panel {
   width: 100%;
-  max-width: 600px;
+  min-height: none;
+  max-width: none;
   margin: 40px auto;
-  padding: 30px;
-  background: #011b0b; /* Dark green-black background */
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3); /* Soft emerald glow */
+  padding: 10px;
+  background: #011b0b; 
+  border-radius: 0px;
+  box-shadow: none; 
   font-family: 'Segoe UI', Arial, sans-serif;
-  color: #e0f5e0; /* Light green text for readability */
+  display: flex;
+  color: #e0f5e0; 
 }
 
 .panel-header {
@@ -18,18 +20,19 @@
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #0a3d1e; /* Darker border */
+  border-bottom: 1px solid #0a3d1e; 
+  flex-shrink: 0;
 }
 
 .panel-header h2 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #ffffff;
   font-weight: 700;
 }
 
 .refresh-btn {
-  background: #10b981; /* Emerald green */
+  background: #278767; 
   color: white;
   border: none;
   padding: 12px 20px;
@@ -40,14 +43,16 @@
 }
 
 .refresh-btn:hover {
-  background: #059669; /* Darker on hover */
+  background: #059669; 
 }
 
 .loading-state,
 .empty-state,
-.error-message {
+.error-message,
+.notifications-list {
+  flex:1;
   text-align: center;
-  padding: 50px 20px;
+  
 }
 
 .spinner {
@@ -55,7 +60,7 @@
   width: 50px;
   height: 50px;
   border: 5px solid #022b14;
-  border-top: 5px solid #10b981;
+  border-top: 5px solid #059669;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -99,12 +104,12 @@
 }
 
 .notification-card {
-  background: #022b14; /* Darker card background */
+  background: #022b14; 
   border-radius: 14px;
   padding: 20px;
   display: flex;
   gap: 18px;
-  border-left: 6px solid #10b981; /* Emerald accent */
+  border-left: 6px solid #059669; 
 }
 
 .notification-icon {
@@ -120,13 +125,13 @@
 .message {
   margin: 0 0 10px 0;
   font-size: 1.3rem;
-  color: #ffffff;
+  color: #059669;
   font-weight: 600;
 }
 
 .details {
   margin: 0 0 15px 0;
-  color: #b0e0b0;
+  color: #059669;
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -136,23 +141,23 @@
   padding: 15px;
   border-radius: 10px;
   margin: 15px 0;
-  border-left: 5px solid #10b981;
+  border-left: 5px solid #059669;
 }
 
 .alternative-label {
   font-weight: bold;
-  color: #34d399; /* Brighter emerald */
+  color: #059669; 
 }
 
 .alternative-text {
   margin-left: 8px;
-  color: #a7f3d0;
+  color: #059669;
   font-size: 1rem;
 }
 
 .timestamp {
   margin-top: 15px;
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #059669;
   text-align: right;
 }
