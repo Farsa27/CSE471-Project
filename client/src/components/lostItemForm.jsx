@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './LostItemForm.css';
+import './lostitemForm.css';
 
 export default function LostItemForm({ onCreated }) {
   const {
