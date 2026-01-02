@@ -1,4 +1,4 @@
-// models/User.js
+
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -25,11 +25,10 @@ const userSchema = new mongoose.Schema({
     trim: true,
   },
   dateOfBirth: {
-    type: String, // You can change to Date if needed
+    type: String, 
     required: true,
   },
 
-  // Favorite Stations & Routes
   favoriteStations: {
     type: [String],
     default: [],
@@ -49,7 +48,7 @@ const userSchema = new mongoose.Schema({
     default: [],
   },
 
-  // Student Verification
+ 
   isStudent: {
     type: Boolean,
     default: false,
@@ -72,7 +71,7 @@ const userSchema = new mongoose.Schema({
     default: null,
   },
 
-  // WiFi Subscription
+ 
   wifiSubscriptionActive: {
     type: Boolean,
     default: false,
