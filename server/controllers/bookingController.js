@@ -70,7 +70,7 @@ const deleteBooking = async (req, res) => {
   }
 };
 
-// Get bookings by user email
+
 const getUserBookings = async (req, res) => {
   try {
     const { email } = req.params;
