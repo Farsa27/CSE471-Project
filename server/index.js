@@ -17,6 +17,7 @@ const studentVerificationRoutes = require("./routes/studentVerification");
 const wifiRoutes = require("./routes/wifiRoutes");
 const adRoutes = require("./routes/adRoutes");
 
+
 dotenv.config();
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/feedback', feedbackRoutes);
 app.use('/api/student-verification', studentVerificationRoutes);
 app.use('/api/wifi', wifiRoutes);
 app.use('/api/ads', adRoutes);
+
 
 
 mongoose

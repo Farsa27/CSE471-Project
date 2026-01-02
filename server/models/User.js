@@ -1,44 +1,55 @@
-
+// models/User.js
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
+    minlength: 6,
   },
   phone: {
     type: String,
     required: true,
+    trim: true,
   },
   dateOfBirth: {
-    type: String,
+    type: String, // You can change to Date if needed
     required: true,
   },
+
+  // Favorite Stations & Routes
   favoriteStations: {
     type: [String],
     default: [],
   },
   favoriteRoutes: {
-    type: [{
-      scheduleId: String,
-      trainName: String,
-      from: String,
-      to: String,
-      departureTime: String,
-      arrivalTime: String,
-      price: Number,
-    }],
+    type: [
+      {
+        scheduleId: { type: String },
+        trainName: { type: String },
+        from: { type: String },
+        to: { type: String },
+        departureTime: { type: String },
+        arrivalTime: { type: String },
+        price: { type: Number },
+      },
+    ],
     default: [],
   },
+
+  // Student Verification
   isStudent: {
     type: Boolean,
     default: false,
@@ -60,6 +71,8 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+
+  // WiFi Subscription
   wifiSubscriptionActive: {
     type: Boolean,
     default: false,
@@ -76,6 +89,35 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+
+  notifications: {
+    type: [
+      {
+        title: {
+          type: String,
+          required: true,
+        },
+        message: {
+          type: String,
+          required: true,
+        },
+        alternative: {
+          type: String,
+          default: "",
+        },
+        timestamp: {
+          type: Date,
+          default: Date.now,
+        },
+        read: {
+          type: Boolean,
+          default: false,
+        },
+      },
+    ],
+    default: [],
+  },
 });
+
 
 module.exports = mongoose.model("User", userSchema);
