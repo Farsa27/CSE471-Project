@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NotificationPanel.css'; 
 
@@ -12,7 +12,7 @@ export default function NotificationPanel() {
 
   const userEmail = localStorage.getItem('userEmail');
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     if (!userEmail) {
       setError('Please log in to view your notifications.');
       setLoading(false);
@@ -41,11 +41,11 @@ export default function NotificationPanel() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userEmail]);
 
   useEffect(() => {
     fetchNotifications();
-  }, [userEmail]);
+  }, [fetchNotifications]);
 
   const handleRefresh = () => {
     fetchNotifications();
