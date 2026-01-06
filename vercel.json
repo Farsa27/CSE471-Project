@@ -2,6 +2,5 @@
   "buildCommand": "npm --prefix client run build",
   "outputDirectory": "client/build",
   "installCommand": "npm install && npm install --prefix server && npm install --prefix client",
-  "framework": "create-react-app",
-  "regions": ["sjc1"]
+  "framework": "create-react-app"
 }
