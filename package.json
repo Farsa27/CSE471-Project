@@ -1,0 +1,26 @@
+{
+  "name": "mass-transit-control-system",
+  "version": "1.0.0",
+  "description": "Mass Transit Control System - A comprehensive public transportation management platform",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server",
+    "start": "npm run dev",
+    "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client start\"",
+    "build": "npm --prefix client run build",
+    "server": "npm --prefix server start",
+    "client": "npm --prefix client start",
+    "test": "npm --prefix client test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  }
+}

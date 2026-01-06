@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm --prefix client run build",
+  "outputDirectory": "client/build",
+  "installCommand": "npm install && npm install --prefix server && npm install --prefix client",
+  "framework": "react",
+  "regions": ["sjc1"],
+  "env": {
+    "REACT_APP_API_URL": "@api-url"
+  }
+}
