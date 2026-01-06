@@ -48,7 +48,7 @@ function CheckoutForm() {
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       // Payment succeeded, activate subscription
       try {
-        await axios.post("http://localhost:5000/api/wifi/activate", {
+        await axios.post("https://cse471-project-production.up.railway.app/api/wifi/activate", {
           userId,
           paymentIntentId: paymentIntent.id,
         });
@@ -105,7 +105,7 @@ export default function WifiPayment() {
   useEffect(() => {
     // Create payment intent
     axios
-      .post("http://localhost:5000/api/wifi/create-payment-intent")
+      .post("https://cse471-project-production.up.railway.app/api/wifi/create-payment-intent")
       .then((res) => setClientSecret(res.data.clientSecret))
       .catch((err) => console.error("Error creating payment intent:", err));
   }, []);

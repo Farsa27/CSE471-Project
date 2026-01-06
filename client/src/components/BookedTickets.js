@@ -24,7 +24,7 @@ export default function BookedTickets() {
         return;
       }
 
-      const res = await axios.get(`http://localhost:5000/api/bookings/user/${userEmail}`);
+      const res = await axios.get(`https://cse471-project-production.up.railway.app/api/bookings/user/${userEmail}`);
       
       // Filter unique bookings by paymentIntentId (to avoid duplicates)
       const uniqueBookings = res.data.bookings.filter((booking, index, self) =>

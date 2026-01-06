@@ -16,11 +16,11 @@ export default function VerifyStudents() {
 
   const fetchVerifications = async () => {
     try {
-      const pendingRes = await axios.get("http://localhost:5000/api/student-verification/pending");
+      const pendingRes = await axios.get("https://cse471-project-production.up.railway.app/api/student-verification/pending");
       setPendingVerifications(pendingRes.data.users);
       
       // Fetch verified students
-      const allUsersRes = await axios.get("http://localhost:5000/api/users");
+      const allUsersRes = await axios.get("https://cse471-project-production.up.railway.app/api/users");
       const verified = allUsersRes.data.users.filter(u => u.isStudent && u.studentVerificationStatus === "verified");
       setVerifiedStudents(verified);
     } catch (error) {
@@ -34,7 +34,7 @@ export default function VerifyStudents() {
   const handleVerification = async (userId, action) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/student-verification/verify/${userId}`,
+        `https://cse471-project-production.up.railway.app/api/student-verification/verify/${userId}`,
         { action }
       );
 
@@ -49,7 +49,7 @@ export default function VerifyStudents() {
     if (!window.confirm("Are you sure you want to unverify this student?")) return;
     
     try {
-      await axios.put(`http://localhost:5000/api/student-verification/unverify/${userId}`);
+      await axios.put(`https://cse471-project-production.up.railway.app/api/student-verification/unverify/${userId}`);
       alert("Student unverified successfully!");
       fetchVerifications();
     } catch (error) {
@@ -114,7 +114,7 @@ export default function VerifyStudents() {
                     <div className="id-card-section">
                       <h4>Student ID Card</h4>
                       <img
-                        src={`http://localhost:5000${user.studentIdCard}`}
+                        src={`https://cse471-project-production.up.railway.app${user.studentIdCard}`}
                         alt="Student ID Card"
                         className="id-card-image"
                       />
@@ -122,7 +122,7 @@ export default function VerifyStudents() {
                     <div className="id-card-section">
                       <h4>NID / Birth Certificate</h4>
                       <img
-                        src={`http://localhost:5000${user.studentSecondDocument}`}
+                        src={`https://cse471-project-production.up.railway.app${user.studentSecondDocument}`}
                         alt="Second Document"
                         className="id-card-image"
                       />

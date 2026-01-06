@@ -11,7 +11,7 @@ export default function AdminBookings() {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/bookings");
+      const res = await axios.get("https://cse471-project-production.up.railway.app/api/bookings");
       setBookings(res.data.bookings || []);
     } catch {
       setError("Failed to load bookings");
@@ -26,7 +26,7 @@ export default function AdminBookings() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/bookings/${id}`, { status });
+      await axios.put(`https://cse471-project-production.up.railway.app/api/bookings/${id}`, { status });
       alert(`Booking ${status}`);
       fetchBookings();
     } catch {
@@ -36,7 +36,7 @@ export default function AdminBookings() {
 
   const deleteBooking = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/bookings/${id}`);
+      await axios.delete(`https://cse471-project-production.up.railway.app/api/bookings/${id}`);
       alert("Booking deleted");
       fetchBookings();
     } catch {

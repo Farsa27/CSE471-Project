@@ -36,7 +36,7 @@ const ReportStationHazard = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/reports/station-hazard", {
+      const res = await fetch("https://cse471-project-production.up.railway.app/api/reports/station-hazard", {
         method: "POST",
         body: formData,
       });

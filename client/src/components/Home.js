@@ -38,7 +38,7 @@ const Home = () => {
   const fetchFavoriteRoutes = useCallback(async () => {
     if (!userId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${userId}/favorite-routes`);
+      const res = await fetch(`https://cse471-project-production.up.railway.app/api/users/${userId}/favorite-routes`);
       const data = await res.json();
       if (res.ok) {
         setFavoriteRoutes(data.favoriteRoutes || []);
@@ -52,7 +52,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUser = async () => {
       if (!userId) return;
-      const res = await fetch(`http://localhost:5000/api/users/${userId}`);
+      const res = await fetch(`https://cse471-project-production.up.railway.app/api/users/${userId}`);
       const data = await res.json();
       if (res.ok) {
         setUser(data.user);
@@ -66,7 +66,7 @@ const Home = () => {
     const fetchNotifications = async () => {
       if (!userEmail) return;
       try {
-        const res = await fetch(`http://localhost:5000/api/notifications/user/${userEmail}`);
+        const res = await fetch(`https://cse471-project-production.up.railway.app/api/notifications/user/${userEmail}`);
         if (res.ok) {
           const data = await res.json();
           setNotifications(data);
@@ -122,7 +122,7 @@ const Home = () => {
       return;
     }
 
-    const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+    const res = await fetch(`https://cse471-project-production.up.railway.app/api/users/${userId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, phone, password }),
