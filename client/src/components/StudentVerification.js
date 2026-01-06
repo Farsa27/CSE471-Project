@@ -24,7 +24,7 @@ export default function StudentVerification() {
 
     // Check verification status
     axios
-      .get(`https://cse471-project-production.up.railway.app/api/student-verification/status/${userId}`)
+      .get(`http://localhost:5000/api/student-verification/status/${userId}`)
       .then((res) => {
         setVerificationStatus(res.data.studentVerificationStatus);
         setExpiryDate(res.data.expiryDate);
@@ -57,7 +57,7 @@ export default function StudentVerification() {
 
     try {
       const res = await axios.post(
-        "https://cse471-project-production.up.railway.app/api/student-verification/submit",
+        "http://localhost:5000/api/student-verification/submit",
         formData,
         {
           headers: {

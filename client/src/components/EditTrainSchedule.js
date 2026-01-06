@@ -21,7 +21,7 @@ export default function EditTrainSchedule() {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const res = await axios.get(`https://cse471-project-production.up.railway.app/api/schedules/${id}`);
+        const res = await axios.get(`http://localhost:5000/api/schedules/${id}`);
         const data = res.data;
 
         setFormData({
@@ -51,7 +51,7 @@ export default function EditTrainSchedule() {
     e.preventDefault();
 
     try {
-      await axios.put(`https://cse471-project-production.up.railway.app/api/schedules/${id}`, {
+      await axios.put(`http://localhost:5000/api/schedules/${id}`, {
         ...formData,
         price: Number(formData.price),
       });

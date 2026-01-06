@@ -43,7 +43,7 @@ function CheckoutForm({ bookingData }) {
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       // Payment succeeded, save booking
       try {
-        await axios.post("https://cse471-project-production.up.railway.app/api/payments/save-booking", {
+        await axios.post("http://localhost:5000/api/payments/save-booking", {
           ...bookingData,
           paymentIntentId: paymentIntent.id,
         });
@@ -84,7 +84,7 @@ export default function PaymentCheckout() {
 
     // Create payment intent
     axios
-      .post("https://cse471-project-production.up.railway.app/api/payments/create-payment-intent", {
+      .post("http://localhost:5000/api/payments/create-payment-intent", {
         amount: bookingData.price,
       })
       .then((res) => setClientSecret(res.data.clientSecret))

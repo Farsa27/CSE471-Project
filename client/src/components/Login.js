@@ -32,7 +32,7 @@ const Login = () => {
 
     try {
       // First, try admin login
-      const adminResponse = await fetch("https://cse471-project-production.up.railway.app/api/admin/login", {
+      const adminResponse = await fetch("http://localhost:5000/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const Login = () => {
       }
 
       // If not admin, try regular user login
-      const response = await fetch("https://cse471-project-production.up.railway.app/api/users/login", {
+      const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const Login = () => {
       if (!googleUser || !googleUser._id) return alert(t("Missing user id"));
 
       const response = await fetch(
-        `https://cse471-project-production.up.railway.app/api/users/update-dob/${googleUser._id}`,
+        `http://localhost:5000/api/users/update-dob/${googleUser._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -118,7 +118,7 @@ const Login = () => {
       const decoded = jwtDecode(credentialResponse.credential);
 
       const checkRes = await fetch(
-        "https://cse471-project-production.up.railway.app/api/users/google-login",
+        "http://localhost:5000/api/users/google-login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -163,7 +163,7 @@ const Login = () => {
       };
 
       const response = await fetch(
-        "https://cse471-project-production.up.railway.app/api/users/register",
+        "http://localhost:5000/api/users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

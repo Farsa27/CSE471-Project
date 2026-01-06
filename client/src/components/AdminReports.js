@@ -16,7 +16,7 @@ export default function AdminReports() {
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get("https://cse471-project-production.up.railway.app/api/reports/all");
+      const res = await axios.get("http://localhost:5000/api/reports/all");
       setReports(res.data.reports);
     } catch (err) {
       setError("Failed to load reports");
@@ -30,7 +30,7 @@ export default function AdminReports() {
     if (!window.confirm("Mark this report as resolved and remove it?")) return;
 
     try {
-      await axios.delete(`https://cse471-project-production.up.railway.app/api/reports/${reportId}`);
+      await axios.delete(`http://localhost:5000/api/reports/${reportId}`);
       
       // Update local state to remove the report
       setReports(reports.filter(r => r._id !== reportId));
@@ -155,7 +155,7 @@ export default function AdminReports() {
                       {report.media.map((url, index) => (
                         <a 
                           key={index} 
-                          href={`https://cse471-project-production.up.railway.app${url}`} 
+                          href={`http://localhost:5000${url}`} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="media-link"

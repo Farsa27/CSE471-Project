@@ -29,7 +29,7 @@ export default function AddTrainSchedule() {
     }
 
     try {
-      await axios.post("https://cse471-project-production.up.railway.app/api/schedules", {
+      await axios.post("http://localhost:5000/api/schedules", {
         trainName: form.trainName,
         from: form.from,
         to: form.to,
