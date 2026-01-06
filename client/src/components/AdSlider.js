@@ -10,7 +10,7 @@ export default function AdSlider() {
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/ads/active");
+        const res = await axios.get("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/ads/active");
         if (res.data && res.data.length > 0) {
           setAds(res.data);
         }
@@ -53,7 +53,7 @@ export default function AdSlider() {
         className="w-full"
       >
         <img
-          src={`http://localhost:5000${ads[currentIndex].imageUrl}`}
+          src={`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com${ads[currentIndex].imageUrl}`}
           alt={ads[currentIndex].title}
           className="h-16 w-full object-fill rounded-2xl shadow-md"
         />
@@ -68,3 +68,4 @@ export default function AdSlider() {
     </div>
   );
 }
+

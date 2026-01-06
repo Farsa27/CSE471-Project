@@ -38,7 +38,7 @@ const ReportAppBug = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/reports/app-bug", {
+      const res = await fetch("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/reports/app-bug", {
         method: "POST",
         body: formData,
       });
@@ -189,3 +189,4 @@ const ReportAppBug = () => {
 };
 
 export default ReportAppBug;
+

@@ -29,7 +29,7 @@ export default function AddTrainSchedule() {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/schedules", {
+      await axios.post("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/schedules", {
         trainName: form.trainName,
         from: form.from,
         to: form.to,

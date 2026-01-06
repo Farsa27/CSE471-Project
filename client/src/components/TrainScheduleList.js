@@ -21,7 +21,7 @@ export default function TrainScheduleList() {
     const userId = localStorage.getItem("userId");
     if (userId) {
       axios
-        .get(`http://localhost:5000/api/users/${userId}`)
+        .get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/${userId}`)
         .then((res) => {
           setFavorites(res.data?.user?.favoriteStations || []);
         })
@@ -29,7 +29,7 @@ export default function TrainScheduleList() {
       
       // Fetch favorite routes
       axios
-        .get(`http://localhost:5000/api/users/${userId}/favorite-routes`)
+        .get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/${userId}/favorite-routes`)
         .then((res) => {
           setFavoriteRoutes(res.data?.favoriteRoutes || []);
         })
@@ -39,7 +39,7 @@ export default function TrainScheduleList() {
 
   const fetchSchedules = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/schedules");
+      const res = await axios.get("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/schedules");
       setSchedules(res.data);
     } catch {
       setError("Failed to load schedules");
@@ -60,7 +60,7 @@ export default function TrainScheduleList() {
     }
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/bookings/user/${userEmail}`);
+      const res = await axios.get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/bookings/user/${userEmail}`);
       const existing = res.data.bookings || [];
       const duplicate = existing.find(
         b => b.from === train.from && b.to === train.to &&
@@ -73,7 +73,7 @@ export default function TrainScheduleList() {
 
       let finalPrice = train.price;
       try {
-        const studentRes = await axios.get(`http://localhost:5000/api/student-verification/status/${userId}`);
+        const studentRes = await axios.get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/student-verification/status/${userId}`);
         if (studentRes.data.isStudent && studentRes.data.studentVerificationStatus === "verified") {
           finalPrice = Math.max(0, train.price - 20);
         }
@@ -111,7 +111,7 @@ export default function TrainScheduleList() {
       
       if (isFavorite) {
         console.log("Removing from favorites...");
-        await axios.delete(`http://localhost:5000/api/users/${userId}/favorite-routes`, {
+        await axios.delete(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/${userId}/favorite-routes`, {
           data: { scheduleId: train._id },
         });
         setFavoriteRoutes(prev => prev.filter(r => r.scheduleId !== train._id));
@@ -127,7 +127,7 @@ export default function TrainScheduleList() {
           price: train.price,
         };
         console.log("Adding to favorites:", routeData);
-        const response = await axios.post(`http://localhost:5000/api/users/${userId}/favorite-routes`, routeData);
+        const response = await axios.post(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/${userId}/favorite-routes`, routeData);
         console.log("Add response:", response.data);
         setFavoriteRoutes(prev => [...prev, routeData]);
         console.log("Added successfully");
@@ -239,3 +239,4 @@ export default function TrainScheduleList() {
     </div>
   );
 }
+

@@ -32,7 +32,7 @@ const Signup = () => {
 
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      const response = await fetch("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -152,7 +152,7 @@ const Signup = () => {
               const decoded = jwtDecode(credentialResponse.credential);
 
 
-              const response = await fetch("http://localhost:5000/api/users/register", {
+              const response = await fetch("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

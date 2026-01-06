@@ -15,7 +15,7 @@ export default function AdminDashboard() {
   // Fetch schedules
   const fetchSchedules = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/schedules");
+      const res = await axios.get("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/schedules");
       setSchedules(res.data);
     } catch {
       setError("Failed to load schedules");
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
   // Fetch feedbacks
   const fetchFeedbacks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/feedback");
+      const res = await axios.get("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/feedback");
       setFeedbacks(res.data?.feedbacks || []);
     } catch {
       setFeedbackError("Failed to load feedback");
@@ -41,7 +41,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this schedule?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/schedules/${id}`);
+      await axios.delete(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/schedules/${id}`);
       fetchSchedules();
     } catch {
       setError("Failed to delete schedule");
@@ -173,3 +173,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

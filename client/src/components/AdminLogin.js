@@ -20,7 +20,7 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/admin/login", {
+      const response = await fetch("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -80,3 +80,4 @@ export default function AdminLogin() {
     </div>
   );
 }
+

@@ -15,7 +15,7 @@ export default function WifiSubscription() {
 
   const fetchSubscriptionStatus = useCallback(async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/wifi/status/${userId}`);
+      const res = await axios.get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/wifi/status/${userId}`);
       setSubscriptionData(res.data);
     } catch (error) {
       console.error("Error fetching subscription status:", error);
@@ -245,3 +245,4 @@ export default function WifiSubscription() {
     </div>
   );
 }
+
