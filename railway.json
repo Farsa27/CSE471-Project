@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install --prefix server",
-  "startCommand": "npm --prefix server start",
-  "root": "."
+  "buildCommand": "cd server && npm ci",
+  "startCommand": "cd server && npm start",
+  "root": "server"
 }
