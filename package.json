@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "install-all": "npm install && npm install --prefix client && npm install --prefix server",
-    "start": "npm run dev",
+    "start": "node server/index.js",
     "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client start\"",
     "build": "npm --prefix client run build",
     "server": "npm --prefix server start",
