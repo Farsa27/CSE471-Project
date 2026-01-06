@@ -26,11 +26,12 @@
   font-weight: 500;
   margin-bottom: 20px;
   transition: all 0.3s;
-  color: rgb(203 213 225);
+  color: rgb(148 163 184);
 }
 
 .back-button:hover {
   background: rgba(255,255,255,0.1);
+  color: rgb(203 213 225);
 }
 
 .student-verification-card h2 {

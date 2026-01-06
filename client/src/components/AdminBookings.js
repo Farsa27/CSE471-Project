@@ -26,23 +26,16 @@ export default function AdminBookings() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`/api/bookings/${id}`, { status });
-      alert(`Booking ${status}`);
+      // When admin approves or rejects, delete the booking
+      await axios.delete(`/api/bookings/${id}`);
+      alert(`Booking ${status} and removed from system`);
       fetchBookings();
     } catch {
       alert("Failed to update status");
     }
   };
 
-  const deleteBooking = async (id) => {
-    try {
-      await axios.delete(`/api/bookings/${id}`);
-      alert("Booking deleted");
-      fetchBookings();
-    } catch {
-      alert("Failed to delete booking");
-    }
-  };
+  // Remove the deleteBooking function as it's no longer needed
 
   return (
     <div className="admin-container">
@@ -58,10 +51,13 @@ export default function AdminBookings() {
         <table className="bookings-table">
           <thead>
             <tr>
+              <th>Ticket ID</th>
               <th>Train</th>
               <th>From → To</th>
               <th>Passenger</th>
+              <th>Departure / Arrival</th>
               <th>Fare</th>
+              <th>Payment ID</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -69,13 +65,19 @@ export default function AdminBookings() {
           <tbody>
             {bookings.map((b) => (
               <tr key={b._id}>
+                <td className="font-mono text-xs">{b.ticketId}</td>
                 <td className="train-name">{b.trainName}</td>
                 <td>{b.from} → {b.to}</td>
                 <td>
                   {b.passengerName || b.userName} <br />
-                  <span className="passenger-phone">{b.passengerPhone}</span>
+                  <span className="passenger-phone">{b.userEmail}</span>
+                </td>
+                <td>
+                  <div>{b.departureTime}</div>
+                  <div>{b.arrivalTime}</div>
                 </td>
                 <td className="fare">৳{b.price}</td>
+                <td className="font-mono text-xs">{b.paymentIntentId ? b.paymentIntentId.slice(0, 15) + '...' : 'N/A'}</td>
                 <td>
                   <span
                     className={`status ${
@@ -83,6 +85,8 @@ export default function AdminBookings() {
                         ? "approved"
                         : b.status === "Rejected"
                         ? "rejected"
+                        : b.status === "confirmed"
+                        ? "approved"
                         : "pending"
                     }`}
                   >
@@ -101,12 +105,6 @@ export default function AdminBookings() {
                     className="btn reject"
                   >
                     Reject
-                  </button>
-                  <button
-                    onClick={() => deleteBooking(b._id)}
-                    className="btn delete"
-                  >
-                    Delete
                   </button>
                 </td>
               </tr>

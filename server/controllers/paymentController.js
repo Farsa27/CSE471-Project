@@ -34,6 +34,13 @@ exports.createPaymentIntent = async (req, res) => {
   }
 };
 
+// Helper function to generate unique ticket ID
+const generateTicketId = () => {
+  const timestamp = Date.now().toString(36).toUpperCase();
+  const randomStr = Math.random().toString(36).substring(2, 7).toUpperCase();
+  return `TKT-${timestamp}-${randomStr}`;
+};
+
 // Save booking after successful payment
 exports.saveBookingAfterPayment = async (req, res) => {
   try {
@@ -75,7 +82,15 @@ exports.saveBookingAfterPayment = async (req, res) => {
       });
     }
 
+    // Generate unique ticket ID
+    const ticketId = generateTicketId();
+    
+    // Calculate expiry date (7 days from now)
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + 7);
+
     const booking = new Booking({
+      ticketId,
       trainId,
       trainName,
       from,
@@ -86,6 +101,7 @@ exports.saveBookingAfterPayment = async (req, res) => {
       userName: passengerName,
       userEmail: passengerEmail,
       paymentIntentId,
+      expiryDate,
       status: 'confirmed'
     });
 

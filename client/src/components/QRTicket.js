@@ -45,12 +45,8 @@ const QRTicket = () => {
   };
 
   const generateQRData = (booking) => {
-    // Calculate expiry date (1 week from now)
-    const generatedDate = new Date();
-    const expiryDate = new Date(generatedDate);
-    expiryDate.setDate(expiryDate.getDate() + 7);
-    
     return JSON.stringify({
+      ticketId: booking.ticketId,
       bookingId: booking._id,
       trainName: booking.trainName,
       from: booking.from,
@@ -62,26 +58,18 @@ const QRTicket = () => {
       price: booking.price,
       status: booking.status,
       paymentId: booking.paymentIntentId,
-      generatedAt: generatedDate.toISOString(),
-      expiresAt: expiryDate.toISOString()
+      expiresAt: booking.expiryDate
     });
   };
 
   const handleGenerateQR = async (booking) => {
     try {
-      // Calculate expiry date
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 7);
+      // Set expiry date from booking
+      const expiryDate = new Date(booking.expiryDate);
       setTicketExpiry(expiryDate);
       
-      // Delete the booking from the database
-      await axios.delete(`/api/bookings/${booking._id}`);
-      
-      // Set selected booking to show QR
+      // Set selected booking to show QR (DO NOT delete from DB)
       setSelectedBooking(booking);
-      
-      // Remove from local state
-      setBookings(bookings.filter(b => b._id !== booking._id));
       
     } catch (err) {
       alert("Failed to generate QR ticket. Please try again.");
@@ -316,13 +304,14 @@ const QRTicket = () => {
 
                   {/* Footer */}
                   <div className="p-4 bg-white/5 border-t border-white/10 text-xs text-slate-500 space-y-1">
+                    <p className="font-mono">Ticket ID: {selectedBooking.ticketId}</p>
                     <p className="font-mono">Booking ID: {selectedBooking._id}</p>
                     {selectedBooking.paymentIntentId && (
                       <p className="font-mono">Payment: {selectedBooking.paymentIntentId.slice(0, 20)}...</p>
                     )}
-                    <p className="text-amber-400 flex items-center gap-2">
-                      <span>⚠</span>
-                      <span>Note: This booking has been removed from your booking list</span>
+                    <p className="text-green-400 flex items-center gap-2">
+                      <span>✓</span>
+                      <span>You can view this QR code anytime from your booked tickets</span>
                     </p>
                   </div>
                 </div>

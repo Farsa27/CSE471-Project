@@ -182,8 +182,16 @@ export default function BookedTickets() {
                     {/* Booking Details */}
                     <div className="space-y-2 pt-2 border-t border-white/10">
                       <div className="flex items-center justify-between text-sm">
+                        <span className="text-slate-400">Ticket ID:</span>
+                        <span className="font-mono font-semibold text-green-300">{booking.ticketId}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
                         <span className="text-slate-400">Booking Date:</span>
                         <span className="font-medium">{formatDate(booking.bookingTime)}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-slate-400">Expires:</span>
+                        <span className="font-medium text-amber-300">{formatDate(booking.expiryDate)}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-slate-400">Price:</span>
