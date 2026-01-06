@@ -24,7 +24,7 @@ export default function StudentVerification() {
 
     // Check verification status
     axios
-      .get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/student-verification/status/${userId}`)
+      .get(`/api/student-verification/status/${userId}`)
       .then((res) => {
         setVerificationStatus(res.data.studentVerificationStatus);
         setExpiryDate(res.data.expiryDate);
@@ -57,7 +57,7 @@ export default function StudentVerification() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/student-verification/submit",
+        "/api/student-verification/submit",
         formData,
         {
           headers: {

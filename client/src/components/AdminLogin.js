@@ -21,7 +21,7 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      const response = await fetchWithFallback("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/admin/login", {
+      const response = await fetchWithFallback("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

@@ -22,7 +22,7 @@ export default function UploadAd() {
   // Fetch all ads
   const fetchAds = async () => {
     try {
-      const res = await axios.get("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/ads");
+      const res = await axios.get("/api/ads");
       setAds(res.data);
     } catch (err) {
       console.error("Failed to fetch ads:", err);
@@ -70,7 +70,7 @@ export default function UploadAd() {
 
       if (editingId) {
         // Update existing ad
-        await axios.put(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/ads/${editingId}`, data, {
+        await axios.put(`/api/ads/${editingId}`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         setSuccess("Ad updated successfully!");
@@ -82,7 +82,7 @@ export default function UploadAd() {
           setLoading(false);
           return;
         }
-        await axios.post("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/ads", data, {
+        await axios.post("/api/ads", data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         setSuccess("Ad uploaded successfully!");
@@ -107,7 +107,7 @@ export default function UploadAd() {
     if (!window.confirm("Are you sure you want to delete this ad?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/ads/${id}`);
+      await axios.delete(`/api/ads/${id}`);
       setSuccess("Ad deleted successfully!");
       fetchAds();
     } catch (err) {
@@ -118,7 +118,7 @@ export default function UploadAd() {
   // Toggle ad status
   const handleToggleStatus = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/ads/${id}/toggle`);
+      await axios.patch(`/api/ads/${id}/toggle`);
       fetchAds();
     } catch (err) {
       setError("Failed to toggle ad status");
@@ -134,7 +134,7 @@ export default function UploadAd() {
       link: ad.link || "",
       order: ad.order || 0,
     });
-    setImagePreview(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com${ad.imageUrl}`);
+    setImagePreview(`${ad.imageUrl}`);
   };
 
   // Cancel editing
@@ -250,7 +250,7 @@ export default function UploadAd() {
             {ads.map((ad) => (
               <div key={ad._id} className={`ad-card ${!ad.isActive ? "inactive" : ""}`}>
                 <div className="ad-image">
-                  <img src={`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com${ad.imageUrl}`} alt={ad.title} />
+                  <img src={`${ad.imageUrl}`} alt={ad.title} />
                   <div className="ad-status">
                     {ad.isActive ? "Active" : "Inactive"}
                   </div>

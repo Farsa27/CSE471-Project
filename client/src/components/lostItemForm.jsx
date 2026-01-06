@@ -45,7 +45,7 @@ export default function LostItemForm({ onCreated }) {
         fd.append('photos', file);
       });
 
-      const resp = await fetch('http://localhost:5000/api/lost-items', {
+      const resp = await fetch('/api/lost-items', {
         method: 'POST',
         body: fd,
       });

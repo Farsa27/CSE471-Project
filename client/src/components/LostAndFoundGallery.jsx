@@ -14,7 +14,7 @@ export default function LostAndFoundGallery() {
     const fetchItems = async () => {
       try {
         setLoading(true);
-        const res = await fetch('http://localhost:5000/api/lost-items');
+        const res = await fetch('/api/lost-items');
         if (!res.ok) throw new Error(t('Failed to load items'));
         const data = await res.json();
         setItems(data);
@@ -39,7 +39,7 @@ export default function LostAndFoundGallery() {
     const userAnswers = selectedItem.questions.map((_, idx) => answers[idx] || '');
 
     try {
-      const res = await fetch(`http://localhost:5000/api/lost-items/${selectedItem._id}/claim`, {
+      const res = await fetch(`/api/lost-items/${selectedItem._id}/claim`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answers: userAnswers }),

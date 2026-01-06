@@ -1,7 +1,14 @@
+import { API_BASE_URL, API_FALLBACK_URL } from './apiConfig';
+
 // Helper function to make API requests with automatic fallback between URLs
 export async function fetchWithFallback(url, options = {}) {
-  // Split URL if it contains pipe separator (dual URL format)
-  const urls = url.includes('|') ? url.split('|') : [url];
+  // If URL is just an endpoint, prepend the API base URL
+  const urls = url.startsWith('http') 
+    ? [url] 
+    : [
+        url.startsWith('/') ? API_BASE_URL + url : API_BASE_URL + '/' + url,
+        url.startsWith('/') ? API_FALLBACK_URL + url : API_FALLBACK_URL + '/' + url
+      ];
   
   let lastError;
   

@@ -24,7 +24,7 @@ export default function BookedTickets() {
         return;
       }
 
-      const res = await axios.get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/bookings/user/${userEmail}`);
+      const res = await axios.get(`/api/bookings/user/${userEmail}`);
       
       // Filter unique bookings by paymentIntentId (to avoid duplicates)
       const uniqueBookings = res.data.bookings.filter((booking, index, self) =>

@@ -23,7 +23,7 @@ export default function NotificationPanel() {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/notifications/user/${userEmail}`);
+      const response = await fetch(`/api/notifications/user/${userEmail}`);
 
       if (!response.ok) {
         if (response.status === 404) {

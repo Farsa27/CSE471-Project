@@ -28,7 +28,7 @@ const QRTicket = () => {
         return;
       }
 
-      const res = await axios.get(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/bookings/user/${userEmail}`);
+      const res = await axios.get(`/api/bookings/user/${userEmail}`);
       
       // Filter confirmed bookings
       const confirmedBookings = res.data.bookings.filter(
@@ -75,7 +75,7 @@ const QRTicket = () => {
       setTicketExpiry(expiryDate);
       
       // Delete the booking from the database
-      await axios.delete(`http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/bookings/${booking._id}`);
+      await axios.delete(`/api/bookings/${booking._id}`);
       
       // Set selected booking to show QR
       setSelectedBooking(booking);

@@ -13,7 +13,7 @@ export default function StaffManagement() {
 
   const fetchStaff = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/staff");
+      const res = await axios.get("/api/staff");
       setStaff(res.data);
     } catch {
       setError("Failed to load staff");
@@ -22,7 +22,7 @@ export default function StaffManagement() {
 
   const addStaff = async () => {
     try {
-      await axios.post("http://localhost:5000/api/staff", newStaff);
+      await axios.post("/api/staff", newStaff);
       setNewStaff({ name: "", position: "", shift: "", contact: "" }); // clear form
       fetchStaff();
     } catch {
@@ -33,7 +33,7 @@ export default function StaffManagement() {
   const deleteStaff = async (id) => {
     if (!window.confirm("Delete this staff member?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/staff/${id}`);
+      await axios.delete(`/api/staff/${id}`);
       fetchStaff();
     } catch {
       setError("Failed to delete staff");

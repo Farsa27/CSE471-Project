@@ -43,7 +43,7 @@ function CheckoutForm({ bookingData }) {
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       // Payment succeeded, save booking
       try {
-        await axios.post("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/payments/save-booking", {
+        await axios.post("/api/payments/save-booking", {
           ...bookingData,
           paymentIntentId: paymentIntent.id,
         });
@@ -84,7 +84,7 @@ export default function PaymentCheckout() {
 
     // Create payment intent
     axios
-      .post("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/payments/create-payment-intent", {
+      .post("/api/payments/create-payment-intent", {
         amount: bookingData.price,
       })
       .then((res) => setClientSecret(res.data.clientSecret))
