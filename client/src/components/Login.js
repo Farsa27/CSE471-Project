@@ -6,6 +6,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { fetchWithFallback } from "../utils/apiHelper";
 import "../i18n/languageConfig";
 import { FaTrain } from "react-icons/fa";
 
@@ -32,7 +33,7 @@ const Login = () => {
 
     try {
       // First, try admin login
-      const adminResponse = await fetch("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/admin/login", {
+      const adminResponse = await fetchWithFallback("https://cse471-project-backend-51jt.onrender.com/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const Login = () => {
       }
 
       // If not admin, try regular user login
-      const response = await fetch("http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/login", {
+      const response = await fetchWithFallback("https://cse471-project-backend-51jt.onrender.com/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +88,7 @@ const Login = () => {
       if (!googleUser || !googleUser._id) return alert(t("Missing user id"));
 
       const response = await fetch(
-        `http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/update-dob/${googleUser._id}`,
+        `https://cse471-project-backend-51jt.onrender.com/api/users/update-dob/${googleUser._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -117,8 +118,8 @@ const Login = () => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
 
-      const checkRes = await fetch(
-        "http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/google-login",
+      const checkRes = await fetchWithFallback(
+        "https://cse471-project-backend-51jt.onrender.com/api/users/google-login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -162,8 +163,8 @@ const Login = () => {
         dateOfBirth: "2000-01-01",
       };
 
-      const response = await fetch(
-        "http://localhost:5000|https://cse471-project-backend-51jt.onrender.com/api/users/register",
+      const response = await fetchWithFallback(
+        "https://cse471-project-backend-51jt.onrender.com/api/users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
