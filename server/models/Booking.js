@@ -2,6 +2,11 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
+  ticketId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   trainId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Schedule",
@@ -28,6 +33,10 @@ const bookingSchema = new mongoose.Schema({
   bookingTime: {
     type: Date,
     default: Date.now,
+  },
+  expiryDate: {
+    type: Date,
+    required: true,
   },
   status: {
     type: String,
