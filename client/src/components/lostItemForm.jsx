@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './lostItemForm.css';
+import './lostitemForm.css';
 import { useTranslation } from 'react-i18next';
 
 export default function LostItemForm({ onCreated }) {

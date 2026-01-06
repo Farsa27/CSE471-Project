@@ -5,12 +5,13 @@ import axios from "axios";
 export default function AdSlider() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [ads, setAds] = useState([]);
+  const API_BASE = process.env.REACT_APP_API_BASE_URL || "";
 
   // Fetch active ads from backend
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const res = await axios.get("/api/ads/active");
+        const res = await axios.get(`${API_BASE}/api/ads/active`);
         if (res.data && res.data.length > 0) {
           setAds(res.data);
         }
@@ -53,7 +54,7 @@ export default function AdSlider() {
         className="w-full"
       >
         <img
-          src={`/api/ads${ads[currentIndex].imageUrl}`}
+          src={`${API_BASE}${ads[currentIndex].imageUrl}`}
           alt={ads[currentIndex].title}
           className="h-16 w-full object-fill rounded-2xl shadow-md"
         />
