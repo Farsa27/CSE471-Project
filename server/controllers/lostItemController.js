@@ -23,12 +23,12 @@ const createLostItem = async (req, res) => {
       parsedQuestions = [];
     }
 
-    // Remove empty or whitespace-only questions
+    
     parsedQuestions = parsedQuestions.filter(
       (q) => q.question?.trim() && q.answer?.trim()
     );
 
-    // Enforce at least one valid question
+   
     if (parsedQuestions.length === 0) {
       return res.status(400).json({
         message: "At least one verification question with both question and answer is required.",
@@ -41,7 +41,7 @@ const createLostItem = async (req, res) => {
       });
     }
 
-    // Build the item explicitly – safer than spreading req.body
+  
     const itemData = {
       title: req.body.title?.trim(),
       description: req.body.description?.trim(),
@@ -49,13 +49,13 @@ const createLostItem = async (req, res) => {
       contactPhone: req.body.contactPhone?.trim(),
       contactEmail: req.body.contactEmail?.trim() || "",
       questions: parsedQuestions,
-      // status will use default 'lost' from schema
-      postedBy: req.body.postedBy || "anonymous", // optional field
+      
+      postedBy: req.body.postedBy || "anonymous", 
     };
 
     const item = new LostItem(itemData);
 
-    // Handle photos
+    
     if (req.files?.length) {
       item.photos = req.files.map((f) => `/uploads/${f.filename}`);
     }
@@ -69,7 +69,7 @@ const createLostItem = async (req, res) => {
   } catch (error) {
     console.error("Create error:", error);
 
-    // Better error response for validation issues
+    
     if (error.name === "ValidationError") {
       const errors = Object.values(error.errors).map((err) => err.message);
       return res.status(400).json({
@@ -85,7 +85,6 @@ const createLostItem = async (req, res) => {
   }
 };
 
-// Keep other functions unchanged (update, delete, verifyClaim)
 const updateLostItem = async (req, res) => {
   try {
     const updatedItem = await LostItem.findByIdAndUpdate(
