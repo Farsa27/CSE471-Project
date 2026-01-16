@@ -40,16 +40,6 @@ app.use('/api/student-verification', studentVerificationRoutes);
 app.use('/api/wifi', wifiRoutes);
 app.use('/api/ads', adRoutes);
 
-// Serve static files from React build in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  
-  // Handle React routing - return index.html for all non-API routes
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-}
-
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
