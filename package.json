@@ -14,7 +14,8 @@
     "build": "npm --prefix client run build",
     "server": "npm --prefix server start",
     "client": "npm --prefix client start",
-    "test": "npm --prefix client test"
+    "test": "npm --prefix client test",
+    "postinstall": "npm install --prefix server && npm install --prefix client"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
