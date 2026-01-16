@@ -3,7 +3,7 @@ services:
     name: mass-transit-server
     env: node
     plan: free
-    buildCommand: npm install && npm --prefix server install && npm --prefix client install && npm --prefix client run build
+    buildCommand: npm install && npm --prefix server install --legacy-peer-deps
     startCommand: npm start
     envVars:
       - key: NODE_ENV
