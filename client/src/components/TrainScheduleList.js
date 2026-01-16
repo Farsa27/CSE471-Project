@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaStar } from "react-icons/fa";
-import { axiosWithFallback } from "../utils/apiHelper";
+import axiosInstance from "../utils/axiosInstance";
 import "./TrainScheduleList.css";
 import { t } from "i18next";
 
@@ -41,8 +41,7 @@ export default function TrainScheduleList() {
 
   const fetchSchedules = async () => {
     try {
-      const api = axiosWithFallback(axios);
-      const res = await api.get("/api/schedules");
+      const res = await axiosInstance.get("/api/schedules");
       setSchedules(res.data);
     } catch {
       setError("Failed to load schedules");
