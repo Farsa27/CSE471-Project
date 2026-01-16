@@ -4,6 +4,8 @@ import axios from 'axios';
 const createAxiosWithFallback = () => {
   let currentUrl = process.env.REACT_APP_API_BASE_URL || 'https://mass-transit-back.onrender.com';
   const fallbackUrl = 'https://mass-transit-back.onrender.com';
+  
+  console.log('🔧 API BaseURL:', currentUrl);
 
   const instance = axios.create({
     baseURL: currentUrl,
