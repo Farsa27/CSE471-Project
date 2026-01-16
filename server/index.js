@@ -21,9 +21,32 @@ const adRoutes = require("./routes/adRoutes");
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// Configure CORS for client deployment
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000',
+  process.env.CLIENT_URL || 'https://mass-transit-client.onrender.com'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Mass Transit Control System API', status: 'running' });
+});
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/users", userRoutes);
