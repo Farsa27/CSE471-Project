@@ -6,7 +6,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { fetchWithFallback } from "../utils/apiHelper";
+import axiosInstance from "../utils/axiosInstance";
 import "../i18n/languageConfig";
 import { FaTrain } from "react-icons/fa";
 
@@ -33,46 +33,35 @@ const Login = () => {
 
     try {
       // First, try admin login
-      const adminResponse = await fetchWithFallback("https://cse471-project-backend-51jt.onrender.com/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const adminResult = await adminResponse.json();
-
-      if (adminResponse.ok && adminResult.success) {
+      const adminResponse = await axiosInstance.post("/api/admin/login", formData);
+      
+      if (adminResponse.data && adminResponse.data.success) {
         localStorage.setItem("isAdmin", "true");
-        localStorage.setItem("adminEmail", adminResult.admin.email);
+        localStorage.setItem("adminEmail", adminResponse.data.admin.email);
         navigate("/admin-dashboard");
         return;
       }
+    } catch (adminError) {
+      // Admin login failed, continue to user login
+      console.log("Not an admin, trying user login");
+    }
 
-      // If not admin, try regular user login
-      const response = await fetchWithFallback("https://cse471-project-backend-51jt.onrender.com/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    try {
+      // Try regular user login
+      const response = await axiosInstance.post("/api/users/login", formData);
 
-      const result = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("userId", result.user._id);
-        localStorage.setItem("user", JSON.stringify(result.user));
-        localStorage.setItem("userName", result.user.name);
-        localStorage.setItem("userEmail", result.user.email);
+      if (response.data && response.data.user) {
+        localStorage.setItem("userId", response.data.user._id);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("userName", response.data.user.name);
+        localStorage.setItem("userEmail", response.data.user.email);
         navigate("/home");
       } else {
-        alert(result.message || t("Invalid credentials."));
+        alert(response.data.message || t("Invalid credentials."));
       }
     } catch (error) {
       console.error("Login Error:", error);
-      alert(t("Unable to connect to server. Please try again."));
+      alert(error.response?.data?.message || t("Unable to connect to server. Please try again."));
     }
   };
 
@@ -87,13 +76,9 @@ const Login = () => {
     try {
       if (!googleUser || !googleUser._id) return alert(t("Missing user id"));
 
-      const response = await fetch(
-        `https://cse471-project-backend-51jt.onrender.com/api/users/update-dob/${googleUser._id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ dateOfBirth: dobInput }),
-        }
+      const response = await axiosInstance.put(
+        `/api/users/update-dob/${googleUser._id}`,
+        { dateOfBirth: dobInput }
       );
 
       const result = await response.json();
@@ -118,18 +103,14 @@ const Login = () => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
 
-      const checkRes = await fetchWithFallback(
-        "https://cse471-project-backend-51jt.onrender.com/api/users/google-login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: decoded.email }),
-        }
+      const checkRes = await axiosInstance.post(
+        "/api/users/google-login",
+        { email: decoded.email }
       );
 
-      const checkResult = await checkRes.json();
+      const checkResult = checkRes.data;
 
-      if (checkRes.ok) {
+      if (checkRes.status === 200) {
         if (checkResult.user.dateOfBirth === "2000-01-01") {
           promptDob(checkResult.user);
         } else {
@@ -163,21 +144,15 @@ const Login = () => {
         dateOfBirth: "2000-01-01",
       };
 
-      const response = await fetchWithFallback(
-        "https://cse471-project-backend-51jt.onrender.com/api/users/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(userData),
-        }
+      const response = await axiosInstance.post(
+        "/api/users/register",
+        userData
       );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        promptDob(result.user);
+      
+      if (response.status === 201) {
+        promptDob(response.data.user);
       } else {
-        alert(result.message || t("Google signup failed."));
+        alert(response.data.message || t("Google signup failed."));
       }
     } catch (error) {
       console.error("Google Signup Error:", error);

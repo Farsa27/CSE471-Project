@@ -21,7 +21,7 @@ export default function AdSlider() {
     };
 
     fetchAds();
-  }, []);
+  }, [API_BASE]);
 
   useEffect(() => {
     if (ads.length === 0) return;

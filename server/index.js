@@ -26,12 +26,16 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5000',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5000',
   process.env.CLIENT_URL || 'https://mass-transit-client.onrender.com'
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests without origin (like mobile apps or Postman)
+    // Also allow all localhost variants for development
+    if (!origin || allowedOrigins.includes(origin) || origin?.includes('localhost') || origin?.includes('127.0.0.1')) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
